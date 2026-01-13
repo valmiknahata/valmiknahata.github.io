@@ -78,14 +78,14 @@ export default function ResumePage() {
           <div className="opacity-40 mb-4">// PROJECTS</div>
           <div className="space-y-6">
             <div>
-              <div className="opacity-30 text-[13px] mb-2">ACTIVE</div>
+              <div className="opacity-30 mb-2">ACTIVE</div>
               <div className="space-y-2">
                 <div>Reasoning CoT for Clinical Usage (Harvard & MGH)</div>
                 <div><a href="https://www.linkedin.com/company/labry-research" target="_blank" className="hover:underline">Labry (Democratizing Research)</a></div>
               </div>
             </div>
             <div>
-              <div className="opacity-30 text-[13px] mb-2">PAST</div>
+              <div className="opacity-30 mb-2">PAST</div>
               <div className="space-y-2 opacity-70">
                 <div>GeoCheater (AI Guessing for WorldGuessr)</div>
                 <div>3D Carbon Timeline (Astronomy Project)</div>
