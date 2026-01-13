@@ -14,8 +14,8 @@ export default function ResumePage() {
         {/* Theme toggle button in top right of left panel */}
         <button
           onClick={() => setIsDarkMode(!isDarkMode)}
-          className={`absolute top-8 right-8 p-2 rounded-full transition-colors ${
-            isDarkMode ? "hover:bg-white/10" : "hover:bg-black/10"
+          className={`absolute top-8 right-8 p-2 rounded-full border transition-colors ${
+            isDarkMode ? "border-white/20 hover:bg-white/10" : "border-black/20 hover:bg-black/10"
           }`}
           aria-label="Toggle theme"
         >
@@ -115,7 +115,7 @@ export default function ResumePage() {
           style={{ height: "100%", width: "100%" }}
           colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
           colorFront={isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 100%, 70%)"}
-          shape="simplex"
+          shape="dots"
           type="4x4"
           pxSize={3}
           offsetX={0}
