@@ -81,7 +81,7 @@ export default function ResumePage() {
               <div className="opacity-30 mb-2">ACTIVE</div>
               <div className="space-y-2">
                 <div>Reasoning CoT for Clinical Usage (Harvard & MGH)</div>
-                <div><a href="https://www.linkedin.com/company/labry-research" target="_blank" className="hover:underline">Labry (Democratizing Research)</a></div>
+                <div><a href="https://www.linkedin.com/company/labry-research" target="_blank" className="underline hover:opacity-70 transition-opacity">Labry (Democratizing Research)</a></div>
               </div>
             </div>
             <div>
@@ -92,12 +92,12 @@ export default function ResumePage() {
                 <div>Signly (ASL Finger-spelling Recognition)</div>
                 <div>IndustryBench (DuckAI Evaluation Suite)</div>
                 <div>Blume (Conversational AI)</div>
-                <div><a href="https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql" target="_blank" className="hover:underline">Economic Impacts of Transformative AI</a></div>
-                <div><a href="https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego" target="_blank" className="hover:underline">Milwaukee Bucks Engagement Models</a></div>
+                <div><a href="https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql" target="_blank" className="underline hover:opacity-70 transition-opacity">Economic Impacts of Transformative AI</a></div>
+                <div><a href="https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego" target="_blank" className="underline hover:opacity-70 transition-opacity">Milwaukee Bucks Engagement Models</a></div>
                 <div>POS QR Automation (Kaboo)</div>
                 <div>Pathology Reports RAG (Co-authored MS)</div>
-                <div><a href="https://iopscience.iop.org/article/10.3847/1538-4357/ad6304" target="_blank" className="hover:underline">Crab Pulsar Statistical Analysis</a></div>
-                <div><a href="https://www.mdpi.com/1999-4893/18/11/685" target="_blank" className="hover:underline">Edge-Based Triangle Counting</a></div>
+                <div><a href="https://iopscience.iop.org/article/10.3847/1538-4357/ad6304" target="_blank" className="underline hover:opacity-70 transition-opacity">Crab Pulsar Statistical Analysis</a></div>
+                <div><a href="https://www.mdpi.com/1999-4893/18/11/685" target="_blank" className="underline hover:opacity-70 transition-opacity">Edge-Based Triangle Counting</a></div>
                 <div>Steam Trading Automations ($6K Profit)</div>
                 <div>Tree-Plenish Data Pipeline</div>
                 <div>IoT Weather System</div>
@@ -126,9 +126,9 @@ export default function ResumePage() {
         {/* Links Section */}
         <div className="mb-12 text-[15px]">
           <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className="hover:underline">LINKEDIN</a>
-            <a href="mailto:vnahata@ucsd.edu" className="hover:underline">EMAIL</a>
-            <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ&hl=en" target="_blank" className="hover:underline">GOOGLE SCHOLAR</a>
+            <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className="underline hover:opacity-70 transition-opacity">LINKEDIN</a>
+            <a href="mailto:vnahata@ucsd.edu" className="underline hover:opacity-70 transition-opacity">EMAIL</a>
+            <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ&hl=en" target="_blank" className="underline hover:opacity-70 transition-opacity">GOOGLE SCHOLAR</a>
           </div>
         </div>
 
