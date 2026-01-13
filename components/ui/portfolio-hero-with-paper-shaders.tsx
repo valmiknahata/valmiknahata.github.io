@@ -4,142 +4,143 @@ import { Dithering } from "@paper-design/shaders-react"
 import { useState } from "react"
 
 export default function ResumePage() {
-  const [isDarkMode, setIsDarkMode] = useState(true)
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row">
+    <div className="relative min-h-screen overflow-hidden flex flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300">
       <div
-        className={`w-full md:w-1/2 p-8 font-mono relative z-10 ${isDarkMode ? "bg-black text-white" : "bg-white text-black"}`}
+        className={`w-1/2 p-4 md:p-12 font-mono relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
       >
-        {/* Theme toggle button in top right of left panel */}
-        <button
-          onClick={() => setIsDarkMode(!isDarkMode)}
-          className={`absolute top-8 right-8 p-2 rounded-full border transition-colors ${
-            isDarkMode ? "border-white/20 hover:bg-white/10" : "border-black/20 hover:bg-black/10"
-          }`}
-          aria-label="Toggle theme"
-        >
-          {isDarkMode ? (
-            // Sun icon for light mode
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="5" />
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-            </svg>
-          ) : (
-            // Moon icon for dark mode
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
-          )}
-        </button>
-
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-lg font-normal mb-8">VALMIK NAHATA</h1>
-          <div className="mb-8">
-            <h2 className="text-lg font-normal">VALMIK NAHATA</h2>
-            <h3 className="text-lg font-normal">DATA SCIENTIST & AI RESEARCHER</h3>
-          </div>
+        {/* Theme toggle button */}
+        <div className="absolute top-4 right-4 md:top-12 md:right-12 z-50">
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className={`p-1 rounded-full transition-colors ${isDarkMode ? "hover:bg-white/10" : "hover:bg-black/10"}`}
+            aria-label="Toggle theme"
+          >
+            {isDarkMode ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="12" cy="12" r="5" />
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+              </svg>
+            ) : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            )}
+          </button>
         </div>
 
-        {/* Topbar-like info */}
-        <div className="mb-8 text-sm">
-          Desktop Friendly // Last updated: Jan 1, 2026
+        {/* Header */}
+        <div className="mb-16 text-[15px] space-y-8">
+          <div>VALNAHATA.ME</div>
+          <div>
+            <div>VALMIK NAHATA</div>
+            <div className="opacity-50 uppercase">Data Scientist & AI Researcher</div>
+          </div>
         </div>
 
         {/* Occupations Section */}
-        <div className="mb-8">
-          <div className="text-sm uppercase tracking-widest text-zinc-500 mb-2">// OCCUPATIONS</div>
-          <div className="text-sm leading-relaxed mb-4">
-            <strong>Active</strong><br />
-            Data Science @ UC San Diego (2024 - Present)<br />
-            Undergraduate Researcher @ Harvard Medical School & MGH (2025 - Present)<br />
-            <br />
-            I most recently interned at Dartmouth Hitchcock Medical Center, and previously at other institutions, some of which I co-authored publications at. I've won hackathons hosted by Apart Research & BlueDot Impact, Milwaukee Bucks & Modine Manufacturing, and many more.
+        <div className="mb-12 text-[15px]">
+          <div className="opacity-40 mb-4">// OCCUPATIONS</div>
+          <div className="space-y-1">
+            <div className="flex flex-col md:flex-row md:gap-4">
+              <span className="md:w-32 opacity-50 shrink-0">UC SAN DIEGO</span>
+              <span className="md:w-32 shrink-0">STUDENT</span>
+              <span className="opacity-30">2024 → ....</span>
+            </div>
+            <div className="flex flex-col md:flex-row md:gap-4">
+              <span className="md:w-32 opacity-50 shrink-0">HARVARD & MGH</span>
+              <span className="md:w-32 shrink-0">RESEARCHER</span>
+              <span className="opacity-30">2025 → ....</span>
+            </div>
+            <div className="flex flex-col md:flex-row md:gap-4">
+              <span className="md:w-32 opacity-50 shrink-0">DARTMOUTH</span>
+              <span className="md:w-32 shrink-0">INTERN</span>
+              <span className="opacity-30">2024 → 2024</span>
+            </div>
           </div>
+          <p className="mt-4 opacity-50 leading-relaxed max-w-md">
+            Previously winner of hackathons by Apart Research, BlueDot, Milwaukee Bucks, Modine, etc.
+          </p>
         </div>
 
         {/* Interests Section */}
-        <div className="mb-8">
-          <div className="text-sm uppercase tracking-widest text-zinc-500 mb-2">// INTERESTS</div>
-          <div className="text-sm leading-relaxed">
-            SLMs/LLMs, multimodal models, AI agents, reasoning (e.g. chain-of-thought), AI alignment and ethics, efficient training/inference, and AI applications in science (e.g., drug discovery, protein folding).<br />
-            Subject to evolve. Actively exploring.
+        <div className="mb-12 text-[15px]">
+          <div className="opacity-40 mb-4">// INTERESTS</div>
+          <div className="opacity-70 leading-relaxed max-w-md italic">
+            SLMs/LLMs, multimodal models, AI agents, reasoning (CoT), alignment/ethics, efficient inference, and AI for science.
           </div>
         </div>
 
         {/* Projects Section */}
-        <div className="mb-8">
-          <div className="text-sm uppercase tracking-widest text-zinc-500 mb-2">// PROJECTS</div>
-          <div className="text-sm leading-relaxed">
-            <strong>Active</strong><br />
-            Reasoning CoT improvements for LLMs in clinical usage (Harvard & MGH thesis)<br />
-            Labry (democratizing research opportunities, non-profit enroute)<br />
-            <br />
-            <strong>Past</strong> recency relevance (still updating...)<br />
-            GeoCheater (chrome extension with AI's best guess for WorldGuessr maps)<br />
-            3D Carbon Timeline ("The Astronomy of Climate Change"'s final project)<br />
-            Signly (ASL conversationalist with live fingerspelling recognition)<br />
-            IndustryBench (LLMs evaluations across industry verticals with DuckAI group)<br />
-            Blume (talk with your departed relatives)<br />
-            The Early Economic Impacts of Transformative AI (co-authored manuscript)<br />
-            Milwaukee Bucks Fan Engagement Models (presented to franchise executives)<br />
-            POS QR Automation (scanned discounts pipeline for startup, Kaboo)<br />
-            Retrieval Augmented Generation for Pathology Reports (co-authored manuscript)<br />
-            A Statistical Analysis of Crab Pulsar Giant Pulse Rates (co-authored paper)<br />
-            Cover Edge-Based Triangle Counting (co-authored paper)<br />
-            Steam Trading Scripts (TF2 & CS:GO trading automations that made $6K)<br />
-            Tree-Plenish Data Pipeline (nonprofit's financial tracking automation)<br />
-            IoT Weather System (hardware and software interface)<br />
-            Node2Node (gamified pathfinding algorithms)
+        <div className="mb-12 text-[15px]">
+          <div className="opacity-40 mb-4">// PROJECTS</div>
+          <div className="space-y-6">
+            <div>
+              <div className="opacity-30 text-[13px] mb-2">ACTIVE</div>
+              <div className="space-y-2">
+                <div>Reasoning CoT for Clinical Usage (Harvard & MGH)</div>
+                <div><a href="https://www.linkedin.com/company/labry-research" target="_blank" className="hover:underline">Labry (Democratizing Research)</a></div>
+              </div>
+            </div>
+            <div>
+              <div className="opacity-30 text-[13px] mb-2">PAST</div>
+              <div className="space-y-2 opacity-70">
+                <div>GeoCheater (AI Guessing for WorldGuessr)</div>
+                <div>3D Carbon Timeline (Astronomy Project)</div>
+                <div>Signly (ASL Finger-spelling Recognition)</div>
+                <div>IndustryBench (DuckAI Evaluation Suite)</div>
+                <div>Blume (Conversational AI)</div>
+                <div><a href="https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql" target="_blank" className="hover:underline">Economic Impacts of Transformative AI</a></div>
+                <div><a href="https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego" target="_blank" className="hover:underline">Milwaukee Bucks Engagement Models</a></div>
+                <div>POS QR Automation (Kaboo)</div>
+                <div>Pathology Reports RAG (Co-authored MS)</div>
+                <div><a href="https://iopscience.iop.org/article/10.3847/1538-4357/ad6304" target="_blank" className="hover:underline">Crab Pulsar Statistical Analysis</a></div>
+                <div><a href="https://www.mdpi.com/1999-4893/18/11/685" target="_blank" className="hover:underline">Edge-Based Triangle Counting</a></div>
+                <div>Steam Trading Automations ($6K Profit)</div>
+                <div>Tree-Plenish Data Pipeline</div>
+                <div>IoT Weather System</div>
+                <div>Node2Node (Pathfinding Gamification)</div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Bio Section */}
-        <div className="mb-8">
-          <div className="text-sm uppercase tracking-widest text-zinc-500 mb-2">// BIOGRAPHICAL_OVERVIEW</div>
-          <div className="text-sm leading-relaxed">
-            I'm Valmik (Val) Nahata.<br />
-            <br />
-            Jersey native, Californian resident, (Massachusetts employed), New Yorker at heart.<br />
-            <br />
-            I spent my childhood years solving WCA-regulated puzzles (2x2 through 7x7, mirror cubes, Pyraminx, etc.) and got decent at recognizing algorithmic patterns. Played violin for eleven years too, mostly Bach partitas and Paganini caprices.<br />
-            <br />
-            If you need me, I'm either: (a) speed-walking through empty streets at unholy hours, (b) turning caffeine into code, or (c) standing in a Chipotle line wondering if my addiction says more about my personality than my Myers-Briggs ever could.<br />
-            <br />
-            Interested in pattern-matching through expensive linear algebra, or AI.
-          </div>
+        <div className="mb-12 text-[15px]">
+          <div className="opacity-40 mb-4">// BIOGRAPHICAL</div>
+          <p className="opacity-70 leading-relaxed max-w-md">
+            Jersey native, Californian resident, New Yorker at heart. Childhood in WCA puzzles and violin (Paganini/Bach). Interested in pattern-matching and linear algebra.
+          </p>
         </div>
 
         {/* Collaboration Section */}
-        <div className="mb-8">
-          <div className="text-sm uppercase tracking-widest text-zinc-500 mb-2">// COLLABORATION</div>
-          <div className="text-sm leading-relaxed">
-            I'm open to research collaborations and joint work. If you want to move quickly, send a short message with context, constraints, and what a good outcome looks like.
+        <div className="mb-12 text-[15px]">
+          <div className="opacity-40 mb-4">// COLLABORATION</div>
+          <p className="opacity-70 leading-relaxed max-w-md">
+            Open to research collaborations. Send a message with context, constraints, and target outcomes.
+          </p>
+        </div>
+
+        {/* Links Section */}
+        <div className="mb-12 text-[15px]">
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className="hover:underline">LINKEDIN</a>
+            <a href="mailto:vnahata@ucsd.edu" className="hover:underline">EMAIL</a>
+            <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ&hl=en" target="_blank" className="hover:underline">GOOGLE SCHOLAR</a>
           </div>
         </div>
 
-        {/* Contact Section */}
-        <div className="mb-8">
-          <div className="text-sm uppercase tracking-widest text-zinc-500 mb-2">// CONTACT</div>
-        </div>
-
-        {/* Footer Links Section */}
-        <div className="absolute bottom-8 left-8">
-          <div className="flex space-x-4 text-lg font-mono">
-            <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
-            <a href="mailto:vnahata@ucsd.edu" className="hover:underline">Email</a>
-            <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="hover:underline">Scholar</a>
-          </div>
-        </div>
+        <div className="h-24"></div>
       </div>
 
-      <div className="w-full md:w-1/2 relative min-h-screen">
+      <div className="w-1/2 relative bg-white dark:bg-[#0a0a0a] border-l border-black/5 dark:border-white/5">
         <Dithering
           style={{ height: "100%", width: "100%" }}
           colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
           colorFront={isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 100%, 70%)"}
-          shape="wave"
+          shape={"cat" as any}
           type="4x4"
           pxSize={3}
           offsetX={0}
