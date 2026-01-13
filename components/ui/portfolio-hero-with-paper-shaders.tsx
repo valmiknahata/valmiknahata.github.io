@@ -110,7 +110,7 @@ export default function ResumePage() {
         </div>
       </div>
 
-      <div className="w-full md:w-1/2 relative">
+      <div className="w-full md:w-1/2 relative min-h-screen">
         <Dithering
           style={{ height: "100%", width: "100%" }}
           colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
