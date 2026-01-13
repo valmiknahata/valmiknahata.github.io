@@ -7,9 +7,9 @@ export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(false)
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300">
+    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300">
       <div
-        className={`w-1/2 p-4 md:p-12 font-mono relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
+        className={`w-full md:w-1/2 p-4 md:p-12 font-mono relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
       >
         {/* Theme toggle button */}
         <div className="absolute top-4 right-4 md:top-12 md:right-12 z-50">
@@ -135,7 +135,7 @@ export default function ResumePage() {
         <div className="h-24"></div>
       </div>
 
-      <div className="w-1/2 relative bg-white dark:bg-[#0a0a0a] border-l border-black/5 dark:border-white/5">
+      <div className="hidden md:block md:w-1/2 relative bg-white dark:bg-[#0a0a0a] border-l border-black/5 dark:border-white/5">
         <Dithering
           style={{ height: "100%", width: "100%" }}
           colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
