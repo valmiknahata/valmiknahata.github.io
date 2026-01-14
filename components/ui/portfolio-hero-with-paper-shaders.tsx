@@ -3,6 +3,35 @@
 import { Dithering } from "@paper-design/shaders-react"
 import { useState } from "react"
 
+function ProjectItem({ name, description, href, isDarkMode }: { name: string, description?: string, href?: string, isDarkMode: boolean }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      className="relative flex items-center group cursor-default w-fit"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {href ? (
+        <a href={href} target="_blank" className="underline hover:opacity-70 transition-opacity">
+          {name}
+        </a>
+      ) : (
+        <span>{name}</span>
+      )}
+
+      {description && isHovered && (
+        <div className={`absolute z-50 left-0 bottom-full mb-2 px-3 py-1.5 text-[12px] whitespace-nowrap border shadow-xl transition-all animate-in fade-in zoom-in slide-in-from-bottom-1 duration-200 pointer-events-none ${isDarkMode ? "bg-zinc-900 border-zinc-700 text-zinc-100" : "bg-white border-zinc-200 text-zinc-900"
+          }`}>
+          {description}
+          <div className={`absolute left-4 top-full w-2 h-2 -translate-y-1 rotate-45 border-r border-b ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"
+            }`} />
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(false)
 
@@ -60,9 +89,7 @@ export default function ResumePage() {
               <span className="opacity-30">2024 → 2024</span>
             </div>
           </div>
-          <p className="mt-4 opacity-50 leading-relaxed max-w-md">
-            Previously winner of hackathons by Apart Research, BlueDot, Milwaukee Bucks, Modine, etc.
-          </p>
+
         </div>
 
         {/* Interests Section */}
@@ -80,28 +107,41 @@ export default function ResumePage() {
             <div>
               <div className="opacity-30 mb-2">ACTIVE</div>
               <div className="space-y-2">
-                <div>Reasoning CoT for Clinical Usage (Harvard & MGH)</div>
-                <div><a href="https://www.linkedin.com/company/labry-research" target="_blank" className="underline hover:opacity-70 transition-opacity">Labry (Democratizing Research)</a></div>
+                <div>
+                  <ProjectItem
+                    name="LLMs Chain-of-Thought in Clinical Usage"
+                    description="Harvard & MGH Thesis"
+                    isDarkMode={isDarkMode}
+                  />
+                </div>
+                <div>
+                  <ProjectItem
+                    name="Labry"
+                    description="Democratizing Research"
+                    href="https://www.linkedin.com/company/labry-research"
+                    isDarkMode={isDarkMode}
+                  />
+                </div>
               </div>
             </div>
             <div>
               <div className="opacity-30 mb-2">PAST</div>
               <div className="space-y-2 opacity-70">
-                <div>GeoCheater (AI Guessing for WorldGuessr)</div>
-                <div>3D Carbon Timeline (Astronomy Project)</div>
-                <div>Signly (ASL Finger-spelling Recognition)</div>
-                <div>IndustryBench (DuckAI Evaluation Suite)</div>
-                <div>Blume (Conversational AI)</div>
-                <div><a href="https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql" target="_blank" className="underline hover:opacity-70 transition-opacity">Economic Impacts of Transformative AI</a></div>
-                <div><a href="https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego" target="_blank" className="underline hover:opacity-70 transition-opacity">Milwaukee Bucks Engagement Models</a></div>
-                <div>POS QR Automation (Kaboo)</div>
-                <div>Pathology Reports RAG (Co-authored MS)</div>
-                <div><a href="https://iopscience.iop.org/article/10.3847/1538-4357/ad6304" target="_blank" className="underline hover:opacity-70 transition-opacity">Crab Pulsar Statistical Analysis</a></div>
-                <div><a href="https://www.mdpi.com/1999-4893/18/11/685" target="_blank" className="underline hover:opacity-70 transition-opacity">Edge-Based Triangle Counting</a></div>
-                <div>Steam Trading Automations ($6K Profit)</div>
-                <div>Tree-Plenish Data Pipeline</div>
-                <div>IoT Weather System</div>
-                <div>Node2Node (Pathfinding Gamification)</div>
+                <div><ProjectItem name="GeoCheater" description="AI Guessing for WorldGuessr" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="3D Carbon Timeline" description="Astronomy of Climate Change Final Project" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="Signly" description="ASL Finger-spelling Recognition" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="IndustryBench" description="Industry Vertical AI Evaluations with Georgia Tech's DuckAI group" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="Blume" description="Conversational AI for Departed Relatives" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="Economic Impacts of Transformative AI" href="https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql" description="1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="Milwaukee Bucks Engagement Models" href="https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego" description="3rd at Milwaukee Bucks & Modine Manufacturing's Business Analytics Hackathon" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="POS QR Automation" description="Built for startup, Kaboo" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="Retrieval Augmented Generation for Pathology Reports" description="Co-authored Conference Poster & Manuscript" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="A Statistical Analysis of Crab Pulsar Giant Pulse Rates" href="https://iopscience.iop.org/article/10.3847/1538-4357/ad6304" description="Co-authored ApJ Publication" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="Cover Edge-Based Triangle Counting" href="https://www.mdpi.com/1999-4893/18/11/685" description="Co-authored MDPI Publication" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="Steam Trading Automations" description="$6K Profit from TF2 & CS:GO Assets" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="Tree-Plenish Data Pipeline" description="Financial Automation" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="IoT Weather System" description="1st at TCNJ's Hack-Io-Thon" isDarkMode={isDarkMode} /></div>
+                <div><ProjectItem name="Node2Node" description="Gamified Pathfinding Algorithms" isDarkMode={isDarkMode} /></div>
               </div>
             </div>
           </div>
@@ -150,6 +190,6 @@ export default function ResumePage() {
           speed={0.1}
         />
       </div>
-    </div>
+    </div >
   )
 }
