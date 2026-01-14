@@ -2,13 +2,14 @@
 
 import { Dithering } from "@paper-design/shaders-react"
 import { useState } from "react"
+import RotatingEarth from "./wireframe-dotted-globe"
 
-function ProjectItem({ name, description, href, isDarkMode }: { name: string, description?: string, href?: string, isDarkMode: boolean }) {
+function TooltipItem({ name, description, href, isDarkMode, className }: { name: string, description?: string, href?: string, isDarkMode: boolean, className?: string }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className="relative flex items-center group cursor-default w-fit"
+      className={`relative flex items-center group cursor-default w-fit ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -69,27 +70,49 @@ export default function ResumePage() {
           </div>
         </div>
 
+        {/* Bio Section */}
+        <div className="mb-12 text-[15px]">
+          <div className="opacity-40 mb-4">// BIOGRAPHICAL</div>
+          <p className="opacity-70 leading-relaxed max-w-md">
+            Jersey native, Californian resident, New Yorker at heart. Childhood in WCA puzzles and violin (Paganini/Bach).
+          </p>
+        </div>
+
         {/* Occupations Section */}
         <div className="mb-12 text-[15px]">
           <div className="opacity-40 mb-4">// OCCUPATIONS</div>
           <div className="space-y-1">
             <div className="flex flex-col md:flex-row md:gap-4">
-              <span className="md:w-32 opacity-50 shrink-0">UC SAN DIEGO</span>
+              <TooltipItem
+                name="UNIVERSITY OF CALIFORNIA, SAN DIEGO"
+                description="Halıcıoğlu Data Science Institute"
+                isDarkMode={isDarkMode}
+                className="md:w-32 opacity-50 shrink-0"
+              />
               <span className="md:w-32 shrink-0">STUDENT</span>
               <span className="opacity-30">2024 → ....</span>
             </div>
             <div className="flex flex-col md:flex-row md:gap-4">
-              <span className="md:w-32 opacity-50 shrink-0">HARVARD & MGH</span>
+              <TooltipItem
+                name="HARVARD"
+                description="Harvard Medical School & Massachusetts General Hospital"
+                isDarkMode={isDarkMode}
+                className="md:w-32 opacity-50 shrink-0"
+              />
               <span className="md:w-32 shrink-0">RESEARCHER</span>
               <span className="opacity-30">2025 → ....</span>
             </div>
             <div className="flex flex-col md:flex-row md:gap-4">
-              <span className="md:w-32 opacity-50 shrink-0">DARTMOUTH</span>
+              <TooltipItem
+                name="DARTMOUTH"
+                description="Dartmouth Hitchcock Medical Center"
+                isDarkMode={isDarkMode}
+                className="md:w-32 opacity-50 shrink-0"
+              />
               <span className="md:w-32 shrink-0">INTERN</span>
               <span className="opacity-30">2024 → 2024</span>
             </div>
           </div>
-
         </div>
 
         {/* Interests Section */}
@@ -108,14 +131,14 @@ export default function ResumePage() {
               <div className="opacity-30 mb-2">ACTIVE</div>
               <div className="space-y-2">
                 <div>
-                  <ProjectItem
+                  <TooltipItem
                     name="LLMs Chain-of-Thought in Clinical Usage"
                     description="Harvard & MGH Thesis"
                     isDarkMode={isDarkMode}
                   />
                 </div>
                 <div>
-                  <ProjectItem
+                  <TooltipItem
                     name="Labry"
                     description="Democratizing Research"
                     href="https://www.linkedin.com/company/labry-research"
@@ -127,32 +150,32 @@ export default function ResumePage() {
             <div>
               <div className="opacity-30 mb-2">PAST</div>
               <div className="space-y-2 opacity-70">
-                <div><ProjectItem name="GeoCheater" description="AI Guessing for WorldGuessr" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="3D Carbon Timeline" description="Astronomy of Climate Change Final Project" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="Signly" description="ASL Finger-spelling Recognition" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="IndustryBench" description="Industry Vertical AI Evaluations with Georgia Tech's DuckAI group" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="Blume" description="Conversational AI for Departed Relatives" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="Economic Impacts of Transformative AI" href="https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql" description="1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="Milwaukee Bucks Engagement Models" href="https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego" description="3rd at Milwaukee Bucks & Modine Manufacturing's Business Analytics Hackathon" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="POS QR Automation" description="Built for startup, Kaboo" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="Retrieval Augmented Generation for Pathology Reports" description="Co-authored Conference Poster & Manuscript" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="A Statistical Analysis of Crab Pulsar Giant Pulse Rates" href="https://iopscience.iop.org/article/10.3847/1538-4357/ad6304" description="Co-authored ApJ Publication" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="Cover Edge-Based Triangle Counting" href="https://www.mdpi.com/1999-4893/18/11/685" description="Co-authored MDPI Publication" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="Steam Trading Automations" description="$6K Profit from TF2 & CS:GO Assets" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="Tree-Plenish Data Pipeline" description="Financial Automation" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="IoT Weather System" description="1st at TCNJ's Hack-Io-Thon" isDarkMode={isDarkMode} /></div>
-                <div><ProjectItem name="Node2Node" description="Gamified Pathfinding Algorithms" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="GeoCheater" description="AI Guessing for WorldGuessr" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="3D Carbon Timeline" description="Astronomy of Climate Change Final Project" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="Signly" description="ASL Finger-spelling Recognition" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="IndustryBench" description="Industry Vertical AI Evaluations with Georgia Tech's DuckAI group" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="Blume" description="Conversational AI for Departed Relatives" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="Economic Impacts of Transformative AI" href="https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql" description="1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="Milwaukee Bucks Engagement Models" href="https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego" description="3rd at Milwaukee Bucks & Modine Manufacturing's Business Analytics Hackathon" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="POS QR Automation" description="Built for startup, Kaboo" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="Retrieval Augmented Generation for Pathology Reports" description="Co-authored Conference Poster & Manuscript" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="A Statistical Analysis of Crab Pulsar Giant Pulse Rates" href="https://iopscience.iop.org/article/10.3847/1538-4357/ad6304" description="Co-authored ApJ Publication" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="Cover Edge-Based Triangle Counting" href="https://www.mdpi.com/1999-4893/18/11/685" description="Co-authored MDPI Publication" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="Steam Trading Automations" description="$6K Profit from TF2 & CS:GO Assets" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="Tree-Plenish Data Pipeline" description="Financial Automation" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="IoT Weather System" description="1st at TCNJ's Hack-Io-Thon" isDarkMode={isDarkMode} /></div>
+                <div><TooltipItem name="Node2Node" description="Gamified Pathfinding Algorithms" isDarkMode={isDarkMode} /></div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bio Section */}
+        {/* Current Location Section */}
         <div className="mb-12 text-[15px]">
-          <div className="opacity-40 mb-4">// BIOGRAPHICAL</div>
-          <p className="opacity-70 leading-relaxed max-w-md">
-            Jersey native, Californian resident, New Yorker at heart. Childhood in WCA puzzles and violin (Paganini/Bach). Interested in pattern-matching and linear algebra.
-          </p>
+          <div className="opacity-40 mb-4">// CURRENT LOCATION</div>
+          <div className="max-w-sm">
+            <RotatingEarth width={400} height={400} className="opacity-80" isDarkMode={isDarkMode} />
+          </div>
         </div>
 
         {/* Collaboration Section */}
@@ -190,6 +213,6 @@ export default function ResumePage() {
           speed={0.1}
         />
       </div>
-    </div >
+    </div>
   )
 }
