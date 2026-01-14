@@ -36,11 +36,15 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
 
         // Create projection and path generator for Canvas
         // Center on SoCal [-118, 34] -> rotate [118, -34]
+        const defaultRotation: [number, number, number] = [118, -34, 0]
+        const rotation: [number, number, number] = [...defaultRotation]
+        const defaultScale = radius
+
         const projection = d3
             .geoOrthographic()
             .scale(radius)
             .translate([containerWidth / 2, containerHeight / 2])
-            .rotate([118, -34, 0])
+            .rotate(defaultRotation)
             .clipAngle(90)
 
         const path = d3.geoPath().projection(projection).context(context)
@@ -131,6 +135,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
         let landFeatures: any
         const SOCAL: [number, number] = [-118.2437, 34.0522]
         let pulseTimer = 0
+        let isInteracting = false
 
         const render = () => {
             // Clear canvas
@@ -243,19 +248,35 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
             }
         }
 
-        // Set up rotation and interaction
-        // Starting rotation focused on SoCal
-        const rotation: [number, number, number] = [118, -34, 0]
-        let autoRotate = false // PERMANENTLY DISABLED AUTO-ROTATION
+        const lerp = (start: number, end: number, t: number) => {
+            return start * (1 - t) + end * t
+        }
 
-        const rotate = () => {
-            // Logic for pulsing animation continues even if no rotation
+        const animate = () => {
+            if (!isInteracting) {
+                // Snap back rotation
+                // Handle potential wrapping issues for cleaner rotation? 
+                // For now simple lerp is enough since we aren't doing 360 spins mostly
+                rotation[0] = lerp(rotation[0], defaultRotation[0], 0.05)
+                rotation[1] = lerp(rotation[1], defaultRotation[1], 0.05)
+
+                // Snap back zoom
+                const currentScale = projection.scale()
+                const newScale = lerp(currentScale, defaultScale, 0.05)
+                projection.scale(newScale)
+
+                // Update projection rotation
+                // Note: rotation[2] (gamma) is typically 0 for this view
+                projection.rotate([rotation[0], rotation[1], 0])
+            }
+
             render()
         }
 
-        const rotationTimer = d3.timer(rotate)
+        const rotationTimer = d3.timer(animate)
 
         const handleMouseDown = (event: MouseEvent) => {
+            isInteracting = true
             const startX = event.clientX
             const startY = event.clientY
             const startRotation = [...rotation]
@@ -267,6 +288,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
 
                 rotation[0] = startRotation[0] + dx * sensitivity
                 rotation[1] = startRotation[1] - dy * sensitivity
+                // Clamp latitude to prevent flipping
                 rotation[1] = Math.max(-90, Math.min(90, rotation[1]))
 
                 projection.rotate(rotation as [number, number, number])
@@ -274,9 +296,9 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
             }
 
             const handleMouseUp = () => {
+                isInteracting = false
                 document.removeEventListener("mousemove", handleMouseMove)
                 document.removeEventListener("mouseup", handleMouseUp)
-                // No autoRotate resumption
             }
 
             document.addEventListener("mousemove", handleMouseMove)
@@ -286,9 +308,20 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
         const handleWheel = (event: WheelEvent) => {
             event.preventDefault()
             const scaleFactor = event.deltaY > 0 ? 0.9 : 1.1
-            const newRadius = Math.max(radius * 0.5, Math.min(radius * 3, projection.scale() * scaleFactor))
+            const currentScale = projection.scale()
+            const newRadius = Math.max(radius * 0.5, Math.min(radius * 3, currentScale * scaleFactor))
+
+            // Allow manual zoom, but it will snap back once wheeling stops (technically almost immediately unless we debounce)
+            // Ideally we should set isInteracting = true for a bit.
             projection.scale(newRadius)
             render()
+
+            // Simple debounce to keep it "interacting" while scrolling
+            isInteracting = true
+            if ((window as any).wheelTimeout) clearTimeout((window as any).wheelTimeout)
+                ; (window as any).wheelTimeout = setTimeout(() => {
+                    isInteracting = false
+                }, 100)
         }
 
         canvas.addEventListener("mousedown", handleMouseDown)
@@ -301,7 +334,6 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
             canvas.removeEventListener("mousedown", handleMouseDown)
             canvas.removeEventListener("wheel", handleWheel)
         }
-        // ADDED isDarkMode to dependencies to ensure colors update when theme changes
     }, [width, height, isDarkMode])
 
     if (error) {
@@ -320,14 +352,8 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
             <canvas
                 ref={canvasRef}
                 className={`w-full h-auto rounded-2xl ${isDarkMode ? "bg-black" : "bg-[#f7f5f3]"}`}
-                style={{ maxWidth: "100%", height: "auto" }}
+                style={{ maxWidth: "100%", height: "auto", cursor: "grab" }}
             />
-            <div className={`absolute bottom-4 left-4 text-xs px-2 py-1 rounded-md ${isDarkMode
-                    ? "bg-neutral-900 text-neutral-400"
-                    : "bg-neutral-100 text-neutral-600 border border-neutral-200 shadow-sm"
-                }`}>
-                Drag to rotate • Scroll to zoom
-            </div>
         </div>
     )
 }
