@@ -131,10 +131,10 @@ Answer questions naturally and conversationally based on this information. If as
         {/* Unified Top Header Line - Full Width */}
         <div className="flex flex-row justify-between items-center mb-12 text-[11px] font-medium leading-none w-full">
           {/* Left: Name */}
-          <div className="opacity-40 uppercase tracking-widest">Valmik Nahata</div>
+          <div className="opacity-40 uppercase tracking-widest hidden min-[400px]:block">Valmik Nahata</div>
 
           {/* Center: PST Time */}
-          <div className="hidden sm:block absolute left-1/2 -translate-x-1/2">
+          <div className="absolute left-1/2 -translate-x-1/2">
             <div className="opacity-40 uppercase tracking-widest pointer-events-none whitespace-nowrap">
               PST {currentTime}
             </div>
@@ -145,7 +145,7 @@ Answer questions naturally and conversationally based on this information. If as
             onClick={() => setIsDarkMode(!isDarkMode)}
             className="flex opacity-40 hover:opacity-100 transition-opacity items-center gap-2 cursor-pointer group uppercase tracking-widest shrink-0"
           >
-            <span>
+            <span className="hidden min-[400px]:block">
               {isDarkMode ? "Dark Mode" : "Light Mode"}
             </span>
             <button
