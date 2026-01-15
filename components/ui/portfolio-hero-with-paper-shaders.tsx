@@ -286,7 +286,7 @@ Answer questions naturally and conversationally based on this information. If as
             </div>
           </div>
 
-          {/* ValGPT Section */}
+          {/* VAL AI Section */}
           <div className="mb-12">
             <div className="flex flex-col items-center mb-4">
               <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md ${isDarkMode
@@ -294,13 +294,13 @@ Answer questions naturally and conversationally based on this information. If as
                 : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
                 }`}>
                 <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isDarkMode ? "bg-[hsl(320,100%,70%)]" : "bg-[hsl(220,100%,70%)]"}`} />
-                ValGPT
+                VAL AI
               </div>
             </div>
             <div>
               <PromptInputBox
                 isDarkMode={isDarkMode}
-                placeholder="Ask ValGPT anything..."
+                placeholder="Ask VAL AI anything..."
                 onSend={handleSendMessage}
                 isLoading={isLoading}
               />
