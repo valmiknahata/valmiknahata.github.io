@@ -3,6 +3,8 @@
 import { Dithering } from "@paper-design/shaders-react"
 import { useState } from "react"
 import RotatingEarth from "./wireframe-dotted-globe"
+import { PromptInputBox } from "./valgpt-input"
+import { streamMessageToGemini } from "@/lib/gemini"
 
 function TooltipItem({ name, description, href, isDarkMode, className }: { name: string, description?: string, href?: string, isDarkMode: boolean, className?: string }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -34,7 +36,75 @@ function TooltipItem({ name, description, href, isDarkMode, className }: { name:
 }
 
 export default function ResumePage() {
-  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(true)
+  const [currentQuestion, setCurrentQuestion] = useState("")
+  const [currentResponse, setCurrentResponse] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSendMessage = async (message: string, files?: File[]) => {
+    try {
+      setIsLoading(true)
+      setCurrentQuestion(message)
+      setCurrentResponse("")
+
+      // Portfolio context for the AI
+      const portfolioContext = `You are Valmik Nahata. Answer questions based as if you are Valmik Nahata.
+
+ABOUT VALMIK:
+Valmik Nahata is an undergraduate at UC San Diego. Since last year, he's been working on building AI systems that are both powerful and aligned, particularly around scaling, robustness (adversarial training, safety checks, etc.), and ethical considerations (bias mitigation, transparency, etc.), with the goal of accelerating scientific discovery. Most of his research involves large language models, multimodal AI, and autonomous agents, particularly around reasoning (chain-of-thought, tree search, etc.), alignment (RLHF, debate, etc.), and making inference more efficient (quantization, etc.).
+
+He grew up in Jersey and now lives in California, but he'll always be a New Yorker at heart. When he's not working on AI, you'll find him speedsolving Rubik's cubes (everything from 2x2 through 7x7, plus pyraminx, megaminx, and mirror cubes). He also spent years playing violin, working through Paganini's Caprices and Bach's Partitas, though his favorite piece will always be Mendelssohn's Violin Concerto in E Minor. And for whatever reason, he's developed a thing for collecting old coins, anything from the 1800s onward really.
+
+OCCUPATIONS:
+- University of California, San Diego (Halıcıoğlu Data Science Institute) - Undergraduate, 2024—Present
+- Harvard Medical School & Massachusetts General Hospital - Research Assistant, 2025—Present
+- Dartmouth Hitchcock Medical Center - Research Intern, 2024—2025
+
+ACTIVE PROJECTS:
+- LLMs Chain-of-Thought in Clinical Usage (Harvard & MGH Thesis), 2025—Present
+- Labry (Democratizing Research), 2025—Present
+
+SELECTED PAST WORKS:
+- GeoCheater (AI Guessing for WorldGuessr), 2026
+- 3D Carbon Timeline (Astronomy of Climate Change Final Project), 2025
+- Signly (ASL Finger-spelling Recognition), 2025
+- IndustryBench (Industry Vertical AI Evaluations with Georgia Tech's DuckAI group), 2025
+- Blume (Conversational AI for Departed Relatives), 2025
+- Economic Impacts of Transformative AI (1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint), 2025
+- Milwaukee Bucks Engagement Models (3rd at Milwaukee Bucks & Modine Manufacturing's Business Analytics Hackathon), 2025
+- POS QR Automation (Built for startup, Kaboo), 2024
+- Retrieval Augmented Generation for Pathology Reports (Co-authored Conference Poster & Manuscript), 2024
+- A Statistical Analysis of Crab Pulsar Giant Pulse Rates (Co-authored ApJ Publication), 2024
+- Cover Edge-Based Triangle Counting (Co-authored MDPI Publication), 2024
+- Steam Trading Automations ($6K Profit from TF2 & CS:GO Assets), 2023
+- Tree-Plenish Data Pipeline (Financial Automation), 2023
+- IoT Weather System (1st at TCNJ's Hack-Io-Thon), 2023
+- Node2Node (Gamified Pathfinding Algorithms), 2022
+
+CONTACT:
+- LinkedIn: https://www.linkedin.com/in/valmiknahata
+- Email: vnahata@ucsd.edu
+- Google Scholar: https://scholar.google.com/citations?user=nv1ym54AAAAJ&hl=en
+
+Answer questions naturally and conversationally based on this information. If asked about something not covered here, you can provide general helpful responses but clarify when you're going beyond Valmik's specific background.`;
+
+      const fullPrompt = `${portfolioContext}\n\nUser question: ${message}`;
+
+      // Stream response from Gemini with context
+      await streamMessageToGemini(
+        fullPrompt,
+        [], // Empty history for single Q&A
+        (chunk) => {
+          setCurrentResponse((prev) => prev + chunk)
+        }
+      )
+    } catch (error) {
+      console.error("Error sending message:", error)
+      setCurrentResponse("Sorry, I encountered an error. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[14px]">
@@ -66,14 +136,14 @@ export default function ResumePage() {
           <div className="mb-12">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Valmik Nahata</div>
             <div className="flex flex-col items-center -ml-4 md:-ml-8 relative">
-              <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md z-20 -mb-5 ${isDarkMode
+              <RotatingEarth width={380} height={380} className="opacity-80" isDarkMode={isDarkMode} />
+              <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md z-20 -mt-5 ${isDarkMode
                 ? "bg-neutral-900 text-neutral-400 border border-neutral-800"
                 : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
                 }`}>
                 <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isDarkMode ? "bg-[hsl(320,100%,70%)]" : "bg-[hsl(220,100%,70%)]"}`} />
                 Live Location
               </div>
-              <RotatingEarth width={380} height={380} className="opacity-80" isDarkMode={isDarkMode} />
             </div>
           </div>
 
@@ -192,6 +262,34 @@ export default function ResumePage() {
                 </div>
               </div>
             </div>
+          </div>
+
+
+          {/* ValGPT Section */}
+          <div className="mb-12">
+            <div className="mt-4">
+              <PromptInputBox
+                isDarkMode={isDarkMode}
+                placeholder="Ask ValGPT anything..."
+                onSend={handleSendMessage}
+                isLoading={isLoading}
+              />
+            </div>
+
+            {/* Current Question & Answer Display */}
+            {currentQuestion && (
+              <div className="mt-6 space-y-3">
+                <div className="opacity-40 uppercase tracking-widest text-[11px] font-medium">
+                  {currentQuestion}
+                </div>
+                {currentResponse && (
+                  <div className="leading-7 opacity-80">
+                    {currentResponse}
+                    {isLoading && <span className="inline-block w-1 h-3.5 bg-current animate-pulse ml-0.5 align-middle" />}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Links / Footer */}
