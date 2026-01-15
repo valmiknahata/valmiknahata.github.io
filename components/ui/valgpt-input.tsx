@@ -182,20 +182,19 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
 
     React.useEffect(() => {
         if (isRecording) {
-            onStartRecording();
             timerRef.current = setInterval(() => setTime((t) => t + 1), 1000);
         } else {
             if (timerRef.current) {
                 clearInterval(timerRef.current);
                 timerRef.current = null;
             }
-            onStopRecording(time);
+            // We don't call onStopRecording here because PromptInputBox handles it directly
             setTime(0);
         }
         return () => {
             if (timerRef.current) clearInterval(timerRef.current);
         };
-    }, [isRecording, time, onStartRecording, onStopRecording]);
+    }, [isRecording]);
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
@@ -476,22 +475,31 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
         if (typeof window !== "undefined") {
             const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
             if (SpeechRecognition) {
-                recognitionRef.current = new SpeechRecognition();
-                recognitionRef.current.continuous = true;
-                recognitionRef.current.interimResults = true;
+                const recognition = new SpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
 
-                recognitionRef.current.onresult = (event: any) => {
-                    const transcript = Array.from(event.results)
-                        .map((result: any) => result[0])
-                        .map((result: any) => result.transcript)
-                        .join("");
-                    setInput(transcript);
+                recognition.onresult = (event: any) => {
+                    let fullTranscript = "";
+                    for (let i = 0; i < event.results.length; i++) {
+                        fullTranscript += event.results[i][0].transcript;
+                    }
+                    setInput(fullTranscript);
                 };
 
-                recognitionRef.current.onerror = (event: any) => {
+                recognition.onerror = (event: any) => {
                     console.error("Speech recognition error", event.error);
+                    if (event.error === 'not-allowed') {
+                        alert("Microphone access denied. Please enable it in your browser settings.");
+                    }
                     setIsRecording(false);
                 };
+
+                recognition.onend = () => {
+                    setIsRecording(false);
+                };
+
+                recognitionRef.current = recognition;
             }
         }
 
@@ -675,9 +683,16 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                                     : undefined
                             }}
                             onClick={() => {
-                                if (isRecording) setIsRecording(false);
-                                else if (hasContent) handleSubmit();
-                                else setIsRecording(true);
+                                if (isRecording) {
+                                    handleStopRecording(0);
+                                }
+                                else if (hasContent) {
+                                    handleSubmit();
+                                }
+                                else {
+                                    setIsRecording(true);
+                                    handleStartRecording();
+                                }
                             }}
                             disabled={isLoading && !hasContent}
                         >
