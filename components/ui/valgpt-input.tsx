@@ -506,7 +506,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     const handleSubmit = () => {
         if (input.trim()) {
             let messagePrefix = "";
-            if (showThink) messagePrefix = "[Think: ";
+            if (showThink) messagePrefix = "[Gemini Pro: ";
             const formattedInput = messagePrefix ? `${messagePrefix}${input}]` : input;
             onSend(formattedInput);
             setInput("");
@@ -570,7 +570,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                     <PromptInputTextarea
                         placeholder={
                             showThink
-                                ? "Think deeply..."
+                                ? "Ask Gemini Pro anything..."
                                 : placeholder
                         }
                         className={cn("text-base", textColor)}
@@ -625,7 +625,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                                             className="text-xs overflow-hidden whitespace-nowrap flex-shrink-0"
                                             style={{ color: thinkColor }}
                                         >
-                                            Think
+                                            Gemini Pro
                                         </motion.span>
                                     )}
                                 </AnimatePresence>
