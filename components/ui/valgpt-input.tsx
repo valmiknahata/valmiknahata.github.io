@@ -457,85 +457,17 @@ interface PromptInputBoxProps {
 export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref: React.Ref<HTMLDivElement>) => {
     const { onSend = () => { }, isLoading = false, placeholder = "Type your message here...", className, isDarkMode = false } = props;
     const [input, setInput] = React.useState("");
-    const [files, setFiles] = React.useState<File[]>([]);
-    const [filePreviews, setFilePreviews] = React.useState<{ [key: string]: string }>({});
-    const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
-    const [isRecording, setIsRecording] = React.useState(false);
-    const [showSearch, setShowSearch] = React.useState(false);
     const [showThink, setShowThink] = React.useState(false);
-    const [showCanvas, setShowCanvas] = React.useState(false);
-    const uploadInputRef = React.useRef<HTMLInputElement>(null);
+    const [isRecording, setIsRecording] = React.useState(false);
     const promptBoxRef = React.useRef<HTMLDivElement>(null);
     const recognitionRef = React.useRef<any>(null);
 
-    const handleToggleChange = (value: string) => {
-        if (value === "search") {
-            setShowSearch((prev) => !prev);
-            setShowThink(false);
-        } else if (value === "think") {
-            setShowThink((prev) => !prev);
-            setShowSearch(false);
-        }
+    const handleToggleChange = () => {
+        setShowThink((prev) => !prev);
     };
-
-    const handleCanvasToggle = () => setShowCanvas((prev) => !prev);
-
-    const isImageFile = (file: File) => file.type.startsWith("image/");
-
-    const processFile = (file: File) => {
-        if (!isImageFile(file)) {
-            console.log("Only image files are allowed");
-            return;
-        }
-        if (file.size > 10 * 1024 * 1024) {
-            console.log("File too large (max 10MB)");
-            return;
-        }
-        setFiles([file]);
-        const reader = new FileReader();
-        reader.onload = (e) => setFilePreviews({ [file.name]: e.target?.result as string });
-        reader.readAsDataURL(file);
-    };
-
-    const handleDragOver = React.useCallback((e: React.DragEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-    }, []);
-
-    const handleDragLeave = React.useCallback((e: React.DragEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-    }, []);
-
-    const handleDrop = React.useCallback((e: React.DragEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const files = Array.from(e.dataTransfer.files);
-        const imageFiles = files.filter((file) => isImageFile(file));
-        if (imageFiles.length > 0) processFile(imageFiles[0]);
-    }, []);
-
-    const handleRemoveFile = (index: number) => {
-        const fileToRemove = files[index];
-        if (fileToRemove && filePreviews[fileToRemove.name]) setFilePreviews({});
-        setFiles([]);
-    };
-
-    const openImageModal = (imageUrl: string) => setSelectedImage(imageUrl);
 
     const handlePaste = React.useCallback((e: ClipboardEvent) => {
-        const items = e.clipboardData?.items;
-        if (!items) return;
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].type.indexOf("image") !== -1) {
-                const file = items[i].getAsFile();
-                if (file) {
-                    e.preventDefault();
-                    processFile(file);
-                    break;
-                }
-            }
-        }
+        // File paste logic removed
     }, []);
 
     React.useEffect(() => {
@@ -572,16 +504,12 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     }, [handlePaste]);
 
     const handleSubmit = () => {
-        if (input.trim() || files.length > 0) {
+        if (input.trim()) {
             let messagePrefix = "";
-            if (showSearch) messagePrefix = "[Search: ";
-            else if (showThink) messagePrefix = "[Think: ";
-            else if (showCanvas) messagePrefix = "[Canvas: ";
+            if (showThink) messagePrefix = "[Think: ";
             const formattedInput = messagePrefix ? `${messagePrefix}${input}]` : input;
-            onSend(formattedInput, files);
+            onSend(formattedInput);
             setInput("");
-            setFiles([]);
-            setFilePreviews({});
         }
     };
 
@@ -606,7 +534,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
         setIsRecording(false);
     };
 
-    const hasContent = input.trim() !== "" || files.length > 0;
+    const hasContent = input.trim() !== "";
 
     // Color schemes based on dark mode
     const bgColor = isDarkMode ? "bg-[#1F2023]" : "bg-white";
@@ -614,11 +542,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     const textColor = isDarkMode ? "text-gray-100" : "text-gray-900";
     const iconColor = isDarkMode ? "text-[#9CA3AF]" : "text-gray-600";
     const iconHoverColor = isDarkMode ? "hover:text-[#D1D5DB]" : "hover:text-gray-900";
-    const hoverBgColor = isDarkMode ? "hover:bg-gray-600/30" : "hover:bg-gray-200/50";
-    const tooltipBg = isDarkMode ? "bg-[#1F2023] border-[#333333] text-white" : "bg-white border-neutral-300 text-gray-900";
-    const searchColor = isDarkMode ? "#1EAEDB" : "hsl(220, 100%, 70%)";
     const thinkColor = isDarkMode ? "#8B5CF6" : "hsl(280, 100%, 70%)";
-    const canvasColor = isDarkMode ? "#F97316" : "hsl(30, 100%, 60%)";
 
     return (
         <>
@@ -636,40 +560,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                 )}
                 disabled={isLoading || isRecording}
                 ref={ref || promptBoxRef}
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
             >
-                {files.length > 0 && !isRecording && (
-                    <div className="flex flex-wrap gap-2 p-0 pb-1 transition-all duration-300">
-                        {files.map((file, index) => (
-                            <div key={index} className="relative group">
-                                {file.type.startsWith("image/") && filePreviews[file.name] && (
-                                    <div
-                                        className="w-16 h-16 rounded-xl overflow-hidden cursor-pointer transition-all duration-300"
-                                        onClick={() => openImageModal(filePreviews[file.name])}
-                                    >
-                                        <img
-                                            src={filePreviews[file.name]}
-                                            alt={file.name}
-                                            className="h-full w-full object-cover"
-                                        />
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleRemoveFile(index);
-                                            }}
-                                            className="absolute top-1 right-1 rounded-full bg-black/70 p-0.5 opacity-100 transition-opacity"
-                                        >
-                                            <X className="h-3 w-3 text-white" />
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                )}
-
                 <div
                     className={cn(
                         "transition-all duration-300",
@@ -678,13 +569,9 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                 >
                     <PromptInputTextarea
                         placeholder={
-                            showSearch
-                                ? "Search the web..."
-                                : showThink
-                                    ? "Think deeply..."
-                                    : showCanvas
-                                        ? "Create on canvas..."
-                                        : placeholder
+                            showThink
+                                ? "Think deeply..."
+                                : placeholder
                         }
                         className={cn("text-base", textColor)}
                     />
@@ -707,68 +594,10 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                             isRecording ? "opacity-0 invisible h-0" : "opacity-100 visible"
                         )}
                     >
-                        <PromptInputAction tooltip="Upload image">
-                            <button
-                                onClick={() => uploadInputRef.current?.click()}
-                                className={cn("flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-colors", iconColor, iconHoverColor, hoverBgColor)}
-                                disabled={isRecording}
-                            >
-                                <Paperclip className="h-5 w-5 transition-colors" />
-                                <input
-                                    ref={uploadInputRef}
-                                    type="file"
-                                    className="hidden"
-                                    onChange={(e) => {
-                                        if (e.target.files && e.target.files.length > 0) processFile(e.target.files[0]);
-                                        if (e.target) e.target.value = "";
-                                    }}
-                                    accept="image/*"
-                                />
-                            </button>
-                        </PromptInputAction>
-
                         <div className="flex items-center">
                             <button
                                 type="button"
-                                onClick={() => handleToggleChange("search")}
-                                className={cn(
-                                    "rounded-full transition-all flex items-center gap-1 px-2 py-1 border h-8",
-                                    showSearch
-                                        ? `bg-[${searchColor}]/15 border-[${searchColor}] text-[${searchColor}]`
-                                        : `bg-transparent border-transparent ${iconColor} ${iconHoverColor}`
-                                )}
-                                style={showSearch ? { backgroundColor: `${searchColor}15`, borderColor: searchColor, color: searchColor } : {}}
-                            >
-                                <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                                    <motion.div
-                                        animate={{ rotate: showSearch ? 360 : 0, scale: showSearch ? 1.1 : 1 }}
-                                        whileHover={{ rotate: showSearch ? 360 : 15, scale: 1.1, transition: { type: "spring", stiffness: 300, damping: 10 } }}
-                                        transition={{ type: "spring", stiffness: 260, damping: 25 }}
-                                    >
-                                        <Globe className="w-4 h-4" style={showSearch ? { color: searchColor } : {}} />
-                                    </motion.div>
-                                </div>
-                                <AnimatePresence>
-                                    {showSearch && (
-                                        <motion.span
-                                            initial={{ width: 0, opacity: 0 }}
-                                            animate={{ width: "auto", opacity: 1 }}
-                                            exit={{ width: 0, opacity: 0 }}
-                                            transition={{ duration: 0.2 }}
-                                            className="text-xs overflow-hidden whitespace-nowrap flex-shrink-0"
-                                            style={{ color: searchColor }}
-                                        >
-                                            Search
-                                        </motion.span>
-                                    )}
-                                </AnimatePresence>
-                            </button>
-
-                            <CustomDivider isDarkMode={isDarkMode} />
-
-                            <button
-                                type="button"
-                                onClick={() => handleToggleChange("think")}
+                                onClick={handleToggleChange}
                                 className={cn(
                                     "rounded-full transition-all flex items-center gap-1 px-2 py-1 border h-8",
                                     showThink
@@ -797,44 +626,6 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                                             style={{ color: thinkColor }}
                                         >
                                             Think
-                                        </motion.span>
-                                    )}
-                                </AnimatePresence>
-                            </button>
-
-                            <CustomDivider isDarkMode={isDarkMode} />
-
-                            <button
-                                type="button"
-                                onClick={handleCanvasToggle}
-                                className={cn(
-                                    "rounded-full transition-all flex items-center gap-1 px-2 py-1 border h-8",
-                                    showCanvas
-                                        ? `bg-[${canvasColor}]/15 border-[${canvasColor}] text-[${canvasColor}]`
-                                        : `bg-transparent border-transparent ${iconColor} ${iconHoverColor}`
-                                )}
-                                style={showCanvas ? { backgroundColor: `${canvasColor}15`, borderColor: canvasColor, color: canvasColor } : {}}
-                            >
-                                <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                                    <motion.div
-                                        animate={{ rotate: showCanvas ? 360 : 0, scale: showCanvas ? 1.1 : 1 }}
-                                        whileHover={{ rotate: showCanvas ? 360 : 15, scale: 1.1, transition: { type: "spring", stiffness: 300, damping: 10 } }}
-                                        transition={{ type: "spring", stiffness: 260, damping: 25 }}
-                                    >
-                                        <FolderCode className="w-4 h-4" style={showCanvas ? { color: canvasColor } : {}} />
-                                    </motion.div>
-                                </div>
-                                <AnimatePresence>
-                                    {showCanvas && (
-                                        <motion.span
-                                            initial={{ width: 0, opacity: 0 }}
-                                            animate={{ width: "auto", opacity: 1 }}
-                                            exit={{ width: 0, opacity: 0 }}
-                                            transition={{ duration: 0.2 }}
-                                            className="text-xs overflow-hidden whitespace-nowrap flex-shrink-0"
-                                            style={{ color: canvasColor }}
-                                        >
-                                            Canvas
                                         </motion.span>
                                     )}
                                 </AnimatePresence>
@@ -895,8 +686,6 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                     </PromptInputAction>
                 </PromptInputActions>
             </PromptInput>
-
-            <ImageViewDialog imageUrl={selectedImage} onClose={() => setSelectedImage(null)} isDarkMode={isDarkMode} />
         </>
     );
 });
