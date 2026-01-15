@@ -167,6 +167,7 @@ interface VoiceRecorderProps {
     onStopRecording: (duration: number) => void;
     visualizerBars?: number;
     isDarkMode?: boolean;
+    transcript?: string;
 }
 const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
     isRecording,
@@ -174,6 +175,7 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
     onStopRecording,
     visualizerBars = 32,
     isDarkMode = false,
+    transcript = "",
 }) => {
     const [time, setTime] = React.useState(0);
     const timerRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -225,6 +227,11 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
                     />
                 ))}
             </div>
+            {transcript && (
+                <div className={cn("mt-4 text-center px-6 max-h-20 overflow-y-auto text-sm italic", isDarkMode ? "text-white/60" : "text-gray-600/60")}>
+                    "{transcript}..."
+                </div>
+            )}
         </div>
     );
 };
@@ -459,6 +466,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     const [showCanvas, setShowCanvas] = React.useState(false);
     const uploadInputRef = React.useRef<HTMLInputElement>(null);
     const promptBoxRef = React.useRef<HTMLDivElement>(null);
+    const recognitionRef = React.useRef<any>(null);
 
     const handleToggleChange = (value: string) => {
         if (value === "search") {
@@ -532,7 +540,35 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
 
     React.useEffect(() => {
         document.addEventListener("paste", handlePaste);
-        return () => document.removeEventListener("paste", handlePaste);
+
+        if (typeof window !== "undefined") {
+            const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                recognitionRef.current = new SpeechRecognition();
+                recognitionRef.current.continuous = true;
+                recognitionRef.current.interimResults = true;
+
+                recognitionRef.current.onresult = (event: any) => {
+                    const transcript = Array.from(event.results)
+                        .map((result: any) => result[0])
+                        .map((result: any) => result.transcript)
+                        .join("");
+                    setInput(transcript);
+                };
+
+                recognitionRef.current.onerror = (event: any) => {
+                    console.error("Speech recognition error", event.error);
+                    setIsRecording(false);
+                };
+            }
+        }
+
+        return () => {
+            document.removeEventListener("paste", handlePaste);
+            if (recognitionRef.current) {
+                recognitionRef.current.stop();
+            }
+        };
     }, [handlePaste]);
 
     const handleSubmit = () => {
@@ -549,12 +585,25 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
         }
     };
 
-    const handleStartRecording = () => console.log("Started recording");
+    const handleStartRecording = () => {
+        if (recognitionRef.current) {
+            try {
+                recognitionRef.current.start();
+            } catch (err) {
+                console.error("Error starting recognition:", err);
+            }
+        }
+    };
 
     const handleStopRecording = (duration: number) => {
-        console.log(`Stopped recording after ${duration} seconds`);
+        if (recognitionRef.current) {
+            try {
+                recognitionRef.current.stop();
+            } catch (err) {
+                console.error("Error stopping recognition:", err);
+            }
+        }
         setIsRecording(false);
-        onSend(`[Voice message - ${duration} seconds]`, []);
     };
 
     const hasContent = input.trim() !== "" || files.length > 0;
@@ -647,6 +696,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                         onStartRecording={handleStartRecording}
                         onStopRecording={handleStopRecording}
                         isDarkMode={isDarkMode}
+                        transcript={input}
                     />
                 )}
 

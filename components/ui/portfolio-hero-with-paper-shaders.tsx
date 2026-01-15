@@ -1,7 +1,7 @@
 "use client"
 
 import { Dithering } from "@paper-design/shaders-react"
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import RotatingEarth from "./wireframe-dotted-globe"
 import { PromptInputBox } from "./valgpt-input"
 import { streamMessageToGemini } from "@/lib/gemini"
@@ -40,6 +40,81 @@ export default function ResumePage() {
   const [currentQuestion, setCurrentQuestion] = useState("")
   const [currentResponse, setCurrentResponse] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [countdown, setCountdown] = useState<number | null>(10)
+  const [isAutoScrolling, setIsAutoScrolling] = useState(false)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const lastAutoScrollPos = useRef(0)
+
+  // Timer logic
+  useEffect(() => {
+    if (countdown === null || countdown <= 0) return
+
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev === null) return null
+        if (prev <= 1) return 0
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [countdown !== null && countdown > 0])
+
+  useEffect(() => {
+    if (countdown === 0) {
+      setIsAutoScrolling(true)
+      setCountdown(null)
+    }
+  }, [countdown])
+
+  // Scroll Handler: Reset countdown if back at top; cancel if scrolling elsewhere
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return
+
+      const scrollTop = scrollContainerRef.current.scrollTop
+
+      if (scrollTop < 10) {
+        // If we are at the top, we want to start counting down if we're not already
+        if (!isAutoScrolling && countdown === null) {
+          setCountdown(10)
+        }
+      } else {
+        // Not at top. If we were counting down, stop it.
+        if (countdown !== null) {
+          setCountdown(null)
+        }
+        // If we are auto-scrolling and the user manually scrolls significantly away from 
+        // the auto-scroll position, stop the auto-scroll.
+        if (isAutoScrolling && Math.abs(scrollTop - lastAutoScrollPos.current) > 10) {
+          setIsAutoScrolling(false)
+        }
+      }
+    }
+
+    const container = scrollContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [isAutoScrolling, countdown])
+
+  useEffect(() => {
+    if (isAutoScrolling && scrollContainerRef.current) {
+      const scrollInterval = setInterval(() => {
+        if (scrollContainerRef.current) {
+          const nextPos = scrollContainerRef.current.scrollTop + 0.5
+          scrollContainerRef.current.scrollTop = nextPos
+          lastAutoScrollPos.current = nextPos
+        }
+      }, 30)
+      return () => clearInterval(scrollInterval)
+    }
+  }, [isAutoScrolling])
 
   const handleSendMessage = async (message: string, files?: File[]) => {
     try {
@@ -48,7 +123,7 @@ export default function ResumePage() {
       setCurrentResponse("")
 
       // Portfolio context for the AI
-      const portfolioContext = `You are Valmik Nahata. Answer questions based as if you are Valmik Nahata.
+      const portfolioContext = `You are Valmik Nahata. Answer questions as if you are Valmik Nahata. Answer concisely and to the point.
 
 ABOUT VALMIK:
 Valmik Nahata is an undergraduate at UC San Diego. Since last year, he's been working on building AI systems that are both powerful and aligned, particularly around scaling, robustness (adversarial training, safety checks, etc.), and ethical considerations (bias mitigation, transparency, etc.), with the goal of accelerating scientific discovery. Most of his research involves large language models, multimodal AI, and autonomous agents, particularly around reasoning (chain-of-thought, tree search, etc.), alignment (RLHF, debate, etc.), and making inference more efficient (quantization, etc.).
@@ -70,7 +145,7 @@ SELECTED PAST WORKS:
 - Signly (ASL Finger-spelling Recognition), 2025
 - IndustryBench (Industry Vertical AI Evaluations with Georgia Tech's DuckAI group), 2025
 - Blume (Conversational AI for Departed Relatives), 2025
-- Economic Impacts of Transformative AI (1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint), 2025
+- The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence (1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint), 2025
 - Milwaukee Bucks Engagement Models (3rd at Milwaukee Bucks & Modine Manufacturing's Business Analytics Hackathon), 2025
 - POS QR Automation (Built for startup, Kaboo), 2024
 - Retrieval Augmented Generation for Pathology Reports (Co-authored Conference Poster & Manuscript), 2024
@@ -109,32 +184,76 @@ Answer questions naturally and conversationally based on this information. If as
   return (
     <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[14px]">
       <div
+        ref={scrollContainerRef}
         className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
       >
-        {/* Theme toggle button */}
-        <div className="absolute top-4 right-4 md:top-12 md:right-12 z-50 opacity-40 hover:opacity-100 transition-opacity">
-          <button
+        {/* Unified Top Header Line - Full Width */}
+        <div className="flex flex-row justify-between items-center mb-12 text-[11px] font-medium leading-none w-full">
+          {/* Left: Name */}
+          <div className="opacity-40 uppercase tracking-widest">Valmik Nahata</div>
+
+          {/* Center: Auto Scroll Indicator (Desktop Only) */}
+          <div className={`hidden md:block transition-opacity duration-300 absolute left-1/2 -translate-x-1/2 ${countdown !== null ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="opacity-40 uppercase tracking-widest pointer-events-none">
+              auto scroll {countdown}s
+            </div>
+          </div>
+
+          {/* Right: Theme Toggle */}
+          <div
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-1"
-            aria-label="Toggle theme"
+            className="hidden md:flex opacity-40 hover:opacity-100 transition-opacity items-center gap-2 cursor-pointer group uppercase tracking-widest"
           >
-            {isDarkMode ? (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="12" cy="12" r="5" />
-                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-              </svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-              </svg>
-            )}
-          </button>
+            <span>
+              {isDarkMode ? "Dark Mode" : "Light Mode"}
+            </span>
+            <button
+              className="group-active:scale-95 transition-transform flex items-center justify-center -mt-[1px]"
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="12" cy="12" r="5" />
+                  <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                </svg>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
 
         <div className="max-w-xl mx-auto md:mx-0">
           {/* Header Section */}
           <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Valmik Nahata</div>
+
+            {/* Unified Top Header Line */}
+            {/* Mobile Theme Toggle (visible only on mobile) */}
+
+            {/* Mobile Theme Toggle (visible only on mobile) */}
+            <div
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="absolute top-4 right-4 md:hidden z-50 opacity-40 hover:opacity-100 transition-opacity flex items-center gap-2 cursor-pointer group"
+            >
+              <button
+                className="group-active:scale-95 transition-transform flex items-center justify-center"
+                aria-label="Toggle theme"
+              >
+                {isDarkMode ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="5" />
+                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                  </svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                  </svg>
+                )}
+              </button>
+            </div>
+
             <div className="flex flex-col items-center -ml-4 md:-ml-8 relative">
               <RotatingEarth width={380} height={380} className="opacity-80" isDarkMode={isDarkMode} />
               <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md z-20 -mt-5 ${isDarkMode
@@ -237,7 +356,7 @@ Answer questions naturally and conversationally based on this information. If as
                     { name: "Signly", desc: "ASL Finger-spelling Recognition", date: "2025" },
                     { name: "IndustryBench", desc: "Industry Vertical AI Evaluations with Georgia Tech's DuckAI group", date: "2025" },
                     { name: "Blume", desc: "Conversational AI for Departed Relatives", date: "2025" },
-                    { name: "Economic Impacts of Transformative AI", desc: "1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint", href: "https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql", date: "2025" },
+                    { name: "The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence", desc: "1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint", href: "https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql", date: "2025" },
                     { name: "Milwaukee Bucks Engagement Models", desc: "3rd at Milwaukee Bucks & Modine Manufacturing's Business Analytics Hackathon", href: "https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego", date: "2025" },
                     { name: "POS QR Automation", desc: "Built for startup, Kaboo", date: "2024" },
                     { name: "Retrieval Augmented Generation for Pathology Reports", desc: "Co-authored Conference Poster & Manuscript", date: "2024" },
@@ -305,7 +424,7 @@ Answer questions naturally and conversationally based on this information. If as
         </div>
       </div>
 
-      <div className="hidden md:block md:w-1/2 relative bg-white dark:bg-[#0a0a0a] border-l border-black/5 dark:border-white/5">
+      <div className="hidden md:block md:w-1/2 relative bg-white dark:bg-[#0a0a0a]">
         <Dithering
           style={{ height: "100%", width: "100%" }}
           colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
