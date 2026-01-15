@@ -74,19 +74,15 @@ export default function ResumePage() {
 
       const scrollTop = scrollContainerRef.current.scrollTop
 
-      if (scrollTop < 20) {
-        // If we are at the top, we want to start counting down if we're not already
+      if (scrollTop < 30) {
         if (!isAutoScrolling && countdown === null) {
           setCountdown(10)
         }
       } else {
-        // Not at top. If we were counting down, stop it.
         if (countdown !== null) {
           setCountdown(null)
         }
-        // If we are auto-scrolling and the user manually scrolls significantly away from 
-        // the auto-scroll position, stop the auto-scroll.
-        if (isAutoScrolling && Math.abs(scrollTop - lastAutoScrollPos.current) > 40) {
+        if (isAutoScrolling && Math.abs(scrollTop - lastAutoScrollPos.current) > 50) {
           setIsAutoScrolling(false)
         }
       }
@@ -182,19 +178,22 @@ Answer questions naturally and conversationally based on this information. If as
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[14px]">
+    <div className="relative h-[100dvh] overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[14px]">
       <div
         ref={scrollContainerRef}
-        className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
+        className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-full overflow-y-auto hide-scrollbar overscroll-contain touch-pan-y ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
+        style={{ WebkitOverflowScrolling: 'touch' }}
       >
         {/* Unified Top Header Line - Full Width */}
-        <div className="flex flex-row justify-between items-center mb-12 text-[11px] font-medium leading-none w-full">
+        <div className="flex flex-row justify-between items-center mb-12 text-[8px] sm:text-[11px] font-medium leading-none w-full relative">
           {/* Left: Name */}
-          <div className="opacity-40 uppercase tracking-widest">Valmik Nahata</div>
+          <div className="opacity-40 uppercase tracking-widest shrink-0">
+            Valmik Nahata
+          </div>
 
           {/* Center: Auto Scroll Indicator */}
-          <div className={`transition-opacity duration-300 absolute left-1/2 -translate-x-1/2 ${countdown !== null ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="opacity-40 uppercase tracking-widest pointer-events-none whitespace-nowrap">
+          <div className={`transition-opacity duration-300 absolute left-1/2 -translate-x-1/2 pointer-events-none ${countdown !== null ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="opacity-40 uppercase tracking-widest whitespace-nowrap text-center">
               auto scroll {countdown}s
             </div>
           </div>
@@ -202,22 +201,25 @@ Answer questions naturally and conversationally based on this information. If as
           {/* Right: Theme Toggle */}
           <div
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="flex opacity-40 hover:opacity-100 transition-opacity items-center gap-2 cursor-pointer group uppercase tracking-widest shrink-0"
+            className="flex opacity-40 hover:opacity-100 transition-opacity items-center gap-1.5 md:gap-2 cursor-pointer group uppercase tracking-widest shrink-0"
           >
-            <span>
+            <span className="hidden sm:inline">
               {isDarkMode ? "Dark Mode" : "Light Mode"}
+            </span>
+            <span className="sm:hidden">
+              {isDarkMode ? "Dark" : "Light"}
             </span>
             <button
               className="group-active:scale-95 transition-transform flex items-center justify-center -mt-[1px]"
               aria-label="Toggle theme"
             >
               {isDarkMode ? (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="sm:w-4 sm:h-4">
                   <circle cx="12" cy="12" r="5" />
                   <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
                 </svg>
               ) : (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="sm:w-4 sm:h-4">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 </svg>
               )}
@@ -299,65 +301,37 @@ Answer questions naturally and conversationally based on this information. If as
           {/* Projects Section */}
           <div className="mb-12">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Projects</div>
-            <div className="space-y-6 opacity-80">
-              <div>
-                <div className="opacity-40 mb-2 text-[11px] italic">Active</div>
-                <div className="space-y-1.5">
-                  <div className="flex flex-row justify-between items-baseline gap-4">
-                    <TooltipItem
-                      name="LLMs Chain-of-Thought in Clinical Usage"
-                      description="Harvard & MGH Thesis"
-                      isDarkMode={isDarkMode}
-                      className="font-medium shrink"
-                    />
-                    <span className="opacity-50 tabular-nums shrink-0">2025—Present</span>
-                  </div>
-                  <div className="flex flex-row justify-between items-baseline gap-4">
-                    <TooltipItem
-                      name="Labry"
-                      description="Democratizing Research"
-                      href="https://www.linkedin.com/company/labry-research"
-                      isDarkMode={isDarkMode}
-                      className="font-medium shrink"
-                    />
-                    <span className="opacity-50 tabular-nums shrink-0">2025—Present</span>
-                  </div>
+            <div className="space-y-1.5 opacity-80">
+              {[
+                { name: "LLMs Chain-of-Thought in Clinical Usage", desc: "Harvard & MGH Thesis", date: "2025—Present" },
+                { name: "Labry", desc: "Democratizing Research", href: "https://www.linkedin.com/company/labry-research", date: "2025—Present" },
+                { name: "GeoCheater", desc: "AI Guessing for WorldGuessr", date: "2026" },
+                { name: "3D Carbon Timeline", desc: "Astronomy of Climate Change Final Project", date: "2025" },
+                { name: "Signly", desc: "ASL Finger-spelling Recognition", date: "2025" },
+                { name: "IndustryBench", desc: "Industry Vertical AI Evaluations with Georgia Tech's DuckAI group", date: "2025" },
+                { name: "Blume", desc: "Conversational AI for Departed Relatives", date: "2025" },
+                { name: "The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence", desc: "1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint", href: "https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql", date: "2025" },
+                { name: "Milwaukee Bucks Engagement Models", desc: "3rd at Milwaukee Bucks & Modine Manufacturing's Business Analytics Hackathon", href: "https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego", date: "2025" },
+                { name: "POS QR Automation", desc: "Built for startup, Kaboo", date: "2024" },
+                { name: "Retrieval Augmented Generation for Pathology Reports", desc: "Co-authored Conference Poster & Manuscript", date: "2024" },
+                { name: "A Statistical Analysis of Crab Pulsar Giant Pulse Rates", desc: "Co-authored ApJ Publication", href: "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304", date: "2024" },
+                { name: "Cover Edge-Based Triangle Counting", desc: "Co-authored MDPI Publication", href: "https://www.mdpi.com/1999-4893/18/11/685", date: "2024" },
+                { name: "Steam Trading Automations", desc: "$6K Profit from TF2 & CS:GO Assets", date: "2023" },
+                { name: "Tree-Plenish Data Pipeline", desc: "Financial Automation", date: "2023" },
+                { name: "IoT Weather System", desc: "1st at TCNJ's Hack-Io-Thon", date: "2023" },
+                { name: "Node2Node", desc: "Gamified Pathfinding Algorithms", date: "2022" },
+              ].map((project) => (
+                <div key={project.name} className="flex flex-row justify-between items-baseline gap-4">
+                  <TooltipItem
+                    name={project.name}
+                    description={project.desc}
+                    href={project.href}
+                    isDarkMode={isDarkMode}
+                    className="font-medium shrink"
+                  />
+                  <span className="opacity-50 tabular-nums shrink-0 text-right">{project.date}</span>
                 </div>
-              </div>
-
-              <div>
-                <div className="opacity-40 mb-2 text-[11px] italic">Selected Past Works</div>
-                <div className="space-y-1.5">
-                  {[
-                    { name: "GeoCheater", desc: "AI Guessing for WorldGuessr", date: "2026" },
-                    { name: "3D Carbon Timeline", desc: "Astronomy of Climate Change Final Project", date: "2025" },
-                    { name: "Signly", desc: "ASL Finger-spelling Recognition", date: "2025" },
-                    { name: "IndustryBench", desc: "Industry Vertical AI Evaluations with Georgia Tech's DuckAI group", date: "2025" },
-                    { name: "Blume", desc: "Conversational AI for Departed Relatives", date: "2025" },
-                    { name: "The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence", desc: "1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint", href: "https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql", date: "2025" },
-                    { name: "Milwaukee Bucks Engagement Models", desc: "3rd at Milwaukee Bucks & Modine Manufacturing's Business Analytics Hackathon", href: "https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego", date: "2025" },
-                    { name: "POS QR Automation", desc: "Built for startup, Kaboo", date: "2024" },
-                    { name: "Retrieval Augmented Generation for Pathology Reports", desc: "Co-authored Conference Poster & Manuscript", date: "2024" },
-                    { name: "A Statistical Analysis of Crab Pulsar Giant Pulse Rates", desc: "Co-authored ApJ Publication", href: "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304", date: "2024" },
-                    { name: "Cover Edge-Based Triangle Counting", desc: "Co-authored MDPI Publication", href: "https://www.mdpi.com/1999-4893/18/11/685", date: "2024" },
-                    { name: "Steam Trading Automations", desc: "$6K Profit from TF2 & CS:GO Assets", date: "2023" },
-                    { name: "Tree-Plenish Data Pipeline", desc: "Financial Automation", date: "2023" },
-                    { name: "IoT Weather System", desc: "1st at TCNJ's Hack-Io-Thon", date: "2023" },
-                    { name: "Node2Node", desc: "Gamified Pathfinding Algorithms", date: "2022" },
-                  ].map((project) => (
-                    <div key={project.name} className="flex flex-row justify-between items-baseline gap-4">
-                      <TooltipItem
-                        name={project.name}
-                        description={project.desc}
-                        href={project.href}
-                        isDarkMode={isDarkMode}
-                        className="shrink"
-                      />
-                      <span className="opacity-50 tabular-nums shrink-0 text-right">{project.date}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
