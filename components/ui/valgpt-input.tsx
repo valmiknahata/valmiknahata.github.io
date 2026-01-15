@@ -438,7 +438,7 @@ const PromptInputAction: React.FC<PromptInputActionProps> = ({
 const CustomDivider: React.FC<{ isDarkMode?: boolean }> = ({ isDarkMode = false }) => (
     <div className="relative h-6 w-[1.5px] mx-1">
         <div
-            className={cn("absolute inset-0 rounded-full", isDarkMode ? "bg-gradient-to-t from-transparent via-[#9b87f5]/70 to-transparent" : "bg-gradient-to-t from-transparent via-[hsl(220,100%,70%)]/70 to-transparent")}
+            className={cn("absolute inset-0 rounded-full", isDarkMode ? "bg-gradient-to-t from-transparent via-[hsl(320,100%,70%)]/70 to-transparent" : "bg-gradient-to-t from-transparent via-[hsl(220,100%,70%)]/70 to-transparent")}
             style={{
                 clipPath: "polygon(0% 0%, 100% 0%, 100% 40%, 140% 50%, 100% 60%, 100% 100%, 0% 100%, 0% 60%, -40% 50%, 0% 40%)",
             }}
@@ -506,7 +506,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     const handleSubmit = () => {
         if (input.trim()) {
             let messagePrefix = "";
-            if (showThink) messagePrefix = "[Gemini Pro: ";
+            if (showThink) messagePrefix = "[Deep Thinking: ";
             const formattedInput = messagePrefix ? `${messagePrefix}${input}]` : input;
             onSend(formattedInput);
             setInput("");
@@ -542,7 +542,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     const textColor = isDarkMode ? "text-gray-100" : "text-gray-900";
     const iconColor = isDarkMode ? "text-[#9CA3AF]" : "text-gray-600";
     const iconHoverColor = isDarkMode ? "hover:text-[#D1D5DB]" : "hover:text-gray-900";
-    const thinkColor = isDarkMode ? "#8B5CF6" : "hsl(280, 100%, 70%)";
+    const thinkColor = isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 100%, 70%)";
 
     return (
         <>
@@ -570,7 +570,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                     <PromptInputTextarea
                         placeholder={
                             showThink
-                                ? "Ask Gemini Pro anything..."
+                                ? "Ask ValGPT (Beta) anything..."
                                 : placeholder
                         }
                         className={cn("text-base", textColor)}
@@ -625,7 +625,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                                             className="text-xs overflow-hidden whitespace-nowrap flex-shrink-0"
                                             style={{ color: thinkColor }}
                                         >
-                                            Gemini Pro
+                                            Deep Thinking
                                         </motion.span>
                                     )}
                                 </AnimatePresence>
