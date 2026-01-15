@@ -573,7 +573,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                     <PromptInputTextarea
                         placeholder={
                             showThink
-                                ? "Ask VAL AI anything..."
+                                ? "Ask me anything about Valmik Nahata"
                                 : placeholder
                         }
                         className={cn("text-base font-serif", textColor)}
