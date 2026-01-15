@@ -295,13 +295,13 @@ Answer questions naturally and conversationally based on this information. If as
                 : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
                 }`}>
                 <Sparkles className={`w-3 h-3 ${isDarkMode ? "text-[hsl(320,100%,70%)]" : "text-[hsl(220,100%,70%)]"}`} />
-                Valmik AI
+                Valmik AI (BETA)
               </div>
             </div>
             <div>
               <PromptInputBox
                 isDarkMode={isDarkMode}
-                placeholder="Ask me anything about Valmik Nahata"
+                placeholder="Ask me anything about Valmik..."
                 onSend={handleSendMessage}
                 isLoading={isLoading}
               />
