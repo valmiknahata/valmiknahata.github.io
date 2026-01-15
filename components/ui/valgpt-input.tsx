@@ -226,9 +226,13 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
                     />
                 ))}
             </div>
-            {transcript && (
-                <div className={cn("mt-4 text-center px-6 max-h-20 overflow-y-auto text-sm italic", isDarkMode ? "text-white/60" : "text-gray-600/60")}>
-                    "{transcript}..."
+            {transcript ? (
+                <div className={cn("mt-2 text-center px-6 max-h-32 overflow-y-auto text-base leading-relaxed font-serif", isDarkMode ? "text-white/90" : "text-gray-800/90")}>
+                    "{transcript}"
+                </div>
+            ) : (
+                <div className={cn("mt-2 text-center px-6 text-sm opacity-50 italic font-serif", isDarkMode ? "text-white" : "text-gray-600")}>
+                    Speak now...
                 </div>
             )}
         </div>
@@ -471,38 +475,6 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
 
     React.useEffect(() => {
         document.addEventListener("paste", handlePaste);
-
-        if (typeof window !== "undefined") {
-            const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-            if (SpeechRecognition) {
-                const recognition = new SpeechRecognition();
-                recognition.continuous = true;
-                recognition.interimResults = true;
-
-                recognition.onresult = (event: any) => {
-                    let fullTranscript = "";
-                    for (let i = 0; i < event.results.length; i++) {
-                        fullTranscript += event.results[i][0].transcript;
-                    }
-                    setInput(fullTranscript);
-                };
-
-                recognition.onerror = (event: any) => {
-                    console.error("Speech recognition error", event.error);
-                    if (event.error === 'not-allowed') {
-                        alert("Microphone access denied. Please enable it in your browser settings.");
-                    }
-                    setIsRecording(false);
-                };
-
-                recognition.onend = () => {
-                    setIsRecording(false);
-                };
-
-                recognitionRef.current = recognition;
-            }
-        }
-
         return () => {
             document.removeEventListener("paste", handlePaste);
             if (recognitionRef.current) {
@@ -522,11 +494,45 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     };
 
     const handleStartRecording = () => {
-        if (recognitionRef.current) {
-            try {
-                recognitionRef.current.start();
-            } catch (err) {
-                console.error("Error starting recognition:", err);
+        if (typeof window !== "undefined") {
+            const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                const recognition = new SpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.lang = "en-US";
+
+                recognition.onresult = (event: any) => {
+                    let fullTranscript = "";
+                    for (let i = 0; i < event.results.length; i++) {
+                        fullTranscript += event.results[i][0].transcript;
+                    }
+                    if (fullTranscript.trim()) {
+                        setInput(fullTranscript);
+                    }
+                };
+
+                recognition.onerror = (event: any) => {
+                    console.error("Speech recognition error", event.error);
+                    if (event.error === 'not-allowed') {
+                        alert("Microphone access denied. Please enable it in your browser settings.");
+                    }
+                    setIsRecording(false);
+                };
+
+                recognition.onend = () => {
+                    setIsRecording(false);
+                };
+
+                try {
+                    recognition.start();
+                    recognitionRef.current = recognition;
+                } catch (err) {
+                    console.error("Error starting recognition:", err);
+                }
+            } else {
+                alert("Speech recognition is not supported in this browser.");
+                setIsRecording(false);
             }
         }
     };
@@ -539,7 +545,8 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                 console.error("Error stopping recognition:", err);
             }
         }
-        setIsRecording(false);
+        // Small delay to ensure the last transcript is captured before closing
+        setTimeout(() => setIsRecording(false), 200);
     };
 
     const hasContent = input.trim() !== "";
