@@ -129,13 +129,13 @@ Answer questions naturally and conversationally based on this information. If as
         className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
       >
         {/* Unified Top Header Line - Full Width */}
-        <div className="flex flex-row justify-between items-center mb-12 text-[11px] font-medium leading-none w-full">
+        <div className="flex flex-row justify-between items-center mb-12 text-[9px] min-[400px]:text-[11px] font-medium leading-none w-full relative">
           {/* Left: Name */}
-          <div className="opacity-40 uppercase tracking-widest hidden min-[400px]:block">Valmik Nahata</div>
+          <div className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10">Valmik Nahata</div>
 
           {/* Center: PST Time */}
-          <div className="absolute left-1/2 -translate-x-1/2">
-            <div className="opacity-40 uppercase tracking-widest pointer-events-none whitespace-nowrap">
+          <div className="absolute left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">
+            <div className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap">
               PST {currentTime}
             </div>
           </div>
@@ -143,10 +143,10 @@ Answer questions naturally and conversationally based on this information. If as
           {/* Right: Theme Toggle */}
           <div
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="flex opacity-40 hover:opacity-100 transition-opacity items-center gap-2 cursor-pointer group uppercase tracking-widest shrink-0"
+            className="flex items-center gap-1 min-[400px]:gap-2 group cursor-pointer z-10"
           >
-            <span className="hidden min-[400px]:block">
-              {isDarkMode ? "Dark Mode" : "Light Mode"}
+            <span className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest">
+              {isDarkMode ? "Dark" : "Light"}
             </span>
             <button
               className="group-active:scale-95 transition-transform flex items-center justify-center -mt-[1px]"
