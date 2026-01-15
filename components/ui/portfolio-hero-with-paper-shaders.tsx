@@ -185,6 +185,15 @@ Answer questions naturally and conversationally based on this information. If as
             </div>
           </div>
 
+          {/* Bio Section */}
+          <div className="mb-14 leading-7 opacity-85 text-justify">
+            <p>
+              I'm Valmik Nahata, an undergraduate at UC San Diego. Since last year, I've been working on building AI systems that are both powerful and aligned, particularly around scaling, robustness (adversarial training, safety checks, etc.), and ethical considerations (bias mitigation, transparency, etc.), with the goal of accelerating scientific discovery. Most of my research involves large language models, multimodal AI, and autonomous agents, particularly around reasoning (chain-of-thought, tree search, etc.), alignment (RLHF, debate, etc.), and making inference more efficient (quantization, etc.).
+              <br /><br />
+              I grew up in Jersey and now live in California, but I'll always be a New Yorker at heart. When I'm not working on AI, you'll find me speedsolving Rubik's cubes (everything from 2x2 through 7x7, plus pyraminx, megaminx, and mirror cubes). I also spent years playing violin, working through Paganini's Caprices and Bach's Partitas, though my favorite piece will always be Mendelssohn's Violin Concerto in E Minor. And for whatever reason, I've developed a thing for collecting old coins, anything from the 1800s onward really.
+            </p>
+          </div>
+
           {/* ValGPT Section */}
           <div className="mb-12">
             <div className="mt-4">
@@ -210,15 +219,6 @@ Answer questions naturally and conversationally based on this information. If as
                 )}
               </div>
             )}
-          </div>
-
-          {/* Bio Section */}
-          <div className="mb-14 leading-7 opacity-85 text-justify">
-            <p>
-              I'm Valmik Nahata, an undergraduate at UC San Diego. Since last year, I've been working on building AI systems that are both powerful and aligned, particularly around scaling, robustness (adversarial training, safety checks, etc.), and ethical considerations (bias mitigation, transparency, etc.), with the goal of accelerating scientific discovery. Most of my research involves large language models, multimodal AI, and autonomous agents, particularly around reasoning (chain-of-thought, tree search, etc.), alignment (RLHF, debate, etc.), and making inference more efficient (quantization, etc.).
-              <br /><br />
-              I grew up in Jersey and now live in California, but I'll always be a New Yorker at heart. When I'm not working on AI, you'll find me speedsolving Rubik's cubes (everything from 2x2 through 7x7, plus pyraminx, megaminx, and mirror cubes). I also spent years playing violin, working through Paganini's Caprices and Bach's Partitas, though my favorite piece will always be Mendelssohn's Violin Concerto in E Minor. And for whatever reason, I've developed a thing for collecting old coins, anything from the 1800s onward really.
-            </p>
           </div>
 
           {/* Occupations Section */}
