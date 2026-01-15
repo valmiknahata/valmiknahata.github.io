@@ -185,6 +185,33 @@ Answer questions naturally and conversationally based on this information. If as
             </div>
           </div>
 
+          {/* ValGPT Section */}
+          <div className="mb-12">
+            <div className="mt-4">
+              <PromptInputBox
+                isDarkMode={isDarkMode}
+                placeholder="Ask ValGPT (Beta) anything..."
+                onSend={handleSendMessage}
+                isLoading={isLoading}
+              />
+            </div>
+
+            {/* Current Question & Answer Display */}
+            {currentQuestion && (
+              <div className="mt-6 space-y-3">
+                <div className="opacity-40 uppercase tracking-widest text-[11px] font-medium text-center">
+                  {currentQuestion}
+                </div>
+                {currentResponse && (
+                  <div className="leading-7 opacity-80 text-center">
+                    {currentResponse}
+                    {isLoading && <span className="inline-block w-1 h-3.5 bg-current animate-pulse ml-0.5 align-middle" />}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
           {/* Bio Section */}
           <div className="mb-14 leading-7 opacity-85 text-justify">
             <p>
@@ -275,36 +302,10 @@ Answer questions naturally and conversationally based on this information. If as
           </div>
 
 
-          {/* ValGPT Section */}
+          {/* Contact Section */}
           <div className="mb-12">
-            <div className="mt-4">
-              <PromptInputBox
-                isDarkMode={isDarkMode}
-                placeholder="Ask ValGPT anything..."
-                onSend={handleSendMessage}
-                isLoading={isLoading}
-              />
-            </div>
-
-            {/* Current Question & Answer Display */}
-            {currentQuestion && (
-              <div className="mt-6 space-y-3">
-                <div className="opacity-40 uppercase tracking-widest text-[11px] font-medium">
-                  {currentQuestion}
-                </div>
-                {currentResponse && (
-                  <div className="leading-7 opacity-80">
-                    {currentResponse}
-                    {isLoading && <span className="inline-block w-1 h-3.5 bg-current animate-pulse ml-0.5 align-middle" />}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Links / Footer */}
-          <div className="mb-12 opacity-60">
-            <div className="flex gap-4">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Contact</div>
+            <div className="flex gap-4 opacity-60">
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className="hover:opacity-100 transition-opacity">LinkedIn</a>
               <a href="mailto:vnahata@ucsd.edu" className="hover:opacity-100 transition-opacity">Email</a>
               <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ&hl=en" target="_blank" className="hover:opacity-100 transition-opacity">Google Scholar</a>
