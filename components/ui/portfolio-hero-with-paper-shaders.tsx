@@ -166,14 +166,14 @@ Answer questions naturally and conversationally based on this information. If as
           </div>
         </div>
 
-        <div className="max-w-xl mx-auto md:mx-0">
+        <div className="max-w-xl mx-auto">
           {/* Header Section */}
           <div className="mb-12">
 
             {/* Unified Top Header Line */}
 
 
-            <div className="flex flex-col items-center -ml-4 md:-ml-8 relative">
+            <div className="flex flex-col items-center relative">
               <RotatingEarth width={380} height={380} className="opacity-80" isDarkMode={isDarkMode} />
               <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md z-20 -mt-5 ${isDarkMode
                 ? "bg-neutral-900 text-neutral-400 border border-neutral-800"
