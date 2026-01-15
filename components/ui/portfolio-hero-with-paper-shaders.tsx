@@ -40,77 +40,23 @@ export default function ResumePage() {
   const [currentQuestion, setCurrentQuestion] = useState("")
   const [currentResponse, setCurrentResponse] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [countdown, setCountdown] = useState<number | null>(10)
-  const [isAutoScrolling, setIsAutoScrolling] = useState(false)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const lastAutoScrollPos = useRef(0)
+  const [currentTime, setCurrentTime] = useState<string>("")
 
-  // Timer logic
   useEffect(() => {
-    if (countdown === null || countdown <= 0) return
-
     const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev === null) return null
-        if (prev <= 1) return 0
-        return prev - 1
-      })
-    }, 1000)
+      const now = new Date();
+      const pdtString = now.toLocaleTimeString('en-US', {
+        timeZone: 'America/Los_Angeles',
+        hour12: true,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      setCurrentTime(pdtString);
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [countdown !== null && countdown > 0])
-
-  useEffect(() => {
-    if (countdown === 0) {
-      setIsAutoScrolling(true)
-      setCountdown(null)
-    }
-  }, [countdown])
-
-  // Scroll Handler: Reset countdown if back at top; cancel if scrolling elsewhere
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!scrollContainerRef.current) return
-
-      const scrollTop = scrollContainerRef.current.scrollTop
-
-      if (scrollTop < 30) {
-        if (!isAutoScrolling && countdown === null) {
-          setCountdown(10)
-        }
-      } else {
-        if (countdown !== null) {
-          setCountdown(null)
-        }
-        if (isAutoScrolling && Math.abs(scrollTop - lastAutoScrollPos.current) > 50) {
-          setIsAutoScrolling(false)
-        }
-      }
-    }
-
-    const container = scrollContainerRef.current
-    if (container) {
-      container.addEventListener('scroll', handleScroll)
-    }
-    return () => {
-      if (container) {
-        container.removeEventListener('scroll', handleScroll)
-      }
-    }
-  }, [isAutoScrolling, countdown])
-
-  useEffect(() => {
-    if (isAutoScrolling && scrollContainerRef.current) {
-      const scrollInterval = setInterval(() => {
-        if (scrollContainerRef.current) {
-          const nextPos = scrollContainerRef.current.scrollTop + 0.5
-          scrollContainerRef.current.scrollTop = nextPos
-          lastAutoScrollPos.current = nextPos
-        }
-      }, 30)
-      return () => clearInterval(scrollInterval)
-    }
-  }, [isAutoScrolling])
+    return () => clearInterval(timer);
+  }, []);
 
   const handleSendMessage = async (message: string, files?: File[]) => {
     try {
@@ -178,48 +124,41 @@ Answer questions naturally and conversationally based on this information. If as
   }
 
   return (
-    <div className="relative h-[100dvh] overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[14px]">
+    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[14px]">
       <div
-        ref={scrollContainerRef}
-        className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-full overflow-y-auto hide-scrollbar overscroll-contain touch-pan-y ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
-        style={{ WebkitOverflowScrolling: 'touch' }}
+        className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
       >
         {/* Unified Top Header Line - Full Width */}
-        <div className="flex flex-row justify-between items-center mb-12 text-[8px] sm:text-[11px] font-medium leading-none w-full relative">
+        <div className="flex flex-row justify-between items-center mb-12 text-[11px] font-medium leading-none w-full">
           {/* Left: Name */}
-          <div className="opacity-40 uppercase tracking-widest shrink-0">
-            Valmik Nahata
-          </div>
+          <div className="opacity-40 uppercase tracking-widest">Valmik Nahata</div>
 
-          {/* Center: Auto Scroll Indicator */}
-          <div className={`transition-opacity duration-300 absolute left-1/2 -translate-x-1/2 pointer-events-none ${countdown !== null ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="opacity-40 uppercase tracking-widest whitespace-nowrap text-center">
-              auto scroll {countdown}s
+          {/* Center: PST Time */}
+          <div className="hidden sm:block absolute left-1/2 -translate-x-1/2">
+            <div className="opacity-40 uppercase tracking-widest pointer-events-none whitespace-nowrap">
+              PST {currentTime}
             </div>
           </div>
 
           {/* Right: Theme Toggle */}
           <div
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="flex opacity-40 hover:opacity-100 transition-opacity items-center gap-1.5 md:gap-2 cursor-pointer group uppercase tracking-widest shrink-0"
+            className="flex opacity-40 hover:opacity-100 transition-opacity items-center gap-2 cursor-pointer group uppercase tracking-widest shrink-0"
           >
-            <span className="hidden sm:inline">
+            <span>
               {isDarkMode ? "Dark Mode" : "Light Mode"}
-            </span>
-            <span className="sm:hidden">
-              {isDarkMode ? "Dark" : "Light"}
             </span>
             <button
               className="group-active:scale-95 transition-transform flex items-center justify-center -mt-[1px]"
               aria-label="Toggle theme"
             >
               {isDarkMode ? (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="sm:w-4 sm:h-4">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <circle cx="12" cy="12" r="5" />
                   <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
                 </svg>
               ) : (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="sm:w-4 sm:h-4">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 </svg>
               )}
