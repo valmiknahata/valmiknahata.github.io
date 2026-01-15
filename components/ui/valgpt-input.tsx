@@ -653,23 +653,21 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                             variant="ghost"
                             size="icon"
                             className={cn(
-                                "h-8 w-8 rounded-full transition-all duration-200",
+                                "h-8 w-8 rounded-full transition-all duration-200 border backdrop-blur-sm",
                                 isRecording
-                                    ? `text-red-500 hover:text-red-400`
+                                    ? `text-red-500 hover:text-red-400 border-transparent bg-transparent`
                                     : hasContent
                                         ? isDarkMode
-                                            ? "text-[#1F2023]"
-                                            : "text-white"
+                                            ? "text-[#1F2023] border-transparent"
+                                            : "text-white border-transparent"
                                         : isDarkMode
-                                            ? `text-[#9CA3AF] hover:text-[#D1D5DB]`
-                                            : `text-gray-600 hover:text-gray-900`
+                                            ? `text-[hsl(320,100%,70%)] border-[hsl(320,100%,70%)]/30 bg-[hsl(320,100%,70%)]/10`
+                                            : `text-[hsl(220,100%,70%)] border-[hsl(220,100%,70%)]/30 bg-[hsl(220,100%,70%)]/10`
                             )}
                             style={{
-                                backgroundColor: isRecording
-                                    ? 'transparent'
-                                    : hasContent
-                                        ? (isDarkMode ? '#ffffff' : '#141414')
-                                        : 'transparent'
+                                backgroundColor: !isRecording && hasContent
+                                    ? (isDarkMode ? '#ffffff' : '#141414')
+                                    : undefined
                             }}
                             onClick={() => {
                                 if (isRecording) setIsRecording(false);
