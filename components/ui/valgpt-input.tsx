@@ -42,7 +42,7 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, ...props }, ref) => (
     <textarea
         className={cn(
-            "flex w-full rounded-md border-none bg-transparent px-3 py-2.5 text-base placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px] resize-none scrollbar-thin scrollbar-thumb-[#444444] scrollbar-track-transparent hover:scrollbar-thumb-[#555555]",
+            "flex w-full rounded-md border-none bg-transparent px-3 py-2.5 text-base placeholder:text-gray-400/60 focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px] resize-none scrollbar-thin scrollbar-thumb-[#444444] scrollbar-track-transparent hover:scrollbar-thumb-[#555555] font-serif",
             className
         )}
         ref={ref}
@@ -537,8 +537,10 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     const hasContent = input.trim() !== "";
 
     // Color schemes based on dark mode
-    const bgColor = isDarkMode ? "bg-[#1F2023]" : "bg-white";
-    const borderColor = isDarkMode ? "border-[#444444]" : "border-neutral-300";
+    // Glossy glass color schemes
+    const glassBg = isDarkMode ? "bg-white/[0.08]" : "bg-black/[0.05]";
+    const glassBlur = "backdrop-blur-xl";
+    const glassBorder = isDarkMode ? "border-white/[0.15]" : "border-black/[0.1]";
     const textColor = isDarkMode ? "text-gray-100" : "text-gray-900";
     const iconColor = isDarkMode ? "text-[#9CA3AF]" : "text-gray-600";
     const iconHoverColor = isDarkMode ? "hover:text-[#D1D5DB]" : "hover:text-gray-900";
@@ -552,9 +554,10 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                 isLoading={isLoading}
                 onSubmit={handleSubmit}
                 className={cn(
-                    "w-full shadow-[0_8px_30px_rgba(0,0,0,0.24)] transition-all duration-300 ease-in-out",
-                    bgColor,
-                    borderColor,
+                    "w-full shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out",
+                    glassBg,
+                    glassBlur,
+                    glassBorder,
                     isRecording && "border-red-500/70",
                     className
                 )}
@@ -570,10 +573,10 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                     <PromptInputTextarea
                         placeholder={
                             showThink
-                                ? "Ask ValGPT (Beta) anything..."
+                                ? "Ask ValGPT anything..."
                                 : placeholder
                         }
-                        className={cn("text-base", textColor)}
+                        className={cn("text-base font-serif", textColor)}
                     />
                 </div>
 
@@ -599,12 +602,14 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                                 type="button"
                                 onClick={handleToggleChange}
                                 className={cn(
-                                    "rounded-full transition-all flex items-center gap-1 px-2 py-1 border h-8",
+                                    "rounded-full transition-all flex items-center gap-1 px-2 py-1 border h-8 backdrop-blur-md",
                                     showThink
-                                        ? `bg-[${thinkColor}]/15 border-[${thinkColor}] text-[${thinkColor}]`
+                                        ? isDarkMode
+                                            ? `bg-[hsl(320,100%,70%)]/10 border-[hsl(320,100%,70%)]/30 text-[hsl(320,100%,70%)]`
+                                            : `bg-[hsl(220,100%,70%)]/10 border-[hsl(220,100%,70%)]/30 text-[hsl(220,100%,70%)]`
                                         : `bg-transparent border-transparent ${iconColor} ${iconHoverColor}`
                                 )}
-                                style={showThink ? { backgroundColor: `${thinkColor}15`, borderColor: thinkColor, color: thinkColor } : {}}
+                                style={showThink ? { color: thinkColor } : {}}
                             >
                                 <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                                     <motion.div
