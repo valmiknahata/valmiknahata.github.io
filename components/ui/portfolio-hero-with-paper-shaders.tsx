@@ -199,7 +199,7 @@ Answer questions naturally and conversationally based on this information. If as
             <div className="mt-4">
               <PromptInputBox
                 isDarkMode={isDarkMode}
-                placeholder="Ask ValGPT (Beta) anything..."
+                placeholder="Ask ValGPT anything..."
                 onSend={handleSendMessage}
                 isLoading={isLoading}
               />

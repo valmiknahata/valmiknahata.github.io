@@ -603,13 +603,11 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                                 onClick={handleToggleChange}
                                 className={cn(
                                     "rounded-full transition-all flex items-center gap-1 px-2 py-1 border h-8 backdrop-blur-md",
-                                    showThink
-                                        ? isDarkMode
-                                            ? `bg-[hsl(320,100%,70%)]/10 border-[hsl(320,100%,70%)]/30 text-[hsl(320,100%,70%)]`
-                                            : `bg-[hsl(220,100%,70%)]/10 border-[hsl(220,100%,70%)]/30 text-[hsl(220,100%,70%)]`
-                                        : `bg-transparent border-transparent ${iconColor} ${iconHoverColor}`
+                                    isDarkMode
+                                        ? `bg-[hsl(320,100%,70%)]/10 border-[hsl(320,100%,70%)]/30 text-[hsl(320,100%,70%)]`
+                                        : `bg-[hsl(220,100%,70%)]/10 border-[hsl(220,100%,70%)]/30 text-[hsl(220,100%,70%)]`
                                 )}
-                                style={showThink ? { color: thinkColor } : {}}
+                                style={{ color: thinkColor }}
                             >
                                 <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                                     <motion.div
@@ -617,7 +615,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                                         whileHover={{ rotate: showThink ? 360 : 15, scale: 1.1, transition: { type: "spring", stiffness: 300, damping: 10 } }}
                                         transition={{ type: "spring", stiffness: 260, damping: 25 }}
                                     >
-                                        <BrainCog className="w-4 h-4" style={showThink ? { color: thinkColor } : {}} />
+                                        <BrainCog className="w-4 h-4" style={{ color: thinkColor }} />
                                     </motion.div>
                                 </div>
                                 <AnimatePresence>
