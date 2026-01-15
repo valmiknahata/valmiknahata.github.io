@@ -194,32 +194,6 @@ Answer questions naturally and conversationally based on this information. If as
             </p>
           </div>
 
-          {/* ValGPT Section */}
-          <div className="mb-12">
-            <div className="mt-4">
-              <PromptInputBox
-                isDarkMode={isDarkMode}
-                placeholder="Ask ValGPT anything..."
-                onSend={handleSendMessage}
-                isLoading={isLoading}
-              />
-            </div>
-
-            {/* Current Question & Answer Display */}
-            {currentQuestion && (
-              <div className="mt-6 space-y-3">
-                <div className="opacity-40 uppercase tracking-widest text-[11px] font-medium text-center">
-                  {currentQuestion}
-                </div>
-                {currentResponse && (
-                  <div className="leading-7 opacity-80 text-center">
-                    {currentResponse}
-                    {isLoading && <span className="inline-block w-1 h-3.5 bg-current animate-pulse ml-0.5 align-middle" />}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
 
           {/* Occupations Section */}
           <div className="mb-12">
@@ -303,7 +277,7 @@ Answer questions naturally and conversationally based on this information. If as
 
 
           {/* Contact Section */}
-          <div className="mb-12">
+          <div className="mb-14">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Contact</div>
             <div className="flex gap-4 opacity-60">
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className="hover:opacity-100 transition-opacity">LinkedIn</a>
@@ -312,6 +286,32 @@ Answer questions naturally and conversationally based on this information. If as
             </div>
           </div>
 
+          {/* ValGPT Section */}
+          <div className="mb-12">
+            <div className="mt-4">
+              <PromptInputBox
+                isDarkMode={isDarkMode}
+                placeholder="Ask ValGPT anything..."
+                onSend={handleSendMessage}
+                isLoading={isLoading}
+              />
+            </div>
+
+            {/* Current Question & Answer Display */}
+            {currentQuestion && (
+              <div className="mt-6 space-y-3">
+                <div className="opacity-40 uppercase tracking-widest text-[11px] font-medium text-center italic">
+                  {currentQuestion}
+                </div>
+                {currentResponse && (
+                  <div className="leading-7 opacity-80 text-center">
+                    {currentResponse}
+                    {isLoading && <span className="inline-block w-1 h-3.5 bg-current animate-pulse ml-0.5 align-middle" />}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
           <div className="h-12"></div>
         </div>
       </div>
