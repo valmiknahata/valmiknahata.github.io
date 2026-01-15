@@ -74,7 +74,7 @@ export default function ResumePage() {
 
       const scrollTop = scrollContainerRef.current.scrollTop
 
-      if (scrollTop < 10) {
+      if (scrollTop < 20) {
         // If we are at the top, we want to start counting down if we're not already
         if (!isAutoScrolling && countdown === null) {
           setCountdown(10)
@@ -86,7 +86,7 @@ export default function ResumePage() {
         }
         // If we are auto-scrolling and the user manually scrolls significantly away from 
         // the auto-scroll position, stop the auto-scroll.
-        if (isAutoScrolling && Math.abs(scrollTop - lastAutoScrollPos.current) > 10) {
+        if (isAutoScrolling && Math.abs(scrollTop - lastAutoScrollPos.current) > 40) {
           setIsAutoScrolling(false)
         }
       }
@@ -192,9 +192,9 @@ Answer questions naturally and conversationally based on this information. If as
           {/* Left: Name */}
           <div className="opacity-40 uppercase tracking-widest">Valmik Nahata</div>
 
-          {/* Center: Auto Scroll Indicator (Desktop Only) */}
-          <div className={`hidden md:block transition-opacity duration-300 absolute left-1/2 -translate-x-1/2 ${countdown !== null ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="opacity-40 uppercase tracking-widest pointer-events-none">
+          {/* Center: Auto Scroll Indicator */}
+          <div className={`transition-opacity duration-300 absolute left-1/2 -translate-x-1/2 ${countdown !== null ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="opacity-40 uppercase tracking-widest pointer-events-none whitespace-nowrap">
               auto scroll {countdown}s
             </div>
           </div>
@@ -202,7 +202,7 @@ Answer questions naturally and conversationally based on this information. If as
           {/* Right: Theme Toggle */}
           <div
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="hidden md:flex opacity-40 hover:opacity-100 transition-opacity items-center gap-2 cursor-pointer group uppercase tracking-widest"
+            className="flex opacity-40 hover:opacity-100 transition-opacity items-center gap-2 cursor-pointer group uppercase tracking-widest shrink-0"
           >
             <span>
               {isDarkMode ? "Dark Mode" : "Light Mode"}
@@ -230,29 +230,7 @@ Answer questions naturally and conversationally based on this information. If as
           <div className="mb-12">
 
             {/* Unified Top Header Line */}
-            {/* Mobile Theme Toggle (visible only on mobile) */}
 
-            {/* Mobile Theme Toggle (visible only on mobile) */}
-            <div
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="absolute top-4 right-4 md:hidden z-50 opacity-40 hover:opacity-100 transition-opacity flex items-center gap-2 cursor-pointer group"
-            >
-              <button
-                className="group-active:scale-95 transition-transform flex items-center justify-center"
-                aria-label="Toggle theme"
-              >
-                {isDarkMode ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <circle cx="12" cy="12" r="5" />
-                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-                  </svg>
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                  </svg>
-                )}
-              </button>
-            </div>
 
             <div className="flex flex-col items-center -ml-4 md:-ml-8 relative">
               <RotatingEarth width={380} height={380} className="opacity-80" isDarkMode={isDarkMode} />
