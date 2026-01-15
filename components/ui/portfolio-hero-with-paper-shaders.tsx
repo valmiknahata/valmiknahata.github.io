@@ -125,9 +125,9 @@ Answer questions naturally and conversationally based on this information. If as
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[14px]">
+    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-white dark:bg-black transition-colors duration-300 font-serif text-[14px]">
       <div
-        className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
+        className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-white" : "bg-white text-black"}`}
       >
         {/* Unified Top Header Line - Full Width */}
         <div className="flex flex-row justify-between items-center mb-12 text-[9px] min-[400px]:text-[11px] font-medium leading-none w-full relative">
@@ -326,10 +326,10 @@ Answer questions naturally and conversationally based on this information. If as
         </div>
       </div>
 
-      <div className="hidden md:block md:w-1/2 relative bg-white dark:bg-[#0a0a0a]">
+      <div className="hidden md:block md:w-1/2 relative bg-white dark:bg-black">
         <Dithering
           style={{ height: "100%", width: "100%" }}
-          colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
+          colorBack={isDarkMode ? "black" : "white"}
           colorFront={isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 100%, 70%)"}
           shape={"cat" as any}
           type="4x4"
