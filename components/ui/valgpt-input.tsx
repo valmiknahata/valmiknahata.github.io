@@ -164,10 +164,11 @@ Button.displayName = "Button";
 interface VoiceRecorderProps {
     isRecording: boolean;
     onStartRecording: () => void;
-    onStopRecording: (duration: number) => void;
+    onStopRecording: () => void;
     visualizerBars?: number;
     isDarkMode?: boolean;
     transcript?: string;
+    audioData?: number[];
 }
 const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
     isRecording,
@@ -176,6 +177,7 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
     visualizerBars = 32,
     isDarkMode = false,
     transcript = "",
+    audioData = [],
 }) => {
     const [time, setTime] = React.useState(0);
     const timerRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -213,25 +215,34 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
                 <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
                 <span className={cn("font-mono text-sm", isDarkMode ? "text-white/80" : "text-gray-700/80")}>{formatTime(time)}</span>
             </div>
-            <div className="w-full h-10 flex items-center justify-center gap-0.5 px-4">
-                {[...Array(visualizerBars)].map((_, i) => (
-                    <div
-                        key={i}
-                        className={cn("w-0.5 rounded-full animate-pulse", isDarkMode ? "bg-white/50" : "bg-gray-700/50")}
-                        style={{
-                            height: `${Math.max(15, Math.random() * 100)}%`,
-                            animationDelay: `${i * 0.05}s`,
-                            animationDuration: `${0.5 + Math.random() * 0.5}s`,
-                        }}
-                    />
-                ))}
+            <div className="w-full h-12 flex items-center justify-center gap-1 px-4">
+                {audioData && audioData.length > 0 ? (
+                    audioData.slice(0, visualizerBars).map((value, i) => (
+                        <motion.div
+                            key={i}
+                            className={cn("w-1 rounded-full", isDarkMode ? "bg-[hsl(320,100%,70%)]" : "bg-[hsl(220,100%,70%)]")}
+                            animate={{
+                                height: `${Math.max(10, (value / 255) * 100)}%`,
+                                opacity: Math.max(0.3, value / 255)
+                            }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        />
+                    ))
+                ) : (
+                    [...Array(visualizerBars)].map((_, i) => (
+                        <div
+                            key={i}
+                            className={cn("w-1 h-2 rounded-full", isDarkMode ? "bg-white/20" : "bg-gray-700/20")}
+                        />
+                    ))
+                )}
             </div>
             {transcript ? (
-                <div className={cn("mt-2 text-center px-6 max-h-32 overflow-y-auto text-base leading-relaxed font-serif", isDarkMode ? "text-white/90" : "text-gray-800/90")}>
+                <div className={cn("mt-2 text-left px-6 max-h-32 overflow-y-auto text-base leading-relaxed font-serif w-full", isDarkMode ? "text-white/90" : "text-gray-800/90")}>
                     "{transcript}"
                 </div>
             ) : (
-                <div className={cn("mt-2 text-center px-6 text-sm opacity-50 italic font-serif", isDarkMode ? "text-white" : "text-gray-600")}>
+                <div className={cn("mt-2 text-left px-6 text-sm opacity-50 italic font-serif w-full", isDarkMode ? "text-white" : "text-gray-600")}>
                     Speak now...
                 </div>
             )}
@@ -462,8 +473,12 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
     const [input, setInput] = React.useState("");
     const [showThink, setShowThink] = React.useState(false);
     const [isRecording, setIsRecording] = React.useState(false);
+    const [audioStream, setAudioStream] = React.useState<MediaStream | null>(null);
+    const [audioData, setAudioData] = React.useState<number[]>([]);
     const promptBoxRef = React.useRef<HTMLDivElement>(null);
     const recognitionRef = React.useRef<any>(null);
+    const analyserRef = React.useRef<AnalyserNode | null>(null);
+    const animationFrameRef = React.useRef<number | null>(null);
 
     const handleToggleChange = () => {
         setShowThink((prev) => !prev);
@@ -480,8 +495,49 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
             if (recognitionRef.current) {
                 recognitionRef.current.stop();
             }
+            if (audioStream) {
+                audioStream.getTracks().forEach(track => track.stop());
+            }
+            if (animationFrameRef.current) {
+                cancelAnimationFrame(animationFrameRef.current);
+            }
         };
-    }, [handlePaste]);
+    }, [handlePaste, audioStream]);
+
+    // Audio visualization logic
+    React.useEffect(() => {
+        if (isRecording && audioStream) {
+            const AudioContext = (window as any).AudioContext || (window as any).webkitAudioContext;
+            const audioContext = new AudioContext();
+            const source = audioContext.createMediaStreamSource(audioStream);
+            const analyser = audioContext.createAnalyser();
+            analyser.fftSize = 64;
+            source.connect(analyser);
+            analyserRef.current = analyser;
+
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            const updateVisualizer = () => {
+                if (analyserRef.current) {
+                    analyserRef.current.getByteFrequencyData(dataArray);
+                    setAudioData(Array.from(dataArray));
+                    animationFrameRef.current = requestAnimationFrame(updateVisualizer);
+                }
+            };
+
+            updateVisualizer();
+
+            return () => {
+                if (animationFrameRef.current) {
+                    cancelAnimationFrame(animationFrameRef.current);
+                }
+                audioContext.close();
+            };
+        } else {
+            setAudioData([]);
+        }
+    }, [isRecording, audioStream]);
 
     const handleSubmit = () => {
         if (input.trim()) {
@@ -493,10 +549,20 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
         }
     };
 
-    const handleStartRecording = () => {
+    const handleStartRecording = async () => {
         if (typeof window !== "undefined") {
-            const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-            if (SpeechRecognition) {
+            try {
+                const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+                if (!SpeechRecognition) {
+                    alert("Speech recognition is not supported in this browser. Please try Chrome or Edge.");
+                    return;
+                }
+
+                // Explicitly request microphone permission
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                setAudioStream(stream);
+                setIsRecording(true);
+
                 const recognition = new SpeechRecognition();
                 recognition.continuous = true;
                 recognition.interimResults = true;
@@ -517,36 +583,51 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                     if (event.error === 'not-allowed') {
                         alert("Microphone access denied. Please enable it in your browser settings.");
                     }
-                    setIsRecording(false);
+                    handleStopRecording();
                 };
 
                 recognition.onend = () => {
-                    setIsRecording(false);
+                    // Usually handled by manual stop, but cleanup if it ends naturally
+                    if (isRecording) {
+                        handleStopRecording();
+                    }
                 };
 
-                try {
-                    recognition.start();
-                    recognitionRef.current = recognition;
-                } catch (err) {
-                    console.error("Error starting recognition:", err);
-                }
-            } else {
-                alert("Speech recognition is not supported in this browser.");
+                recognition.start();
+                recognitionRef.current = recognition;
+            } catch (err) {
+                console.error("Error starting recording:", err);
+                alert("Could not access microphone. Please ensure you have granted permission in your browser.");
                 setIsRecording(false);
             }
         }
     };
 
-    const handleStopRecording = (duration: number) => {
+    const handleStopRecording = () => {
         if (recognitionRef.current) {
             try {
+                recognitionRef.current.onresult = null;
+                recognitionRef.current.onerror = null;
+                recognitionRef.current.onend = null;
                 recognitionRef.current.stop();
             } catch (err) {
                 console.error("Error stopping recognition:", err);
             }
+            recognitionRef.current = null;
         }
-        // Small delay to ensure the last transcript is captured before closing
-        setTimeout(() => setIsRecording(false), 200);
+
+        if (audioStream) {
+            audioStream.getTracks().forEach(track => track.stop());
+            setAudioStream(null);
+        }
+
+        if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current);
+            animationFrameRef.current = null;
+        }
+
+        setIsRecording(false);
+        setAudioData([]);
     };
 
     const hasContent = input.trim() !== "";
@@ -602,6 +683,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                         onStopRecording={handleStopRecording}
                         isDarkMode={isDarkMode}
                         transcript={input}
+                        audioData={audioData}
                     />
                 )}
 
@@ -691,7 +773,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                             }}
                             onClick={() => {
                                 if (isRecording) {
-                                    handleStopRecording(0);
+                                    handleStopRecording();
                                 }
                                 else if (hasContent) {
                                     handleSubmit();

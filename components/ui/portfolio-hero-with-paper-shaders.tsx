@@ -289,7 +289,7 @@ Answer questions naturally and conversationally based on this information. If as
 
           {/* Valmik AI Section */}
           <div className="mb-12">
-            <div className="flex flex-col items-center mb-4">
+            <div className="flex flex-col items-start mb-4">
               <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md ${isDarkMode
                 ? "bg-neutral-900 text-neutral-400 border border-neutral-800"
                 : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
@@ -310,11 +310,11 @@ Answer questions naturally and conversationally based on this information. If as
             {/* Current Question & Answer Display */}
             {currentQuestion && (
               <div className="mt-6 space-y-3">
-                <div className="opacity-40 uppercase tracking-widest text-[11px] font-medium text-center italic">
+                <div className="opacity-40 uppercase tracking-widest text-[11px] font-medium text-left italic">
                   {currentQuestion}
                 </div>
                 {currentResponse && (
-                  <div className="leading-7 opacity-80 text-center">
+                  <div className="leading-7 opacity-80 text-left">
                     {currentResponse}
                     {isLoading && <span className="inline-block w-1 h-3.5 bg-current animate-pulse ml-0.5 align-middle" />}
                   </div>
