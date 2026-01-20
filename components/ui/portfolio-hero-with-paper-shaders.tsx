@@ -132,11 +132,11 @@ Answer questions naturally and conversationally based on this information. If as
         {/* Unified Top Header Line - Full Width */}
         <div className="flex flex-row justify-between items-center mb-12 text-[9px] min-[400px]:text-[11px] font-medium leading-none w-full relative">
           {/* Left: Name */}
-          <div className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10 font-bold">Valmik Nahata</div>
+          <div className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10">Valmik Nahata</div>
 
           {/* Center: PST Time */}
           <div className="absolute left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">
-            <div className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap font-bold">
+            <div className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap">
               PST {currentTime}
             </div>
           </div>
@@ -146,7 +146,7 @@ Answer questions naturally and conversationally based on this information. If as
             onClick={() => setIsDarkMode(!isDarkMode)}
             className="flex items-center gap-1 min-[400px]:gap-2 group cursor-pointer z-10"
           >
-            <span className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest font-bold">
+            <span className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest">
               {isDarkMode ? "Dark Mode" : "Light Mode"}
             </span>
             <button
@@ -198,7 +198,7 @@ Answer questions naturally and conversationally based on this information. If as
 
           {/* Education Section */}
           <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-bold">Education</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Education</div>
             <div className="space-y-2 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
@@ -216,7 +216,7 @@ Answer questions naturally and conversationally based on this information. If as
 
           {/* Occupations Section */}
           <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-bold">Occupations</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Occupations</div>
             <div className="space-y-2 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
@@ -245,7 +245,7 @@ Answer questions naturally and conversationally based on this information. If as
 
           {/* Research Section */}
           <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-bold">Research (including publications, manuscripts, posters)</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Research (including publications, manuscripts, posters)</div>
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "Chain-of-Thought Reasoning in Large Language Models for Clinical Applications", desc: "Harvard Medical School & MGH Thesis", date: "2025—Present" },
@@ -270,7 +270,7 @@ Answer questions naturally and conversationally based on this information. If as
 
           {/* Accolades Section */}
           <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-bold">Accolades</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Accolades</div>
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "1st Place - NSF HDR & UCSD SMASH Hackathon", desc: "NSF HDR & UCSD SMASH", date: "2025" },
@@ -294,7 +294,7 @@ Answer questions naturally and conversationally based on this information. If as
 
           {/* Projects Section */}
           <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-bold">Projects</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Projects</div>
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "Labry", desc: "Democratizing Research", href: "https://www.linkedin.com/company/labry-research", date: "2025—Present" },
@@ -324,7 +324,7 @@ Answer questions naturally and conversationally based on this information. If as
 
           {/* Certifications Section */}
           <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-bold">Certifications</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Certifications</div>
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "AI Infrastructure and Operations Fundamentals", desc: "Coursera - NVIDIA - Credential ID: X9HUN0VEKUNG", date: "2025" },
@@ -349,7 +349,7 @@ Answer questions naturally and conversationally based on this information. If as
 
           {/* Contact Section */}
           <div className="mb-14">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-bold">Contact</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Contact</div>
             <div className="flex gap-4 opacity-60">
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className="hover:opacity-100 transition-opacity">LinkedIn</a>
               <a href="mailto:vnahata@ucsd.edu" className="hover:opacity-100 transition-opacity">Email</a>
