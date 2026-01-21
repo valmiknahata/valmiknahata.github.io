@@ -47,29 +47,7 @@ function TooltipItem({ name, description, href, isDarkMode, className }: { name:
   );
 }
 
-export default function ResumePage() {
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const [currentQuestion, setCurrentQuestion] = useState("")
-  const [currentResponse, setCurrentResponse] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [currentTime, setCurrentTime] = useState<string>("")
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date();
-      const pdtString = now.toLocaleTimeString('en-US', {
-        timeZone: 'America/Los_Angeles',
-        hour12: true,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
-      setCurrentTime(pdtString);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
+function VitruvianAnimation() {
   useEffect(() => {
     const embedScript = document.createElement('script');
     embedScript.type = 'text/javascript';
@@ -88,7 +66,6 @@ export default function ResumePage() {
     `;
     document.head.appendChild(embedScript);
 
-    // Add CSS to hide branding elements and crop canvas
     const style = document.createElement('style');
     style.textContent = `
       [data-us-project] {
@@ -120,26 +97,22 @@ export default function ResumePage() {
     `;
     document.head.appendChild(style);
 
-    // Function to aggressively hide branding
     const hideBranding = () => {
       const projectDiv = document.querySelector('[data-us-project]');
       if (projectDiv) {
-        // Find and remove any elements containing branding text
         const allElements = projectDiv.querySelectorAll('*');
         allElements.forEach(el => {
           const text = (el.textContent || '').toLowerCase();
           if (text.includes('made with') || text.includes('unicorn')) {
-            el.remove(); // Completely remove the element
+            el.remove();
           }
         });
       }
     };
 
-    // Run immediately and periodically
     hideBranding();
     const interval = setInterval(hideBranding, 100);
     
-    // Also try after delays
     setTimeout(hideBranding, 1000);
     setTimeout(hideBranding, 3000);
     setTimeout(hideBranding, 5000);
@@ -149,6 +122,39 @@ export default function ResumePage() {
       document.head.removeChild(embedScript);
       document.head.removeChild(style);
     };
+  }, []);
+
+  return (
+    <div className="w-full h-screen bg-black">
+      <div 
+        data-us-project="whwOGlfJ5Rz2rHaEUgHl" 
+        style={{ width: '100%', height: '100%', minHeight: '100vh' }}
+      />
+    </div>
+  );
+}
+
+export default function ResumePage() {
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [currentQuestion, setCurrentQuestion] = useState("")
+  const [currentResponse, setCurrentResponse] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [currentTime, setCurrentTime] = useState<string>("")
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      const pdtString = now.toLocaleTimeString('en-US', {
+        timeZone: 'America/Los_Angeles',
+        hour12: true,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      setCurrentTime(pdtString);
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, []);
 
   const handleSendMessage = async (message: string, files?: File[]) => {
@@ -218,11 +224,8 @@ Answer questions naturally and conversationally based on this information. If as
 
   return (
     <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[16px]">
-      <div className="hidden md:block md:w-1/3 relative">
-        <div data-us-project="whwOGlfJ5Rz2rHaEUgHl" style={{ width: '100%', height: '100%', minHeight: '100vh' }} />
-      </div>
       <div
-        className={`w-full md:w-1/3 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
+        className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
       >
         {/* Unified Top Header Line - Full Width */}
         <div className="flex flex-row justify-between items-center mb-12 text-[11px] min-[400px]:text-[13px] font-medium leading-none w-full relative">
@@ -485,10 +488,11 @@ Answer questions naturally and conversationally based on this information. If as
             )}
           </div>
           <div className="h-12"></div>
+          <VitruvianAnimation />
         </div>
       </div>
 
-      <div className="hidden md:block md:w-1/3 relative bg-white dark:bg-[#0a0a0a]">
+      <div className="hidden md:block md:w-1/2 relative bg-white dark:bg-[#0a0a0a]">
         <Dithering
           style={{ height: "100%", width: "100%" }}
           colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
