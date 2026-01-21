@@ -16,16 +16,27 @@ function TooltipItem({ name, description, href, isDarkMode, className }: { name:
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {href ? (
-        <a href={href} target="_blank" className="underline hover:opacity-70 transition-opacity decoration-1 underline-offset-2">
-          {name}
-        </a>
-      ) : (
-        <span>{name}</span>
-      )}
+      {(() => {
+        const [left, ...right] = name.split("|");
+        const leftPart = left?.trim();
+        const rightPart = right.length > 0 ? right.join("|").trim() : null;
+        if (href && rightPart) {
+          return (
+            <span>
+              <span className="font-bold">{leftPart}</span>
+              {" | "}
+              <a href={href} target="_blank" className="underline hover:opacity-70 transition-opacity decoration-1 underline-offset-2">{rightPart}</a>
+            </span>
+          );
+        } else {
+          return (
+            <span><span className="font-bold">{leftPart}</span>{rightPart ? ` | ${rightPart}` : ""}</span>
+          );
+        }
+      })()}
 
       {description && isHovered && (
-        <div className={`absolute z-50 left-0 bottom-full mb-2 px-3 py-1.5 text-[14px] whitespace-nowrap border shadow-xl transition-all animate-in fade-in zoom-in slide-in-from-bottom-1 duration-200 pointer-events-none font-serif tracking-wide ${isDarkMode ? "bg-zinc-900 border-zinc-700 text-zinc-100" : "bg-white border-zinc-200 text-zinc-900"
+        <div className={`absolute z-50 left-0 bottom-full mb-2 px-3 py-1.5 text-[16px] whitespace-nowrap border shadow-xl transition-all animate-in fade-in zoom-in slide-in-from-bottom-1 duration-200 pointer-events-none font-serif tracking-wide ${isDarkMode ? "bg-zinc-900 border-zinc-700 text-zinc-100" : "bg-white border-zinc-200 text-zinc-900"
           }`}>
           {description}
           <div className={`absolute left-4 top-full w-2 h-2 -translate-y-1 rotate-45 border-r border-b ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"
@@ -125,12 +136,12 @@ Answer questions naturally and conversationally based on this information. If as
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[14px]">
+    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[16px]">
       <div
         className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
       >
         {/* Unified Top Header Line - Full Width */}
-        <div className="flex flex-row justify-between items-center mb-12 text-[9px] min-[400px]:text-[11px] font-medium leading-none w-full relative">
+        <div className="flex flex-row justify-between items-center mb-12 text-[11px] min-[400px]:text-[13px] font-medium leading-none w-full relative">
           {/* Left: Name */}
           <div className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10">Valmik Nahata</div>
 
@@ -169,7 +180,7 @@ Answer questions naturally and conversationally based on this information. If as
 
         <div className="max-w-xl mx-auto">
           {/* Header Section */}
-          <div className="mb-12">
+          <div className="mb-6">
 
             {/* Unified Top Header Line */}
 
@@ -197,12 +208,12 @@ Answer questions naturally and conversationally based on this information. If as
 
 
           {/* Education Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Education</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Education</div>
             <div className="space-y-2 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
-                  name="University of California, San Diego"
+                  name="Undergraduate Student | University of California, San Diego"
                   description="Halıcıoğlu Data Science Institute"
                   isDarkMode={isDarkMode}
                   className="font-medium shrink"
@@ -215,12 +226,12 @@ Answer questions naturally and conversationally based on this information. If as
           </div>
 
           {/* Occupations Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Occupations</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Occupations</div>
             <div className="space-y-2 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
-                  name="Harvard Medical School & Massachusetts General Hospital"
+                  name="Undergraduate Researcher | Harvard Medical School & Massachusetts General Hospital"
                   description="Harvard Medical School & Massachusetts General Hospital"
                   isDarkMode={isDarkMode}
                   className="font-medium shrink"
@@ -231,7 +242,7 @@ Answer questions naturally and conversationally based on this information. If as
               </div>
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
-                  name="Dartmouth Hitchcock Medical Center"
+                  name="Research Intern | Dartmouth Hitchcock Medical Center"
                   description="Dartmouth Hitchcock Medical Center"
                   isDarkMode={isDarkMode}
                   className="font-medium shrink"
@@ -244,15 +255,15 @@ Answer questions naturally and conversationally based on this information. If as
           </div>
 
           {/* Research Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Research (including publications, manuscripts, posters)</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Research (publications, manuscripts, & posters)</div>
             <div className="space-y-1.5 opacity-80">
               {[
-                { name: "Chain-of-Thought Reasoning in Large Language Models for Clinical Applications", desc: "Harvard Medical School & MGH Thesis", date: "2025—Present" },
-                { name: "The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence", desc: "Co-authored Publication", href: "https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql", date: "2025" },
-                { name: "Retrieval Augmented Generation for Pathology Reports", desc: "Co-authored Conference Poster & Manuscript", date: "2024" },
-                { name: "A Statistical Analysis of Crab Pulsar Giant Pulse Rates", desc: "Co-authored ApJ Publication", href: "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304", date: "2024" },
-                { name: "Cover Edge-Based Triangle Counting", desc: "Co-authored MDPI Publication", href: "https://www.mdpi.com/1999-4893/18/11/685", date: "2024" },
+                { name: "In the works | Chain-of-Thought Reasoning in Large Language Models for Clinical Applications", desc: "Harvard Medical School & MGH Thesis", date: "2025—Present" },
+                { name: "Manuscript | The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence", desc: "Co-authored Publication", href: "https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql", date: "2025" },
+                { name: "Manuscript & Poster | Retrieval Augmented Generation for Pathology Reports", desc: "Co-authored Conference Poster & Manuscript", date: "2024" },
+                { name: "Publication | A Statistical Analysis of Crab Pulsar Giant Pulse Rates", desc: "Co-authored ApJ Publication", href: "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304", date: "2024" },
+                { name: "Publication | Cover Edge-Based Triangle Counting", desc: "Co-authored MDPI Publication", href: "https://www.mdpi.com/1999-4893/18/11/685", date: "2024" },
               ].map((publication) => (
                 <div key={publication.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
@@ -269,20 +280,18 @@ Answer questions naturally and conversationally based on this information. If as
           </div>
 
           {/* Accolades Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Accolades</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Accolades</div>
             <div className="space-y-1.5 opacity-80">
               {[
-                { name: "1st Place - NSF HDR & UCSD SMASH Hackathon", desc: "NSF HDR & UCSD SMASH", date: "2025" },
-                { name: "1st Place - Economics of Transformative AI Sprint by Apart Research & BlueDot Impact", desc: "Apart Research & BlueDot Impact", date: "2025" },
-                { name: "3rd Place - Business Analytics Hackathon by Milwaukee Bucks & Modine Manufacturing", desc: "Milwaukee Bucks & Modine Manufacturing", href: "https://www.nba.com/bucks/hackathon#:~:text=3rd%20Place%3A%20UC%20San%20Diego", date: "2025" },
-                { name: "1st Place - Hack-Io-Thon by TCNJ", desc: "TCNJ", date: "2023" },
+                { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH Hackathon", desc: "NSF HDR & UCSD SMASH", date: "2026" },
+                { name: "1st Place | Apart Research Economics of Transformative AI Sprint", desc: "Apart Research & BlueDot Impact", date: "2025" },
+                { name: "3rd Place | Milwaukee Bucks Hackathon", desc: "Milwaukee Bucks & Modine Manufacturing", date: "2025" },
               ].map((accolade) => (
                 <div key={accolade.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
                     name={accolade.name}
                     description={accolade.desc}
-                    href={accolade.href}
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
@@ -293,8 +302,8 @@ Answer questions naturally and conversationally based on this information. If as
           </div>
 
           {/* Projects Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Projects</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Projects (Independent & collaborative)</div>
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "Labry", desc: "Democratizing Research", href: "https://www.linkedin.com/company/labry-research", date: "2025—Present" },
@@ -306,7 +315,6 @@ Answer questions naturally and conversationally based on this information. If as
                 { name: "POS QR Automation", desc: "Built for startup, Kaboo", date: "2024" },
                 { name: "Steam Trading Automations", desc: "$6K Profit from TF2 & CS:GO Assets", date: "2023" },
                 { name: "Tree-Plenish Data Pipeline", desc: "Financial Automation", date: "2023" },
-                { name: "Node2Node", desc: "Gamified Pathfinding Algorithms", date: "2022" },
               ].map((project) => (
                 <div key={project.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
@@ -323,8 +331,8 @@ Answer questions naturally and conversationally based on this information. If as
           </div>
 
           {/* Certifications Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Certifications</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Certifications</div>
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "AI Infrastructure and Operations Fundamentals", desc: "Coursera - NVIDIA - Credential ID: X9HUN0VEKUNG", date: "2025" },
@@ -349,7 +357,7 @@ Answer questions naturally and conversationally based on this information. If as
 
           {/* Contact Section */}
           <div className="mb-14">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[11px] font-medium">Contact</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Contact</div>
             <div className="flex gap-4 opacity-60">
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className="hover:opacity-100 transition-opacity">LinkedIn</a>
               <a href="mailto:vnahata@ucsd.edu" className="hover:opacity-100 transition-opacity">Email</a>
@@ -358,8 +366,8 @@ Answer questions naturally and conversationally based on this information. If as
           </div>
 
           {/* Valmik AI Section */}
-          <div className="mb-12">
-            <div className="flex flex-col items-start mb-4">
+          <div className="mb-6">
+            <div className="flex flex-col items-center mb-4">
               <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md ${isDarkMode
                 ? "bg-neutral-900 text-neutral-400 border border-neutral-800"
                 : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
@@ -380,7 +388,7 @@ Answer questions naturally and conversationally based on this information. If as
             {/* Current Question & Answer Display */}
             {currentQuestion && (
               <div className="mt-6 space-y-3">
-                <div className="opacity-40 uppercase tracking-widest text-[11px] font-medium text-left italic">
+                <div className="opacity-40 uppercase tracking-widest text-[13px] font-medium text-left italic">
                   {currentQuestion}
                 </div>
                 {currentResponse && (
