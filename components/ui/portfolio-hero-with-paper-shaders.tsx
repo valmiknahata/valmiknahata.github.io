@@ -132,13 +132,13 @@ export default function ResumePage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[16px]">
+    <div className="relative min-h-screen overflow-hidden flex flex-col bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[18px]">
       <div
         className={`w-full p-6 md:p-16 relative z-10 min-h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
       >
         <div className="max-w-3xl mx-auto">
           {/* Unified Top Header Line */}
-          <div className="flex flex-row justify-between items-center mb-12 text-[11px] min-[400px]:text-[13px] font-medium leading-none w-full relative">
+          <div className="flex flex-row justify-between items-center mb-12 text-[13px] min-[400px]:text-[15px] font-medium leading-none w-full relative">
             {/* Left: Name */}
             <div className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10`}>Valmik Nahata</div>
 
@@ -179,7 +179,7 @@ export default function ResumePage() {
 
             <div className="flex flex-col items-center relative">
               <RotatingEarth width={380} height={380} className="opacity-80" isDarkMode={isDarkMode} />
-              <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md z-20 -mt-5 ${isDarkMode
+              <div className={`flex items-center gap-2 text-[12px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md z-20 -mt-5 ${isDarkMode
                 ? "bg-neutral-900 text-neutral-400 border border-neutral-800"
                 : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
                 }`}>
@@ -201,7 +201,7 @@ export default function ResumePage() {
 
           {/* Education Section */}
           <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Education</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[15px] font-medium">Education</div>
             <div className="space-y-2 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
@@ -219,7 +219,7 @@ export default function ResumePage() {
 
           {/* Occupations Section */}
           <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Occupations</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[15px] font-medium">Occupations</div>
             <div className="space-y-2 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
@@ -248,12 +248,13 @@ export default function ResumePage() {
 
           {/* Accolades Section */}
           <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Accolades</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[15px] font-medium">Accolades</div>
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH Hackathon", desc: "NSF HDR & UCSD SMASH", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
                 { name: "1st Place | Apart Research & BlueDot Impact Economics of Transformative AI Sprint", desc: "Apart Research & BlueDot Impact", href: "https://apartresearch.com/sprints/economics-of-transformative-ai-research-sprint-2025-04-25-to-2025-04-27", date: "2025" },
                 { name: "3rd Place | Milwaukee Bucks & Modine Manufacturing Hackathon", desc: "Milwaukee Bucks & Modine Manufacturing", href: "https://www.nba.com/bucks/hackathon", date: "2025" },
+                { name: "Various | The College of New Jersey, Kean University, and more", desc: "Additional Academic Achievements", date: "2024" },
               ].map((accolade) => (
                 <div key={accolade.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
@@ -271,7 +272,7 @@ export default function ResumePage() {
 
           {/* Research Section */}
           <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Research (publications, manuscripts, & posters)</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[15px] font-medium">Research (publications, manuscripts, & posters)</div>
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "Upcoming | Chain-of-Thought Reasoning in Large Language Models for Clinical Applications", desc: "Harvard Medical School & MGH Thesis", date: "2025—Present" },
@@ -296,7 +297,7 @@ export default function ResumePage() {
 
           {/* Projects Section */}
           <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Projects (Independent & collaborative)</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[15px] font-medium">Projects (Independent & collaborative)</div>
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "Democratizing Research | Labry", desc: "", href: "https://www.linkedin.com/company/109509095", date: "2025—Present" },
@@ -325,7 +326,7 @@ export default function ResumePage() {
 
           {/* Contact Section */}
           <div className="mb-14">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Contact</div>
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[15px] font-medium">Contact</div>
             <div className="flex gap-4 opacity-60">
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className="hover:opacity-100 transition-opacity">LinkedIn</a>
               <a href="mailto:vnahata@ucsd.edu" className="hover:opacity-100 transition-opacity">Email</a>
