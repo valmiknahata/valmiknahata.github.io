@@ -254,7 +254,7 @@ export default function ResumePage() {
                 { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH Hackathon", desc: "NSF HDR & UCSD SMASH", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
                 { name: "1st Place | Apart Research & BlueDot Impact Economics of Transformative AI Sprint", desc: "Apart Research & BlueDot Impact", href: "https://apartresearch.com/sprints/economics-of-transformative-ai-research-sprint-2025-04-25-to-2025-04-27", date: "2025" },
                 { name: "3rd Place | Milwaukee Bucks & Modine Manufacturing Hackathon", desc: "Milwaukee Bucks & Modine Manufacturing", href: "https://www.nba.com/bucks/hackathon", date: "2025" },
-                { name: "Various | The College of New Jersey, Kean University, and more", desc: "Additional Academic Achievements", date: "2024" },
+                { name: "Various | The College of New Jersey, Kean University, etc.", desc: "Additional Academic Achievements", date: "2024" },
               ].map((accolade) => (
                 <div key={accolade.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
