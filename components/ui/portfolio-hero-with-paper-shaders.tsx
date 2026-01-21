@@ -3,8 +3,7 @@
 import { Dithering } from "@paper-design/shaders-react"
 import { useState, useEffect, useRef } from "react"
 import RotatingEarth from "./wireframe-dotted-globe"
-import { PromptInputBox } from "./valgpt-input"
-import { streamMessageToGemini } from "@/lib/gemini"
+// ...existing code...
 import { Sparkles } from "lucide-react"
 
 function TooltipItem({ name, description, href, isDarkMode, className }: { name: string, description?: string, href?: string, isDarkMode: boolean, className?: string }) {
@@ -47,98 +46,9 @@ function TooltipItem({ name, description, href, isDarkMode, className }: { name:
   );
 }
 
-function VitruvianAnimation() {
-  useEffect(() => {
-    const embedScript = document.createElement('script');
-    embedScript.type = 'text/javascript';
-    embedScript.textContent = `
-      !function(){
-        if(!window.UnicornStudio){
-          window.UnicornStudio={isInitialized:!1};
-          var i=document.createElement("script");
-          i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.33/dist/unicornStudio.umd.js";
-          i.onload=function(){
-            window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)
-          };
-          (document.head || document.body).appendChild(i)
-        }
-      }();
-    `;
-    document.head.appendChild(embedScript);
-
-    const style = document.createElement('style');
-    style.textContent = `
-      [data-us-project] {
-        position: relative !important;
-        overflow: hidden !important;
-      }
-      
-      [data-us-project] canvas {
-        clip-path: inset(0 0 10% 0) !important;
-      }
-      
-      [data-us-project] * {
-        pointer-events: none !important;
-      }
-      [data-us-project] a[href*="unicorn"],
-      [data-us-project] button[title*="unicorn"],
-      [data-us-project] div[title*="Made with"],
-      [data-us-project] .unicorn-brand,
-      [data-us-project] [class*="brand"],
-      [data-us-project] [class*="credit"],
-      [data-us-project] [class*="watermark"] {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        position: absolute !important;
-        left: -9999px !important;
-        top: -9999px !important;
-      }
-    `;
-    document.head.appendChild(style);
-
-    const hideBranding = () => {
-      const projectDiv = document.querySelector('[data-us-project]');
-      if (projectDiv) {
-        const allElements = projectDiv.querySelectorAll('*');
-        allElements.forEach(el => {
-          const text = (el.textContent || '').toLowerCase();
-          if (text.includes('made with') || text.includes('unicorn')) {
-            el.remove();
-          }
-        });
-      }
-    };
-
-    hideBranding();
-    const interval = setInterval(hideBranding, 100);
-    
-    setTimeout(hideBranding, 1000);
-    setTimeout(hideBranding, 3000);
-    setTimeout(hideBranding, 5000);
-
-    return () => {
-      clearInterval(interval);
-      document.head.removeChild(embedScript);
-      document.head.removeChild(style);
-    };
-  }, []);
-
-  return (
-    <div className="w-full h-screen bg-black">
-      <div 
-        data-us-project="whwOGlfJ5Rz2rHaEUgHl" 
-        style={{ width: '100%', height: '100%', minHeight: '100vh' }}
-      />
-    </div>
-  );
-}
-
 export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(false)
-  const [currentQuestion, setCurrentQuestion] = useState("")
-  const [currentResponse, setCurrentResponse] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  // ...existing code...
   const [currentTime, setCurrentTime] = useState<string>("")
 
   useEffect(() => {
@@ -157,70 +67,7 @@ export default function ResumePage() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSendMessage = async (message: string, files?: File[]) => {
-    try {
-      setIsLoading(true)
-      setCurrentQuestion(message)
-      setCurrentResponse("")
-
-      // Portfolio context for the AI
-      const portfolioContext = `You are Valmik Nahata. Answer questions as if you are Valmik Nahata. Answer concisely and to the point.
-
-ABOUT VALMIK:
-Valmik Nahata is an undergraduate at UC San Diego. Since last year, he's been working on building AI systems that are both powerful and aligned, particularly around scaling, robustness (adversarial training, safety checks, etc.), and ethical considerations (bias mitigation, transparency, etc.), with the goal of accelerating scientific discovery. Most of his research involves large language models, multimodal AI, and autonomous agents, particularly around reasoning (chain-of-thought, tree search, etc.), alignment (RLHF, debate, etc.), and making inference more efficient (quantization, etc.).
-
-He grew up in Jersey and now lives in California, but he'll always be a New Yorker at heart. When he's not working on AI, you'll find him speedsolving Rubik's cubes (everything from 2x2 through 7x7, plus pyraminx, megaminx, and mirror cubes). He also spent years playing violin, working through Paganini's Caprices and Bach's Partitas, though his favorite piece will always be Mendelssohn's Violin Concerto in E Minor. And for whatever reason, he's developed a thing for collecting old coins, anything from the 1800s onward really.
-
-OCCUPATIONS:
-- University of California, San Diego (Halıcıoğlu Data Science Institute) - Undergraduate, 2024—Present
-- Harvard Medical School & Massachusetts General Hospital - Research Assistant, 2025—Present
-- Dartmouth Hitchcock Medical Center - Research Intern, 2024—2025
-
-ACTIVE PROJECTS:
-- LLMs Chain-of-Thought in Clinical Usage (Harvard & MGH Thesis), 2025—Present
-- Labry (Democratizing Research), 2025—Present
-
-SELECTED PAST WORKS:
-- GeoCheater (AI Guessing for WorldGuessr), 2026
-- 3D Carbon Timeline (Astronomy of Climate Change Final Project), 2025
-- Signly (ASL Finger-spelling Recognition), 2025
-- IndustryBench (Industry Vertical AI Evaluations with Georgia Tech's DuckAI group), 2025
-- Blume (Conversational AI for Departed Relatives), 2025
-- The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence (1st at Apart Research & BlueDot Impact's Economics of Transformative AI Sprint), 2025
-- Milwaukee Bucks Engagement Models (3rd at Milwaukee Bucks & Modine Manufacturing's Business Analytics Hackathon), 2025
-- POS QR Automation (Built for startup, Kaboo), 2024
-- Retrieval Augmented Generation for Pathology Reports (Co-authored Conference Poster & Manuscript), 2024
-- A Statistical Analysis of Crab Pulsar Giant Pulse Rates (Co-authored ApJ Publication), 2024
-- Cover Edge-Based Triangle Counting (Co-authored MDPI Publication), 2024
-- Steam Trading Automations ($6K Profit from TF2 & CS:GO Assets), 2023
-- Tree-Plenish Data Pipeline (Financial Automation), 2023
-- IoT Weather System (1st at TCNJ's Hack-Io-Thon), 2023
-- Node2Node (Gamified Pathfinding Algorithms), 2022
-
-CONTACT:
-- LinkedIn: https://www.linkedin.com/in/valmiknahata
-- Email: vnahata@ucsd.edu
-- Google Scholar: https://scholar.google.com/citations?user=nv1ym54AAAAJ&hl=en
-
-Answer questions naturally and conversationally based on this information. If asked about something not covered here, you can provide general helpful responses but clarify when you're going beyond Valmik's specific background.`;
-
-      const fullPrompt = `${portfolioContext}\n\nUser question: ${message}`;
-
-      // Stream response from Gemini with context
-      await streamMessageToGemini(
-        fullPrompt,
-        [], // Empty history for single Q&A
-        (chunk) => {
-          setCurrentResponse((prev) => prev + chunk)
-        }
-      )
-    } catch (error) {
-      console.error("Error sending message:", error)
-      setCurrentResponse("Sorry, I encountered an error. Please try again.")
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  // ...existing code...
 
   return (
     <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[16px]">
@@ -230,11 +77,11 @@ Answer questions naturally and conversationally based on this information. If as
         {/* Unified Top Header Line - Full Width */}
         <div className="flex flex-row justify-between items-center mb-12 text-[11px] min-[400px]:text-[13px] font-medium leading-none w-full relative">
           {/* Left: Name */}
-          <div className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10">Valmik Nahata</div>
+          <div className="text-black dark:text-white uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10">Valmik Nahata</div>
 
           {/* Center: PST Time */}
           <div className="absolute left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">
-            <div className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap">
+            <div className="text-black dark:text-white uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap">
               PST {currentTime}
             </div>
           </div>
@@ -244,7 +91,7 @@ Answer questions naturally and conversationally based on this information. If as
             onClick={() => setIsDarkMode(!isDarkMode)}
             className="flex items-center gap-1 min-[400px]:gap-2 group cursor-pointer z-10"
           >
-            <span className="opacity-40 uppercase tracking-[0.1em] min-[400px]:tracking-widest">
+            <span className="text-black dark:text-white uppercase tracking-[0.1em] min-[400px]:tracking-widest">
               {isDarkMode ? "Dark Mode" : "Light Mode"}
             </span>
             <button
@@ -372,13 +219,14 @@ Answer questions naturally and conversationally based on this information. If as
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH Hackathon", desc: "NSF HDR & UCSD SMASH", date: "2026" },
-                { name: "1st Place | Apart Research Economics of Transformative AI Sprint", desc: "Apart Research & BlueDot Impact", date: "2025" },
+                { name: "1st Place | Apart Research Economics of Transformative AI Sprint", desc: "Apart Research & BlueDot Impact", href: "https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql", date: "2025" },
                 { name: "3rd Place | Milwaukee Bucks Hackathon", desc: "Milwaukee Bucks & Modine Manufacturing", date: "2025" },
               ].map((accolade) => (
                 <div key={accolade.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
                     name={accolade.name}
                     description={accolade.desc}
+                    href={accolade.href || undefined}
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
@@ -452,43 +300,8 @@ Answer questions naturally and conversationally based on this information. If as
             </div>
           </div>
 
-          {/* Valmik AI Section */}
-          <div className="mb-6">
-            <div className="flex flex-col items-center mb-4">
-              <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md ${isDarkMode
-                ? "bg-neutral-900 text-neutral-400 border border-neutral-800"
-                : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
-                }`}>
-                <Sparkles className={`w-3 h-3 ${isDarkMode ? "text-[hsl(320,100%,70%)]" : "text-[hsl(220,100%,70%)]"}`} />
-                Valmik AI (BETA)
-              </div>
-            </div>
-            <div>
-              <PromptInputBox
-                isDarkMode={isDarkMode}
-                placeholder="Ask me anything about Valmik..."
-                onSend={handleSendMessage}
-                isLoading={isLoading}
-              />
-            </div>
-
-            {/* Current Question & Answer Display */}
-            {currentQuestion && (
-              <div className="mt-6 space-y-3">
-                <div className="opacity-40 uppercase tracking-widest text-[13px] font-medium text-left italic">
-                  {currentQuestion}
-                </div>
-                {currentResponse && (
-                  <div className="leading-7 opacity-80 text-left">
-                    {currentResponse}
-                    {isLoading && <span className="inline-block w-1 h-3.5 bg-current animate-pulse ml-0.5 align-middle" />}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+          {/* ...existing code... */}
           <div className="h-12"></div>
-          <VitruvianAnimation />
         </div>
       </div>
 

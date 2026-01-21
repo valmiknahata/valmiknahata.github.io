@@ -1,3 +1,6 @@
+// Removed Gemini API integration (no longer needed)
+
+// End of Gemini API integration
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const API_KEY = "AIzaSyDERseSLGGJSlM7k7kOA61ZSGsTOtapzHE";

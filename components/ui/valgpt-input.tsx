@@ -1,3 +1,4 @@
+// Removed ValGPT input component (no longer needed)
 import React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
