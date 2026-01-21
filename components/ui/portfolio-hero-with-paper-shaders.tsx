@@ -70,6 +70,87 @@ export default function ResumePage() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const embedScript = document.createElement('script');
+    embedScript.type = 'text/javascript';
+    embedScript.textContent = `
+      !function(){
+        if(!window.UnicornStudio){
+          window.UnicornStudio={isInitialized:!1};
+          var i=document.createElement("script");
+          i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.33/dist/unicornStudio.umd.js";
+          i.onload=function(){
+            window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)
+          };
+          (document.head || document.body).appendChild(i)
+        }
+      }();
+    `;
+    document.head.appendChild(embedScript);
+
+    // Add CSS to hide branding elements and crop canvas
+    const style = document.createElement('style');
+    style.textContent = `
+      [data-us-project] {
+        position: relative !important;
+        overflow: hidden !important;
+      }
+      
+      [data-us-project] canvas {
+        clip-path: inset(0 0 10% 0) !important;
+      }
+      
+      [data-us-project] * {
+        pointer-events: none !important;
+      }
+      [data-us-project] a[href*="unicorn"],
+      [data-us-project] button[title*="unicorn"],
+      [data-us-project] div[title*="Made with"],
+      [data-us-project] .unicorn-brand,
+      [data-us-project] [class*="brand"],
+      [data-us-project] [class*="credit"],
+      [data-us-project] [class*="watermark"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
+        top: -9999px !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Function to aggressively hide branding
+    const hideBranding = () => {
+      const projectDiv = document.querySelector('[data-us-project]');
+      if (projectDiv) {
+        // Find and remove any elements containing branding text
+        const allElements = projectDiv.querySelectorAll('*');
+        allElements.forEach(el => {
+          const text = (el.textContent || '').toLowerCase();
+          if (text.includes('made with') || text.includes('unicorn')) {
+            el.remove(); // Completely remove the element
+          }
+        });
+      }
+    };
+
+    // Run immediately and periodically
+    hideBranding();
+    const interval = setInterval(hideBranding, 100);
+    
+    // Also try after delays
+    setTimeout(hideBranding, 1000);
+    setTimeout(hideBranding, 3000);
+    setTimeout(hideBranding, 5000);
+
+    return () => {
+      clearInterval(interval);
+      document.head.removeChild(embedScript);
+      document.head.removeChild(style);
+    };
+  }, []);
+
   const handleSendMessage = async (message: string, files?: File[]) => {
     try {
       setIsLoading(true)
@@ -137,8 +218,11 @@ Answer questions naturally and conversationally based on this information. If as
 
   return (
     <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[16px]">
+      <div className="hidden md:block md:w-1/3 relative">
+        <div data-us-project="whwOGlfJ5Rz2rHaEUgHl" style={{ width: '100%', height: '100%', minHeight: '100vh' }} />
+      </div>
       <div
-        className={`w-full md:w-1/2 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
+        className={`w-full md:w-1/3 p-6 md:p-16 relative z-10 h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
       >
         {/* Unified Top Header Line - Full Width */}
         <div className="flex flex-row justify-between items-center mb-12 text-[11px] min-[400px]:text-[13px] font-medium leading-none w-full relative">
@@ -404,7 +488,7 @@ Answer questions naturally and conversationally based on this information. If as
         </div>
       </div>
 
-      <div className="hidden md:block md:w-1/2 relative bg-white dark:bg-[#0a0a0a]">
+      <div className="hidden md:block md:w-1/3 relative bg-white dark:bg-[#0a0a0a]">
         <Dithering
           style={{ height: "100%", width: "100%" }}
           colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}

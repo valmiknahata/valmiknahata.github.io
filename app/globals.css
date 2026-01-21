@@ -41,7 +41,6 @@
   --font-mono: 'JetBrains Mono', monospace;
   --font-serif: 'Crimson Text', serif;
   --color-destructive-foreground: var(--destructive-foreground);
-  --font-doto: 'Doto', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -99,17 +98,4 @@ body {
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
 }
