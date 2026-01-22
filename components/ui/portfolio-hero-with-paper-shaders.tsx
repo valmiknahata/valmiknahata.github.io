@@ -37,9 +37,9 @@ function TooltipItem({ name, description, href, isDarkMode, className }: { name:
             <span>
               <span className="font-bold">{leftPart}</span>
               {" | "}
-              <a 
-                href={href} 
-                target="_blank" 
+              <a
+                href={href}
+                target="_blank"
                 className="underline hover:opacity-70 transition-opacity decoration-1 underline-offset-2"
                 onMouseEnter={() => {
                   setShowPreview(true);
@@ -63,10 +63,10 @@ function TooltipItem({ name, description, href, isDarkMode, className }: { name:
       })()}
 
       {href && showPreview && (
-        <div 
+        <div
           className={`fixed z-[60] border shadow-2xl transition-opacity pointer-events-none overflow-hidden rounded-lg ${imageLoaded ? 'opacity-100 duration-200' : 'opacity-0'} ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"}`}
-          style={{ 
-            width: '280px', 
+          style={{
+            width: '280px',
             height: '157px',
             left: `${mousePos.x + (containerRef.current?.getBoundingClientRect().left || 0) - 140}px`,
             top: `${mousePos.y + (containerRef.current?.getBoundingClientRect().top || 0) - 177}px`,
@@ -80,7 +80,7 @@ function TooltipItem({ name, description, href, isDarkMode, className }: { name:
               </svg>
             </div>
           )}
-          <img 
+          <img
             src={`https://api.microlink.io/?url=${encodeURIComponent(href)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=720`}
             alt="Link preview"
             className={`w-full h-full object-cover transition-opacity duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
@@ -194,7 +194,7 @@ export default function ResumePage() {
             <p className="mt-[1.5cm]">
               I'm <strong>Valmik Nahata</strong>, an undergraduate at <strong>UC San Diego</strong>. Since last year, I've been working on building <strong>AI systems</strong> that are both powerful and aligned, particularly around <strong>scaling</strong>, <strong>robustness</strong> (adversarial training, safety checks, etc.), and <strong>ethical considerations</strong> (bias mitigation, transparency, etc.), with the goal of <strong>accelerating scientific discovery</strong>. Most of my research involves <strong>large language models</strong>, <strong>multimodal AI</strong>, and <strong>autonomous agents</strong>, particularly around <strong>reasoning</strong> (chain-of-thought, tree search, etc.), <strong>alignment</strong> (RLHF, debate, etc.), and making <strong>inference more efficient</strong> (quantization, etc.).
               <br /><br />
-              I grew up in Jersey and now live in California, but I'll always be a New Yorker at heart. When I'm not working on AI, you'll find me speedsolving Rubik's cubes (everything from 2x2 through 7x7, plus pyraminx, megaminx, and mirror cubes). I also spent years playing violin, working through Paganini's Caprices and Bach's Partitas, though my favorite piece will always be Mendelssohn's Violin Concerto in E Minor. And for whatever reason, I've developed a thing for collecting old coins, anything from the 1800s onward really.
+              I grew up in Jersey and now live in California, but I'll always be a New Yorker at heart. When I'm not working on AI, you'll find me speedsolving Rubik's cubes (everything from 2x2 through 7x7, plus pyraminx, megaminx, and mirror cubes). I also spent years playing violin, working through Paganini's Caprices and Bach's Partitas, though my favorite piece will always be Mendelssohn's Violin Concerto in E Minor. And for whatever reason, I've developed a thing for collecting old coins, anything from the 1800s and prior.
             </p>
           </div>
 
