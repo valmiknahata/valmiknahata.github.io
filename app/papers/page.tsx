@@ -185,6 +185,7 @@ const papers = [
 export default function ResearchPapersPage() {
     const [isDarkMode, setIsDarkMode] = useState(false)
     const [currentTime, setCurrentTime] = useState<string>("")
+    const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
 
     // Sync with localStorage
     useEffect(() => {
@@ -217,14 +218,22 @@ export default function ResearchPapersPage() {
         return () => clearInterval(timer);
     }, []);
 
+    const handleImageLoad = (index: number) => {
+        setLoadedImages(prev => {
+            const newSet = new Set(prev)
+            newSet.add(index)
+            return newSet
+        })
+    }
+
     return (
         <div className="relative min-h-screen overflow-hidden flex flex-col bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[18px]">
             <div
-                className={`w-full p-6 md:p-16 relative z-10 min-h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
+                className={`w-full p-6 md:p-12 relative z-10 min-h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
             >
-                <div className="max-w-3xl mx-auto">
+                <div className="w-full max-w-[1600px] mx-auto">
                     {/* Unified Top Header Line */}
-                    <div className="flex flex-row justify-between items-center mb-12 text-[13px] min-[400px]:text-[15px] font-medium leading-none w-full relative">
+                    <div className="flex flex-row justify-between items-center mb-16 text-[13px] min-[400px]:text-[15px] font-medium leading-none w-full relative">
                         {/* Left: Home Arrow */}
                         <Link href="/" className={`${isDarkMode ? "text-white" : "text-black"} z-10 hover:opacity-70 transition-opacity flex items-center gap-2 uppercase tracking-[0.1em] min-[400px]:tracking-widest`}>
                             <ArrowLeft size={16} strokeWidth={2.5} />
@@ -260,34 +269,58 @@ export default function ResearchPapersPage() {
                         </div>
                     </div>
 
-                    <div className="mb-14">
-                        <div className="opacity-40 mb-8 uppercase tracking-widest text-[15px] font-medium">Research Papers</div>
-                        <div className="space-y-8 opacity-85">
+                    <div className="mb-8">
+                        <div className="opacity-40 mb-12 uppercase tracking-widest text-[15px] font-medium">Research Papers</div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
                             {papers.map((paper, idx) => (
-                                <div key={idx} className="border-b border-zinc-500/10 pb-6 group">
-                                    <div className="flex flex-col gap-1 mb-2">
-                                        <div className="flex justify-between items-start gap-4">
-                                            <div className="font-bold text-[20px] leading-tight group-hover:opacity-80 transition-opacity">
-                                                {paper.link !== "#" ? (
-                                                    <a href={paper.link} target="_blank" className="flex items-center gap-2">
-                                                        {paper.title} <ExternalLink size={14} className="opacity-30 group-hover:opacity-100 transition-opacity" />
-                                                    </a>
-                                                ) : (
-                                                    paper.title
-                                                )}
+                                <a
+                                    key={idx}
+                                    href={paper.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group flex flex-col gap-4"
+                                >
+                                    {/* Preview Image Card */}
+                                    <div className={`relative w-full aspect-[16/9] overflow-hidden rounded-sm border ${isDarkMode ? "border-zinc-800 bg-zinc-900" : "border-zinc-200 bg-zinc-100"} transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg`}>
+                                        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${loadedImages.has(idx) ? 'opacity-0' : 'opacity-100'}`}>
+                                            <div className="w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin opacity-20"></div>
+                                        </div>
+                                        <img
+                                            src={`https://api.microlink.io/?url=${encodeURIComponent(paper.link)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=720&waitFor=2000&waitUntil=networkidle2`}
+                                            alt={paper.title}
+                                            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ${isDarkMode ? "opacity-80 group-hover:opacity-100" : "opacity-90 group-hover:opacity-100"} grayscale group-hover:grayscale-0 ${loadedImages.has(idx) ? 'opacity-100' : 'opacity-0'}`}
+                                            onLoad={() => handleImageLoad(idx)}
+                                            loading="lazy"
+                                        />
+                                        <div className={`absolute inset-0 ring-1 ring-inset ${isDarkMode ? "ring-white/5" : "ring-black/5"} pointer-events-none`}></div>
+                                    </div>
+
+                                    {/* Text Content */}
+                                    <div className="flex flex-col gap-1.5">
+                                        <div className="flex justify-between items-start gap-3">
+                                            <div className="font-bold text-[18px] leading-snug group-hover:underline decoration-1 underline-offset-2 transition-all">
+                                                {paper.title}
                                             </div>
-                                            <div className="opacity-30 text-[13px] uppercase tracking-tighter shrink-0 tabular-nums">#{idx + 1}</div>
+                                            <div className="opacity-30 text-[12px] uppercase tracking-tighter shrink-0 tabular-nums mt-1">
+                                                #{String(idx + 1).padStart(2, '0')}
+                                            </div>
                                         </div>
-                                        <div className="flex flex-wrap gap-x-3 gap-y-1 text-[15px] opacity-60 italic">
-                                            <span>{paper.authors}</span>
-                                            <span className="opacity-30">•</span>
-                                            <span>{paper.venue}</span>
+
+                                        <div className="flex flex-col gap-1">
+                                            <div className="text-[14px] opacity-60 italic">
+                                                {paper.authors}
+                                            </div>
+                                            <div className="text-[12px] opacity-40 uppercase tracking-wider">
+                                                {paper.venue}
+                                            </div>
+                                        </div>
+
+                                        {/* Optional: Analysis matches the "more thought out" requirement */}
+                                        <div className="text-[14px] leading-relaxed opacity-60 mt-2 line-clamp-3 group-hover:opacity-90 transition-opacity">
+                                            {paper.analysis}
                                         </div>
                                     </div>
-                                    <div className="text-[17px] leading-relaxed opacity-70">
-                                        {paper.analysis}
-                                    </div>
-                                </div>
+                                </a>
                             ))}
                         </div>
                     </div>
