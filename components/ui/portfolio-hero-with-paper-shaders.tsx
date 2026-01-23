@@ -112,7 +112,7 @@ function LinkWithPreview({ href, children, isDarkMode, className }: { href: stri
     }
   };
 
-  const previewUrl = href.startsWith('http') ? href : `https://valmiknahata.github.io${href}`;
+  const previewUrl = href.startsWith('http') ? href : `https://valnahata.me${href}`;
 
   return (
     <div
@@ -196,8 +196,8 @@ export default function ResumePage() {
       "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304",
       "https://www.mdpi.com/1999-4893/18/11/685",
       "https://www.linkedin.com/company/labry-research",
-      "https://valmiknahata.github.io/books",
-      "https://valmiknahata.github.io/papers",
+      "https://valnahata.me/books",
+      "https://valnahata.me/papers",
     ];
 
     allUrls.forEach(url => {
@@ -367,7 +367,7 @@ export default function ResumePage() {
             <div className="space-y-1.5 opacity-80">
               {[
                 { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH's ML Hackathon", desc: "NSF HDR & UCSD SMASH", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
-                { name: "1st Place | Apart Research & BlueDot Impact Economics of Transformative AI Sprint", desc: "Apart Research & BlueDot Impact", href: "https://apartresearch.com/sprints/economics-of-transformative-ai-research-sprint-2025-04-25-to-2025-04-27", date: "2025" },
+                { name: "1st Place | Apart Research & BlueDot Impact's Economics of Transformative AI Sprint", desc: "Apart Research & BlueDot Impact", href: "https://apartresearch.com/sprints/economics-of-transformative-ai-research-sprint-2025-04-25-to-2025-04-27", date: "2025" },
                 { name: "3rd Place | Milwaukee Bucks & Modine Manufacturing's Hackathon", desc: "Milwaukee Bucks & Modine Manufacturing", href: "https://www.nba.com/bucks/hackathon", date: "2025" },
                 { name: "Various | The College of New Jersey, Kean University, etc.", desc: "Additional Academic Achievements", date: "2022—2025" },
               ].map((accolade) => (
