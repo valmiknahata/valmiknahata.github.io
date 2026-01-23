@@ -2,6 +2,7 @@
 
 import { Dithering } from "@paper-design/shaders-react"
 import { useState, useEffect, useRef } from "react"
+import Link from "next/link"
 import RotatingEarth from "./wireframe-dotted-globe"
 import { Sparkles } from "lucide-react"
 
@@ -97,6 +98,21 @@ function TooltipItem({ name, description, href, isDarkMode, className }: { name:
 export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [currentTime, setCurrentTime] = useState<string>("")
+
+  // Sync with localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme === 'dark') setIsDarkMode(true)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light')
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDarkMode])
 
   // Preload all link preview images
   useEffect(() => {
@@ -195,6 +211,30 @@ export default function ResumePage() {
               I'm <strong>Valmik Nahata</strong>, an undergraduate at <strong>UC San Diego</strong>. Since last year, I've been working on building <strong>AI systems</strong> that are both powerful and aligned, particularly around <strong>scaling</strong>, <strong>robustness</strong> (adversarial training, safety checks, etc.), and <strong>ethical considerations</strong> (bias mitigation, transparency, etc.), with the goal of <strong>accelerating scientific discovery</strong>. Most of my research involves <strong>large language models</strong>, <strong>multimodal AI</strong>, and <strong>autonomous agents</strong>, particularly around <strong>reasoning</strong> (chain-of-thought, tree search, etc.), <strong>alignment</strong> (RLHF, debate, etc.), and making <strong>inference more efficient</strong> (quantization, etc.).
               <br /><br />
               I grew up in Jersey and now live in California, but I'll always be a New Yorker at heart. When I'm not working on AI, you'll find me speedsolving Rubik's cubes (everything from 2x2 through 7x7, plus pyraminx, megaminx, and mirror cubes). I also spent years playing violin, working through Paganini's Caprices and Bach's Partitas, though my favorite piece will always be Mendelssohn's Violin Concerto in E Minor. And for whatever reason, I've developed a thing for collecting old coins, anything from the 1800s and prior.
+              <br /><br />
+              I'm also inspired by the work of <strong>Richard Feynman</strong>, <strong>Christopher Paolini</strong>, <strong>Dan Brown</strong>, and <strong>J.R.R. Tolkien</strong>. I've always related to Bilbo Baggins’ poem in <em>The Fellowship of the Ring</em>:
+              <br /><br />
+              <span className="italic block pl-6 border-l-2 border-zinc-500/20 my-4 leading-relaxed">
+                "All that is gold does not glitter,<br />
+                Not all those who wander are lost;<br />
+                The old that is strong does not wither,<br />
+                Deep roots are not reached by the frost.<br />
+                From the ashes a fire shall be woken,<br />
+                A light from the shadows shall spring;<br />
+                Renewed shall be blade that was broken,<br />
+                The crownless again shall be king."
+              </span>
+              Research is much the same: progress stays hidden before it's valued, perhaps.
+              <br /><br />
+              <Link href="/books" className="underline hover:opacity-70 transition-opacity decoration-1 underline-offset-2 italic">
+                Click here to see my favorite books list.
+              </Link>
+              <br />
+              <Link href="/papers" className="underline hover:opacity-70 transition-opacity decoration-1 underline-offset-2 italic">
+                Click here to see my read papers list.
+              </Link>
+              <br /><br />
+              Anyway, here's the more formal side:
             </p>
           </div>
 
