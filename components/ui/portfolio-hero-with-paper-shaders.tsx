@@ -95,6 +95,79 @@ function TooltipItem({ name, description, href, isDarkMode, className }: { name:
   );
 }
 
+function LinkWithPreview({ href, children, isDarkMode, className }: { href: string, children: React.ReactNode, isDarkMode: boolean, className?: string }) {
+  const [showPreview, setShowPreview] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [startedLoading, setStartedLoading] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      setMousePos({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      });
+    }
+  };
+
+  const previewUrl = href.startsWith('http') ? href : `https://valmiknahata.github.io${href}`;
+
+  return (
+    <div
+      ref={containerRef}
+      className={`relative inline-block group ${className}`}
+      onMouseMove={handleMouseMove}
+    >
+      <Link
+        href={href}
+        className="underline hover:opacity-70 transition-opacity decoration-1 underline-offset-2 italic"
+        onMouseEnter={() => {
+          setShowPreview(true);
+          setStartedLoading(true);
+        }}
+        onMouseLeave={() => {
+          setShowPreview(false);
+          setImageLoaded(false);
+          setStartedLoading(false);
+        }}
+      >
+        {children}
+      </Link>
+
+      {showPreview && (
+        <div
+          className={`fixed z-[60] border shadow-2xl transition-opacity pointer-events-none overflow-hidden rounded-lg ${imageLoaded ? 'opacity-100 duration-200' : 'opacity-0'} ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"}`}
+          style={{
+            width: '280px',
+            height: '157px',
+            left: `${mousePos.x + (containerRef.current?.getBoundingClientRect().left || 0) - 140}px`,
+            top: `${mousePos.y + (containerRef.current?.getBoundingClientRect().top || 0) - 177}px`,
+          }}
+        >
+          {startedLoading && !imageLoaded && (
+            <div className={`w-full h-full flex items-center justify-center ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>
+              <svg className="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
+          )}
+          <img
+            src={`https://api.microlink.io/?url=${encodeURIComponent(previewUrl)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=720`}
+            alt="Link preview"
+            className={`w-full h-full object-cover transition-opacity duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            onLoad={() => setImageLoaded(true)}
+          />
+          <div className={`absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 -translate-y-1 rotate-45 border-r border-b ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"
+            }`} />
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [currentTime, setCurrentTime] = useState<string>("")
@@ -123,6 +196,8 @@ export default function ResumePage() {
       "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304",
       "https://www.mdpi.com/1999-4893/18/11/685",
       "https://www.linkedin.com/company/labry-research",
+      "https://valmiknahata.github.io/books",
+      "https://valmiknahata.github.io/papers",
     ];
 
     allUrls.forEach(url => {
@@ -160,7 +235,7 @@ export default function ResumePage() {
 
             {/* Center: PST Time */}
             <div className="absolute left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">
-              <div className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
+              <div suppressHydrationWarning className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
             </div>
 
             {/* Right: Theme Toggle */}
@@ -207,7 +282,7 @@ export default function ResumePage() {
 
           {/* Bio Section */}
           <div className="mb-14 leading-7 opacity-85 text-justify">
-            <p className="mt-[1.5cm]">
+            <div className="mt-[1.5cm]">
               I'm <strong>Valmik Nahata</strong>, an undergraduate at <strong>UC San Diego</strong>. Since last year, I've been working on building <strong>AI systems</strong> that are both powerful and aligned, particularly around <strong>scaling</strong>, <strong>robustness</strong> (adversarial training, safety checks, etc.), and <strong>ethical considerations</strong> (bias mitigation, transparency, etc.), with the goal of <strong>accelerating scientific discovery</strong>. Most of my research involves <strong>large language models</strong>, <strong>multimodal AI</strong>, and <strong>autonomous agents</strong>, particularly around <strong>reasoning</strong> (chain-of-thought, tree search, etc.), <strong>alignment</strong> (RLHF, debate, etc.), and making <strong>inference more efficient</strong> (quantization, etc.).
               <br /><br />
               I grew up in Jersey and now live in California, but I'll always be a New Yorker at heart. When I'm not working on AI, you'll find me speedsolving Rubik's cubes (everything from 2x2 through 7x7, plus pyraminx, megaminx, and mirror cubes). I also spent years playing violin, working through Paganini's Caprices and Bach's Partitas, though my favorite piece will always be Mendelssohn's Violin Concerto in E Minor. And for whatever reason, I've developed a thing for collecting old coins, anything from the 1800s and prior.
@@ -226,16 +301,16 @@ export default function ResumePage() {
               </span>
               Research is much the same: progress stays hidden before it's valued, perhaps.
               <br /><br />
-              <Link href="/books" className="underline hover:opacity-70 transition-opacity decoration-1 underline-offset-2 italic">
-                Click here to see my favorite books list.
-              </Link>
+              <LinkWithPreview href="/books" isDarkMode={isDarkMode}>
+                Click here to see my favorite books list
+              </LinkWithPreview>
               <br />
-              <Link href="/papers" className="underline hover:opacity-70 transition-opacity decoration-1 underline-offset-2 italic">
-                Click here to see my read papers list.
-              </Link>
+              <LinkWithPreview href="/papers" isDarkMode={isDarkMode}>
+                Click here to see my read papers list
+              </LinkWithPreview>
               <br /><br />
               Anyway, here's the more formal side:
-            </p>
+            </div>
           </div>
 
 
@@ -291,9 +366,9 @@ export default function ResumePage() {
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[15px] font-medium">Accolades</div>
             <div className="space-y-1.5 opacity-80">
               {[
-                { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH Hackathon", desc: "NSF HDR & UCSD SMASH", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
+                { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH's ML Hackathon", desc: "NSF HDR & UCSD SMASH", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
                 { name: "1st Place | Apart Research & BlueDot Impact Economics of Transformative AI Sprint", desc: "Apart Research & BlueDot Impact", href: "https://apartresearch.com/sprints/economics-of-transformative-ai-research-sprint-2025-04-25-to-2025-04-27", date: "2025" },
-                { name: "3rd Place | Milwaukee Bucks & Modine Manufacturing Hackathon", desc: "Milwaukee Bucks & Modine Manufacturing", href: "https://www.nba.com/bucks/hackathon", date: "2025" },
+                { name: "3rd Place | Milwaukee Bucks & Modine Manufacturing's Hackathon", desc: "Milwaukee Bucks & Modine Manufacturing", href: "https://www.nba.com/bucks/hackathon", date: "2025" },
                 { name: "Various | The College of New Jersey, Kean University, etc.", desc: "Additional Academic Achievements", date: "2022—2025" },
               ].map((accolade) => (
                 <div key={accolade.name} className="flex flex-row justify-between items-baseline gap-4">

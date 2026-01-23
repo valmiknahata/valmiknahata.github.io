@@ -233,7 +233,7 @@ export default function ResearchPapersPage() {
 
                         {/* Center: PST Time */}
                         <div className="absolute left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">
-                            <div className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
+                            <div suppressHydrationWarning className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
                         </div>
 
                         {/* Right: Theme Toggle */}
