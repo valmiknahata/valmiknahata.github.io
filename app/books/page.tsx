@@ -49,17 +49,6 @@ export default function BooksPage() {
     const [isDarkMode, setIsDarkMode] = useState(false)
     const [currentTime, setCurrentTime] = useState<string>("")
     const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
-    const [visibleCount, setVisibleCount] = useState(0)
-
-    // Staggered loading to respect rate limits
-    useEffect(() => {
-        if (visibleCount < books.length) {
-            const timer = setTimeout(() => {
-                setVisibleCount(prev => prev + 2)
-            }, 500) // Load 2 more every 500ms
-            return () => clearTimeout(timer)
-        }
-    }, [visibleCount])
 
     // Sync with localStorage
     useEffect(() => {
@@ -154,19 +143,18 @@ export default function BooksPage() {
                                     rel="noopener noreferrer"
                                     className="group flex flex-col gap-4"
                                 >
-                                    {/* Preview Image Card */}
-                                    <div className={`relative w-full aspect-[16/9] overflow-hidden rounded-sm border ${isDarkMode ? "border-zinc-800 bg-zinc-900" : "border-zinc-200 bg-zinc-100"} transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg`}>
+                                    {/* Preview Image Card - Book Aspect Ratio */}
+                                    <div className={`relative w-full aspect-[2/3] overflow-hidden rounded-sm border ${isDarkMode ? "border-zinc-800 bg-zinc-900" : "border-zinc-200 bg-zinc-100"} transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg`}>
                                         <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${loadedImages.has(idx) ? 'opacity-0' : 'opacity-100'}`}>
-                                            <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin opacity-20"></div>
+                                            <div className="w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin opacity-20"></div>
                                         </div>
-                                        {idx < visibleCount && (
-                                            <img
-                                                src={`https://api.microlink.io/?url=${encodeURIComponent(book.link)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1280&viewport.height=720&thumbnail.width=1280`}
-                                                alt={book.title}
-                                                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${isDarkMode ? "opacity-70 group-hover:opacity-100" : "opacity-90 group-hover:opacity-100"} grayscale group-hover:grayscale-0 ${loadedImages.has(idx) ? 'opacity-100' : 'opacity-0'}`}
-                                                onLoad={() => handleImageLoad(idx)}
-                                            />
-                                        )}
+                                        <img
+                                            src={`https://api.microlink.io/?url=${encodeURIComponent(book.link)}&embed=image.url`}
+                                            alt={book.title}
+                                            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ${isDarkMode ? "opacity-80 group-hover:opacity-100" : "opacity-90 group-hover:opacity-100"} grayscale group-hover:grayscale-0 ${loadedImages.has(idx) ? 'opacity-100' : 'opacity-0'}`}
+                                            onLoad={() => handleImageLoad(idx)}
+                                            loading="lazy"
+                                        />
                                         <div className={`absolute inset-0 ring-1 ring-inset ${isDarkMode ? "ring-white/5" : "ring-black/5"} pointer-events-none`}></div>
                                     </div>
 
