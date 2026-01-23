@@ -112,7 +112,7 @@ function LinkWithPreview({ href, children, isDarkMode, className }: { href: stri
     }
   };
 
-  const previewUrl = href.startsWith('http') ? href : `https://valnahata.me${href}`;
+  const previewUrl = href.startsWith('http') ? href : `https://valmiknahata.github.io${href}`;
 
   return (
     <div
@@ -196,8 +196,8 @@ export default function ResumePage() {
       "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304",
       "https://www.mdpi.com/1999-4893/18/11/685",
       "https://www.linkedin.com/company/labry-research",
-      "https://valnahata.me/books",
-      "https://valnahata.me/papers",
+      "https://valmiknahata.github.io/books",
+      "https://valmiknahata.github.io/papers",
     ];
 
     allUrls.forEach(url => {
