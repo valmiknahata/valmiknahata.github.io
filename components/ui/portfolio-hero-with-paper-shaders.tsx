@@ -168,30 +168,6 @@ function LinkWithPreview({ href, children, isDarkMode, className }: { href: stri
   );
 }
 
-function AdUnit() {
-  useEffect(() => {
-    try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error(err);
-    }
-  }, []);
-
-  return (
-    <div className="my-10 overflow-hidden">
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block", textAlign: "center" }}
-        data-ad-layout="in-article"
-        data-ad-format="fluid"
-        data-ad-client="ca-pub-1340809395818610"
-        data-ad-slot="1744319630"
-      ></ins>
-    </div>
-  );
-}
-
 export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [currentTime, setCurrentTime] = useState<string>("")
@@ -337,7 +313,6 @@ export default function ResumePage() {
             </div>
           </div>
 
-          <AdUnit />
 
           {/* Education Section */}
           <div className="mb-6">
@@ -410,8 +385,6 @@ export default function ResumePage() {
             </div>
           </div>
 
-          <AdUnit />
-
           {/* Research Section */}
           <div className="mb-6">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Research (publications, manuscripts, & posters)</div>
@@ -475,8 +448,6 @@ export default function ResumePage() {
               <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ&hl=en" target="_blank" className="hover:opacity-100 transition-opacity">Google Scholar</a>
             </div>
           </div>
-
-          <AdUnit />
 
           {/* ...existing code... */}
           <div className="h-12"></div>
