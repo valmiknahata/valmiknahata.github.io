@@ -341,7 +341,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
             <div className={`dark flex items-center justify-center bg-card rounded-2xl p-8 ${className}`}>
                 <div className="text-center">
                     <p className="dark text-destructive font-semibold mb-2">Error loading Earth visualization</p>
-                    <p className="dark text-muted-foreground text-sm">{error}</p>
+                    <p className="dark text-muted-foreground text-xs">{error}</p>
                 </div>
             </div>
         )

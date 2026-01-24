@@ -43,7 +43,7 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, ...props }, ref) => (
     <textarea
         className={cn(
-            "flex w-full rounded-md border-none bg-transparent px-3 py-2.5 text-base placeholder:text-gray-400/60 focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px] resize-none scrollbar-thin scrollbar-thumb-[#444444] scrollbar-track-transparent hover:scrollbar-thumb-[#555555] font-serif",
+            "flex w-full rounded-md border-none bg-transparent px-3 py-2.5 text-sm placeholder:text-gray-400/60 focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px] resize-none scrollbar-thin scrollbar-thumb-[#444444] scrollbar-track-transparent hover:scrollbar-thumb-[#555555] font-serif",
             className
         )}
         ref={ref}
@@ -65,7 +65,7 @@ const TooltipContent = React.forwardRef<
         ref={ref}
         sideOffset={sideOffset}
         className={cn(
-            "z-50 overflow-hidden rounded-md border px-3 py-1.5 text-sm shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+            "z-50 overflow-hidden rounded-md border px-3 py-1.5 text-xs shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
             className
         )}
         {...props}
@@ -121,7 +121,7 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <DialogPrimitive.Title
         ref={ref}
-        className={cn("text-lg font-semibold leading-none tracking-tight", className)}
+        className={cn("text-base font-semibold leading-none tracking-tight", className)}
         {...props}
     />
 ));
@@ -141,7 +141,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         };
         const sizeClasses = {
             default: "h-10 px-4 py-2",
-            sm: "h-8 px-3 text-sm",
+            sm: "h-8 px-3 text-xs",
             lg: "h-12 px-6",
             icon: "h-8 w-8 rounded-full aspect-[1/1]",
         };
@@ -214,7 +214,7 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
         >
             <div className="flex items-center gap-2 mb-3">
                 <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-                <span className={cn("font-mono text-sm", isDarkMode ? "text-white/80" : "text-gray-700/80")}>{formatTime(time)}</span>
+                <span className={cn("font-mono text-xs", isDarkMode ? "text-white/80" : "text-gray-700/80")}>{formatTime(time)}</span>
             </div>
             <div className="w-full h-12 flex items-center justify-center gap-1 px-4">
                 {audioData && audioData.length > 0 ? (
@@ -239,11 +239,11 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({
                 )}
             </div>
             {transcript ? (
-                <div className={cn("mt-2 text-left px-6 max-h-32 overflow-y-auto text-base leading-relaxed font-serif w-full", isDarkMode ? "text-white/90" : "text-gray-800/90")}>
+                <div className={cn("mt-2 text-left px-6 max-h-32 overflow-y-auto text-sm leading-relaxed font-serif w-full", isDarkMode ? "text-white/90" : "text-gray-800/90")}>
                     "{transcript}"
                 </div>
             ) : (
-                <div className={cn("mt-2 text-left px-6 text-sm opacity-50 italic font-serif w-full", isDarkMode ? "text-white" : "text-gray-600")}>
+                <div className={cn("mt-2 text-left px-6 text-xs opacity-50 italic font-serif w-full", isDarkMode ? "text-white" : "text-gray-600")}>
                     Speak now...
                 </div>
             )}
@@ -408,7 +408,7 @@ const PromptInputTextarea: React.FC<PromptInputTextareaProps & React.ComponentPr
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            className={cn("text-base", className)}
+            className={cn("text-sm", className)}
             disabled={disabled}
             placeholder={placeholder}
             {...props}
@@ -673,7 +673,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                                 ? "Ask me anything about Valmik..."
                                 : placeholder
                         }
-                        className={cn("text-base font-serif", textColor)}
+                        className={cn("text-sm font-serif", textColor)}
                     />
                 </div>
 
@@ -725,7 +725,7 @@ export const PromptInputBox = React.forwardRef((props: PromptInputBoxProps, ref:
                                             animate={{ width: "auto", opacity: 1 }}
                                             exit={{ width: 0, opacity: 0 }}
                                             transition={{ duration: 0.2 }}
-                                            className="text-xs overflow-hidden whitespace-nowrap flex-shrink-0"
+                                            className="text-[10px] overflow-hidden whitespace-nowrap flex-shrink-0"
                                             style={{ color: thinkColor }}
                                         >
                                             Deep Thinking

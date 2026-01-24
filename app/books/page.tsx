@@ -90,13 +90,13 @@ export default function BooksPage() {
     }
 
     return (
-        <div className="relative min-h-screen overflow-hidden flex flex-col bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[18px]">
+        <div className="relative min-h-screen overflow-hidden flex flex-col bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[16px]">
             <div
                 className={`w-full p-6 md:p-12 relative z-10 min-h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
             >
                 <div className="w-full max-w-[1600px] mx-auto">
                     {/* Unified Top Header Line */}
-                    <div className="flex flex-row justify-between items-center mb-16 text-[13px] min-[400px]:text-[15px] font-medium leading-none w-full relative">
+                    <div className="flex flex-row justify-between items-center mb-16 text-[11px] min-[400px]:text-[13px] font-medium leading-none w-full relative">
                         {/* Left: Home Arrow */}
                         <Link href="/" className={`${isDarkMode ? "text-white" : "text-black"} z-10 hover:opacity-70 transition-opacity flex items-center gap-2 uppercase tracking-[0.1em] min-[400px]:tracking-widest`}>
                             <ArrowLeft size={16} strokeWidth={2.5} />
@@ -133,7 +133,7 @@ export default function BooksPage() {
                     </div>
 
                     <div className="mb-8">
-                        <div className="opacity-40 mb-12 uppercase tracking-widest text-[15px] font-medium">Favorite Books</div>
+                        <div className="opacity-40 mb-12 uppercase tracking-widest text-[13px] font-medium">Favorite Books</div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
                             {books.map((book, idx) => (
                                 <a
@@ -161,20 +161,20 @@ export default function BooksPage() {
                                     {/* Text Content */}
                                     <div className="flex flex-col gap-1.5">
                                         <div className="flex justify-between items-start gap-3">
-                                            <div className="font-bold text-[18px] leading-snug group-hover:underline decoration-1 underline-offset-2 transition-all">
+                                            <div className="font-bold text-[16px] leading-snug group-hover:underline decoration-1 underline-offset-2 transition-all">
                                                 {book.title}
                                             </div>
-                                            <div className="opacity-30 text-[12px] uppercase tracking-tighter shrink-0 tabular-nums mt-1">
+                                            <div className="opacity-30 text-[10px] uppercase tracking-tighter shrink-0 tabular-nums mt-1">
                                                 #{String(idx + 1).padStart(2, '0')}
                                             </div>
                                         </div>
 
-                                        <div className="text-[15px] opacity-60 italic">
+                                        <div className="text-[13px] opacity-60 italic">
                                             {book.author}
                                         </div>
 
                                         {/* Optional: Analysis matches the "more thought out" requirement */}
-                                        <div className="text-[14px] leading-relaxed opacity-60 mt-2 line-clamp-3 group-hover:opacity-90 transition-opacity">
+                                        <div className="text-[12px] leading-relaxed opacity-60 mt-2 line-clamp-3 group-hover:opacity-90 transition-opacity">
                                             {book.analysis}
                                         </div>
                                     </div>
