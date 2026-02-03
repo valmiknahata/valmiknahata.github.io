@@ -147,7 +147,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
             // Draw ocean (globe background) - Match panel backgrounds
             context.beginPath()
             context.arc(containerWidth / 2, containerHeight / 2, currentScale, 0, 2 * Math.PI)
-            context.fillStyle = isDarkMode ? "#000000" : "#f7f5f3"
+            context.fillStyle = isDarkMode ? "#000000" : "#ffffff"
             context.fill()
             context.strokeStyle = isDarkMode ? "#ffffff" : "#000000"
             context.lineWidth = 2 * scaleFactor
@@ -203,7 +203,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
                         pulseTimer += 0.05
                         const pulse = (Math.sin(pulseTimer) + 1) / 2 // 0 to 1
 
-                        const pingColor = isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 100%, 70%)"
+                        const pingColor = isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(348, 90%, 30%)"
 
                         // Inner solid dot
                         context.beginPath()
@@ -351,7 +351,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
         <div className={`relative ${className}`}>
             <canvas
                 ref={canvasRef}
-                className={`w-full h-auto rounded-2xl ${isDarkMode ? "bg-black" : "bg-[#f7f5f3]"}`}
+                className={`w-full h-auto rounded-2xl ${isDarkMode ? "bg-black" : "bg-white"}`}
                 style={{ maxWidth: "100%", height: "auto", cursor: "grab" }}
             />
         </div>
