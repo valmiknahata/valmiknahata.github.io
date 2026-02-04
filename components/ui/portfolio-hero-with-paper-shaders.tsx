@@ -25,6 +25,14 @@ function TooltipItem({ name, description, href, isDarkMode, className, descripti
 
   // Track specific image loading for the gallery
   const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const activeHref = hoverSource === 'description' ? (descriptionHref || href) : (href || descriptionHref);
   const isPptx = activeHref?.toLowerCase().endsWith('.pptx');
@@ -105,7 +113,7 @@ function TooltipItem({ name, description, href, isDarkMode, className, descripti
   return (
     <div
       ref={containerRef}
-      className={`relative flex flex-col justify-center group cursor-default w-fit ${className}`}
+      className={`relative flex flex-col justify-center group cursor-default w-fit max-w-full ${className}`}
       onMouseMove={handleMouseMove}
     >
       {(() => {
@@ -138,7 +146,7 @@ function TooltipItem({ name, description, href, isDarkMode, className, descripti
       })()}
 
       {description && (
-        <span className="text-[13px] opacity-70 font-normal leading-tight mt-0.5 whitespace-pre font-mono ml-2">
+        <span className="text-[13px] opacity-70 font-normal leading-tight mt-0.5 whitespace-pre-wrap sm:whitespace-pre font-mono ml-2">
           {"└─> "}{(() => {
             const triggerText1 = "LPL Financial's University Hackathon Presentation";
             const triggerText2 = "Fan Engagement & Churn Propensity Models Presentation";
@@ -185,7 +193,16 @@ function TooltipItem({ name, description, href, isDarkMode, className, descripti
           className={`fixed z-[60] border shadow-2xl transition-opacity overflow-hidden rounded-lg ${showPreview ? 'opacity-100 duration-200' : 'opacity-0'} ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"}`}
           onMouseEnter={() => setIsMouseOverPreview(true)}
           onMouseLeave={() => setIsMouseOverPreview(false)}
-          style={{
+          style={isMobile ? {
+            width: 'min(90vw, 320px)',
+            height: 'auto',
+            aspectRatio: '16/9',
+            left: '50%',
+            bottom: '20px',
+            transform: 'translateX(-50%)',
+            top: 'auto',
+            pointerEvents: showPreview ? 'auto' : 'none'
+          } : {
             width: '280px',
             height: '157px',
             left: `${mousePos.x + (containerRef.current?.getBoundingClientRect().left || 0) - 140}px`,
@@ -272,8 +289,10 @@ function TooltipItem({ name, description, href, isDarkMode, className, descripti
               onLoad={() => setImageLoaded(true)}
             />
           )}
-          <div className={`absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 -translate-y-1 rotate-45 border-r border-b ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"
-            }`} />
+          {!isMobile && (
+            <div className={`absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 -translate-y-1 rotate-45 border-r border-b ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"
+              }`} />
+          )}
         </div>
       )}
     </div>
@@ -287,6 +306,14 @@ function LinkWithPreview({ href, children, isDarkMode, className }: { href: stri
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScrollEvent = () => {
@@ -343,7 +370,15 @@ function LinkWithPreview({ href, children, isDarkMode, className }: { href: stri
       {showPreview && (
         <div
           className={`fixed z-[60] border shadow-2xl transition-opacity pointer-events-none overflow-hidden rounded-lg ${imageLoaded ? 'opacity-100 duration-200' : 'opacity-0'} ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"}`}
-          style={{
+          style={isMobile ? {
+            width: 'min(90vw, 320px)',
+            height: 'auto',
+            aspectRatio: '16/9',
+            left: '50%',
+            bottom: '20px',
+            transform: 'translateX(-50%)',
+            top: 'auto',
+          } : {
             width: '280px',
             height: '157px',
             left: `${mousePos.x + (containerRef.current?.getBoundingClientRect().left || 0) - 140}px`,
@@ -364,8 +399,10 @@ function LinkWithPreview({ href, children, isDarkMode, className }: { href: stri
             className={`w-full h-full object-cover transition-opacity duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             onLoad={() => setImageLoaded(true)}
           />
-          <div className={`absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 -translate-y-1 rotate-45 border-r border-b ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"
-            }`} />
+          {!isMobile && (
+            <div className={`absolute left-1/2 -translate-x-1/2 top-full w-2 h-2 -translate-y-1 rotate-45 border-r border-b ${isDarkMode ? "bg-zinc-900 border-zinc-700" : "bg-white border-zinc-200"
+              }`} />
+          )}
         </div>
       )}
     </div>
@@ -440,19 +477,19 @@ export default function ResumePage() {
       >
         <div className="max-w-3xl mx-auto">
           {/* Unified Top Header Line */}
-          <div className="flex flex-row justify-between items-center mb-12 text-[11px] min-[400px]:text-[13px] font-medium leading-none w-full relative">
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-8 sm:mb-12 text-[11px] min-[400px]:text-[13px] font-medium leading-none w-full relative gap-4 sm:gap-0">
             {/* Left: Name */}
-            <div className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10`}>Valmik Nahata</div>
+            <div className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10 w-full sm:w-auto text-center sm:text-left`}>Valmik Nahata</div>
 
             {/* Center: PST Time */}
-            <div className="absolute left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">
+            <div className="sm:absolute sm:left-1/2 sm:-translate-x-1/2 w-full text-center pointer-events-none order-last sm:order-none">
               <div suppressHydrationWarning className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
             </div>
 
             {/* Right: Theme Toggle */}
             <div
               onClick={() => setIsDarkMode(!isDarkMode)}
-              className="flex items-center gap-1 min-[400px]:gap-2 group cursor-pointer z-10"
+              className="flex items-center justify-center sm:justify-end gap-1 min-[400px]:gap-2 group cursor-pointer z-10 w-full sm:w-auto"
             >
               <span className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest`}>{isDarkMode ? "Dark Mode" : "Light Mode"}</span>
               <button
@@ -477,7 +514,7 @@ export default function ResumePage() {
           <div className="mb-12"></div>
 
           {/* Bio Section */}
-          <div className="mb-14 leading-7 opacity-85 text-justify">
+          <div className="mb-14 leading-7 opacity-85 sm:text-justify text-left">
             <div className="mt-[1.5cm]">
               I'm Valmik Nahata, an undergraduate at UC San Diego. Since last year, I've been working on building AI systems focused on scaling, robustness (adversarial training, safety checks, etc.), and ethical considerations (bias mitigation, transparency, etc.), with the goal of accelerating scientific discovery. Most of my research involves large language models, multimodal AI, and autonomous agents, with an interest in reasoning (chain-of-thought, tree search, etc.), alignment (RLHF, debate, etc.), and inference efficiency (quantization, etc.).
               <br /><br />
@@ -514,7 +551,7 @@ export default function ResumePage() {
           <div className="mb-6">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Education</div>
             <div className="space-y-2 opacity-80">
-              <div className="flex flex-row justify-between items-baseline gap-4">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
                 <TooltipItem
                   name="Undergraduate Student | University of California, San Diego"
                   description="Data Science at Halıcıoğlu Data Science Institute (Ranked #8 on U.S. News)"
@@ -522,7 +559,7 @@ export default function ResumePage() {
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums">2024—Present</span>
+                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base">2024—Present</span>
                 </div>
               </div>
             </div>
@@ -531,8 +568,8 @@ export default function ResumePage() {
           {/* Occupations Section */}
           <div className="mb-6">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Occupations</div>
-            <div className="space-y-2 opacity-80">
-              <div className="flex flex-row justify-between items-baseline gap-4">
+            <div className="space-y-4 sm:space-y-2 opacity-80">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
                 <TooltipItem
                   name="Undergraduate Researcher | Harvard Medical School & Massachusetts General Hospital"
                   description="Advised by ___ on LLMs for Clinical Use"
@@ -540,10 +577,10 @@ export default function ResumePage() {
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums">2025—Present</span>
+                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base">2025—Present</span>
                 </div>
               </div>
-              <div className="flex flex-row justify-between items-baseline gap-4">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
                 <TooltipItem
                   name="Research Intern | Dartmouth Hitchcock Medical Center"
                   description="Advised by Dr. Joshua Levy on RAG for Pathology Reports"
@@ -551,7 +588,7 @@ export default function ResumePage() {
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums">2024—2025</span>
+                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base">2024—2025</span>
                 </div>
               </div>
             </div>
@@ -560,7 +597,7 @@ export default function ResumePage() {
           {/* Accolades Section */}
           <div className="mb-6">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Accolades</div>
-            <div className="space-y-1.5 opacity-80">
+            <div className="space-y-4 sm:space-y-1.5 opacity-80">
               {[
                 { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH's ML Hackathon", desc: "Coastal Flooding Prediction Models", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
                 { name: "1st Place | Apart Research & BlueDot Impact's Economics of Transformative AI Sprint", desc: "The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence", href: "https://apartresearch.com/sprints/economics-of-transformative-ai-research-sprint-2025-04-25-to-2025-04-27", descHref: "https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql", date: "2025" },
@@ -573,7 +610,7 @@ export default function ResumePage() {
                 },
                 { name: "Various | The College of New Jersey, Kean University, etc.", desc: "", date: "2022—2025" },
               ].map((accolade) => (
-                <div key={accolade.name} className="flex flex-row justify-between items-baseline gap-4">
+                <div key={accolade.name} className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
                   <TooltipItem
                     name={accolade.name}
                     description={accolade.desc}
@@ -583,7 +620,7 @@ export default function ResumePage() {
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
-                  <span className="opacity-50 tabular-nums shrink-0 text-right">{accolade.date}</span>
+                  <span className="opacity-50 tabular-nums shrink-0 text-left sm:text-right text-[13px] sm:text-base">{accolade.date}</span>
                 </div>
               ))}
             </div>
@@ -592,14 +629,14 @@ export default function ResumePage() {
           {/* Research Section */}
           <div className="mb-6">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Research (publications, manuscripts, & posters)</div>
-            <div className="space-y-1.5 opacity-80">
+            <div className="space-y-4 sm:space-y-1.5 opacity-80">
               {[
                 { name: "Upcoming | Chain-of-Thought Reasoning in Large Language Models for Clinical Applications", desc: "", date: "2025—Present" },
                 { name: "Manuscript & Poster | Retrieval Augmented Generation for Pathology Reports", desc: "", date: "2024" },
                 { name: "Publication | A Statistical Analysis of Crab Pulsar Giant Pulse Rates", desc: "Directed by Graham Doskoch at Department of Physics and Astronomy, West Virginia University", href: "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304", date: "2024" },
                 { name: "Publication | Cover Edge-Based Triangle Counting", desc: "Directed by Dr. David Bader at Department of Data Science, New Jersey Institute of Technology", href: "https://www.mdpi.com/1999-4893/18/11/685", date: "2024" },
               ].map((publication) => (
-                <div key={publication.name} className="flex flex-row justify-between items-baseline gap-4">
+                <div key={publication.name} className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
                   <TooltipItem
                     name={publication.name}
                     description={publication.desc}
@@ -609,7 +646,7 @@ export default function ResumePage() {
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
-                  <span className="opacity-50 tabular-nums shrink-0 text-right">{publication.date}</span>
+                  <span className="opacity-50 tabular-nums shrink-0 text-left sm:text-right text-[13px] sm:text-base">{publication.date}</span>
                 </div>
               ))}
             </div>
@@ -618,7 +655,7 @@ export default function ResumePage() {
           {/* Projects Section */}
           <div className="mb-6">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Projects (Independent & collaborative)</div>
-            <div className="space-y-1.5 opacity-80">
+            <div className="space-y-4 sm:space-y-1.5 opacity-80">
               {[
                 { name: "Democratizing Research | Labry", desc: "", href: "https://www.linkedin.com/company/109509095", date: "2025—Present" },
                 {
@@ -639,7 +676,7 @@ export default function ResumePage() {
                 { name: "Trading Automations | Steam's TF2 & CS:GO", desc: "", date: "2023" },
                 { name: "Financial Data Pipeline | Tree-Plenish", desc: "", date: "2023" },
               ].map((project) => (
-                <div key={project.name} className="flex flex-row justify-between items-baseline gap-4">
+                <div key={project.name} className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
                   <TooltipItem
                     name={project.name}
                     description={project.desc}
@@ -649,7 +686,7 @@ export default function ResumePage() {
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
-                  <span className="opacity-50 tabular-nums shrink-0 text-right">{project.date}</span>
+                  <span className="opacity-50 tabular-nums shrink-0 text-left sm:text-right text-[13px] sm:text-base">{project.date}</span>
                 </div>
               ))}
             </div>
@@ -666,9 +703,11 @@ export default function ResumePage() {
           </div>
 
           {/* Footer Globe Section */}
-          <div className="mt-12 mb-6">
+          <div className="mt-12 mb-6 pointer-events-none sm:pointer-events-auto">
             <div className="flex flex-col items-center relative">
-              <RotatingEarth width={380} height={380} className="opacity-80" isDarkMode={isDarkMode} />
+              <div className="w-full max-w-[380px] aspect-square flex items-center justify-center">
+                <RotatingEarth width={380} height={380} className="opacity-80" isDarkMode={isDarkMode} />
+              </div>
               <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md z-20 -mt-5 ${isDarkMode
                 ? "bg-neutral-900 text-neutral-400 border border-neutral-800"
                 : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
