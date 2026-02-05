@@ -120,20 +120,19 @@ function TooltipItem({ name, description, href, isDarkMode, className, descripti
         const [left, ...right] = name.split("|");
         const leftPart = left?.trim();
         const rightPart = right.length > 0 ? right.join("|").trim() : null;
-        if (href && rightPart) {
+        if ((href || hasImages) && rightPart) {
           return (
             <span>
               <span className="font-bold">{leftPart}</span>
               {" | "}
-              <a
-                href={href}
-                target="_blank"
-                className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}
+              <span
+                className={`transition-all hover:opacity-70 cursor-pointer ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}
                 onMouseEnter={() => { setIsMouseOverTrigger(true); setHoverSource('title'); }}
                 onMouseLeave={() => { setIsMouseOverTrigger(false); setHoverSource(null); }}
+                onClick={() => href && window.open(href, '_blank')}
               >
                 {rightPart}
-              </a>
+              </span>
             </span>
           );
         } else {
@@ -146,46 +145,50 @@ function TooltipItem({ name, description, href, isDarkMode, className, descripti
       })()}
 
       {description && (
-        <span className="text-[13px] opacity-70 font-normal leading-tight mt-0.5 whitespace-pre-wrap sm:whitespace-pre font-mono ml-2">
-          {"└─> "}{(() => {
-            const triggerText1 = "LPL Financial's University Hackathon Presentation";
-            const triggerText2 = "Fan Engagement & Churn Propensity Models Presentation";
-            const triggerText3 = "The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence";
+        <div className="flex flex-col ml-2">
+          {description.split('\n').map((line, i) => (
+            <span key={i} className="text-[13px] opacity-70 font-normal leading-tight mt-0.5 whitespace-pre-wrap sm:whitespace-pre font-mono">
+              {"└─> "}{(() => {
+                const triggerText1 = "LPL Financial's University Hackathon Presentation";
+                const triggerText2 = "Fan Engagement & Churn Propensity Models Presentation";
+                const triggerText3 = "The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence";
 
-            const triggerText = description.includes(triggerText1) ? triggerText1 : (description.includes(triggerText2) ? triggerText2 : (description.includes(triggerText3) ? triggerText3 : null));
+                const triggerText = line.includes(triggerText1) ? triggerText1 : (line.includes(triggerText2) ? triggerText2 : (line.includes(triggerText3) ? triggerText3 : null));
 
-            if ((descriptionHref || hasImages) && triggerText) {
-              const parts = description.split(triggerText);
-              return (
-                <>
-                  {parts[0]}
-                  {descriptionHref ? (
-                    <a
-                      href={descriptionHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`cursor-pointer transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}
-                      onMouseEnter={() => { setIsMouseOverTrigger(true); setHoverSource('description'); }}
-                      onMouseLeave={() => { setIsMouseOverTrigger(false); setHoverSource(null); }}
-                    >
-                      {triggerText}
-                    </a>
-                  ) : (
-                    <span
-                      className={`cursor-pointer transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}
-                      onMouseEnter={() => { setIsMouseOverTrigger(true); setHoverSource('description'); }}
-                      onMouseLeave={() => { setIsMouseOverTrigger(false); setHoverSource(null); }}
-                    >
-                      {triggerText}
-                    </span>
-                  )}
-                  {parts[1]}
-                </>
-              );
-            }
-            return description;
-          })()}
-        </span>
+                if ((descriptionHref || hasImages) && triggerText) {
+                  const parts = line.split(triggerText);
+                  return (
+                    <>
+                      {parts[0]}
+                      {descriptionHref ? (
+                        <a
+                          href={descriptionHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`cursor-pointer transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}
+                          onMouseEnter={() => { setIsMouseOverTrigger(true); setHoverSource('description'); }}
+                          onMouseLeave={() => { setIsMouseOverTrigger(false); setHoverSource(null); }}
+                        >
+                          {triggerText}
+                        </a>
+                      ) : (
+                        <span
+                          className={`cursor-pointer transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}
+                          onMouseEnter={() => { setIsMouseOverTrigger(true); setHoverSource('description'); }}
+                          onMouseLeave={() => { setIsMouseOverTrigger(false); setHoverSource(null); }}
+                        >
+                          {triggerText}
+                        </span>
+                      )}
+                      {parts[1]}
+                    </>
+                  );
+                }
+                return line;
+              })()}
+            </span>
+          ))}
+        </div>
       )}
 
       {(activeHref || hasImages) && showPreview && activeTooltipId === tooltipId.current && (
@@ -551,15 +554,15 @@ export default function ResumePage() {
           <div className="mb-6">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Education</div>
             <div className="space-y-2 opacity-80">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
+              <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
                   name="Undergraduate Student | University of California, San Diego"
-                  description="Data Science at Halıcıoğlu Data Science Institute (Ranked #8 on U.S. News)"
+                  description={"Data Science at Halıcıoğlu Data Science Institute (Ranked #8 on U.S. News)\nVice President of Research at the AI Student Collective at UC San Diego"}
                   isDarkMode={isDarkMode}
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base">2024—Present</span>
+                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base text-right">2024—Present</span>
                 </div>
               </div>
             </div>
@@ -568,19 +571,29 @@ export default function ResumePage() {
           {/* Occupations Section */}
           <div className="mb-6">
             <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Occupations</div>
-            <div className="space-y-4 sm:space-y-2 opacity-80">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
+            <div className="space-y-2 opacity-80">
+              <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
-                  name="Undergraduate Researcher | Harvard Medical School & Massachusetts General Hospital"
-                  description="Advised by ___ on LLMs for Clinical Use"
+                  name="Member | MIT AI Alignment (MAIA)"
                   isDarkMode={isDarkMode}
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base">2025—Present</span>
+                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base text-right">2026—Present</span>
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
+              <div className="flex flex-row justify-between items-baseline gap-4">
+                <TooltipItem
+                  name="Undergraduate Researcher | Harvard Medical School & Massachusetts General Hospital"
+                  description="Advised by Dr. ___ _________ on LLMs for Clinical Use"
+                  isDarkMode={isDarkMode}
+                  className="font-medium shrink"
+                />
+                <div className="flex gap-4 items-baseline shrink-0">
+                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base text-right">2025—Present</span>
+                </div>
+              </div>
+              <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
                   name="Research Intern | Dartmouth Hitchcock Medical Center"
                   description="Advised by Dr. Joshua Levy on RAG for Pathology Reports"
@@ -588,7 +601,7 @@ export default function ResumePage() {
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base">2024—2025</span>
+                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base text-right">2024—2025</span>
                 </div>
               </div>
             </div>
@@ -610,7 +623,7 @@ export default function ResumePage() {
                 },
                 { name: "Various | The College of New Jersey, Kean University, etc.", desc: "", date: "2022—2025" },
               ].map((accolade) => (
-                <div key={accolade.name} className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
+                <div key={accolade.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
                     name={accolade.name}
                     description={accolade.desc}
@@ -620,7 +633,7 @@ export default function ResumePage() {
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
-                  <span className="opacity-50 tabular-nums shrink-0 text-left sm:text-right text-[13px] sm:text-base">{accolade.date}</span>
+                  <span className="opacity-50 tabular-nums shrink-0 text-right text-[13px] sm:text-base">{accolade.date}</span>
                 </div>
               ))}
             </div>
@@ -632,11 +645,11 @@ export default function ResumePage() {
             <div className="space-y-4 sm:space-y-1.5 opacity-80">
               {[
                 { name: "Upcoming | Chain-of-Thought Reasoning in Large Language Models for Clinical Applications", desc: "", date: "2025—Present" },
-                { name: "Manuscript & Poster | Retrieval Augmented Generation for Pathology Reports", desc: "", date: "2024" },
+                { name: "Manuscript & Poster | Retrieval Augmented Generation for Pathology Reports", desc: "Directed by Dr. Joshua Levy at Dartmouth Hitchcock Medical Center", images: ["/Poster Template.pptx.jpg"], date: "2024" },
                 { name: "Publication | A Statistical Analysis of Crab Pulsar Giant Pulse Rates", desc: "Directed by Graham Doskoch at Department of Physics and Astronomy, West Virginia University", href: "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304", date: "2024" },
                 { name: "Publication | Cover Edge-Based Triangle Counting", desc: "Directed by Dr. David Bader at Department of Data Science, New Jersey Institute of Technology", href: "https://www.mdpi.com/1999-4893/18/11/685", date: "2024" },
               ].map((publication) => (
-                <div key={publication.name} className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
+                <div key={publication.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
                     name={publication.name}
                     description={publication.desc}
@@ -646,7 +659,7 @@ export default function ResumePage() {
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
-                  <span className="opacity-50 tabular-nums shrink-0 text-left sm:text-right text-[13px] sm:text-base">{publication.date}</span>
+                  <span className="opacity-50 tabular-nums shrink-0 text-right text-[13px] sm:text-base">{publication.date}</span>
                 </div>
               ))}
             </div>
@@ -661,7 +674,6 @@ export default function ResumePage() {
                 {
                   name: "Autonomous Financial Compliance Engine | ALPINE",
                   desc: "LPL Financial's University Hackathon Presentation",
-                  descHref: "/alpine-slides.pptx",
                   images: Array.from({ length: 22 }, (_, i) => i + 1)
                     .filter(n => n !== 13 && n !== 14)
                     .map(n => `/alpine-slides/Slide${n}.JPG`),
@@ -676,7 +688,7 @@ export default function ResumePage() {
                 { name: "Trading Automations | Steam's TF2 & CS:GO", desc: "", date: "2023" },
                 { name: "Financial Data Pipeline | Tree-Plenish", desc: "", date: "2023" },
               ].map((project) => (
-                <div key={project.name} className="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-1 sm:gap-4">
+                <div key={project.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
                     name={project.name}
                     description={project.desc}
@@ -686,7 +698,7 @@ export default function ResumePage() {
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
-                  <span className="opacity-50 tabular-nums shrink-0 text-left sm:text-right text-[13px] sm:text-base">{project.date}</span>
+                  <span className="opacity-50 tabular-nums shrink-0 text-right text-[13px] sm:text-base">{project.date}</span>
                 </div>
               ))}
             </div>
