@@ -480,32 +480,34 @@ export default function ResumePage() {
       >
         <div className="max-w-3xl mx-auto">
           {/* Unified Top Header Line */}
-          <div className="flex flex-col sm:flex-row justify-between items-center mb-8 sm:mb-12 text-[11px] min-[400px]:text-[13px] font-medium leading-none w-full relative gap-4 sm:gap-0">
-            {/* Left: Name */}
-            <div className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest z-10 w-full sm:w-auto text-center sm:text-left`}>Valmik Nahata</div>
-
-            {/* Center: PST Time */}
-            <div className="sm:absolute sm:left-1/2 sm:-translate-x-1/2 w-full text-center pointer-events-none order-last sm:order-none">
+          <div className="flex flex-row justify-between items-center mb-12 text-[10px] min-[400px]:text-[12px] font-medium leading-none w-full relative">
+            {/* Left: PST Time */}
+            <div className="z-10 text-left">
               <div suppressHydrationWarning className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
+            </div>
+
+            {/* Center: Name */}
+            <div className="absolute left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">
+              <div className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest`}>Valmik Nahata</div>
             </div>
 
             {/* Right: Theme Toggle */}
             <div
               onClick={() => setIsDarkMode(!isDarkMode)}
-              className="flex items-center justify-center sm:justify-end gap-1 min-[400px]:gap-2 group cursor-pointer z-10 w-full sm:w-auto"
+              className="flex items-center justify-end gap-1 min-[400px]:gap-2 group cursor-pointer z-10"
             >
-              <span className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest`}>{isDarkMode ? "Dark Mode" : "Light Mode"}</span>
+              <span className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest`}>{isDarkMode ? "Dark" : "Light"}</span>
               <button
                 className="group-active:scale-95 transition-transform flex items-center justify-center -mt-[1px]"
                 aria-label="Toggle theme"
               >
                 {isDarkMode ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <circle cx="12" cy="12" r="5" />
                     <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
                   </svg>
                 ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                   </svg>
                 )}
