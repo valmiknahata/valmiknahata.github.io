@@ -527,35 +527,22 @@ export default function ResumePage() {
               <br /><br />
               I'm also inspired by the work of Richard Feynman, Christopher Paolini, Dan Brown, and J.R.R. Tolkien. I've always related to Bilbo Baggins’ poem in <em>The Fellowship of the Ring</em>:
               <br /><br />
-              <span className="italic block pl-6 border-l-2 border-zinc-500/20 my-4 leading-relaxed">
+              <span className="italic block pl-6 border-l-2 border-zinc-500/20 leading-relaxed">
                 "All that is gold does not glitter,<br />
                 Not all those who wander are lost;<br />
                 The old that is strong does not wither,<br />
-                Deep roots are not reached by the frost.<br />
-                From the ashes a fire shall be woken,<br />
-                A light from the shadows shall spring;<br />
-                Renewed shall be blade that was broken,<br />
-                The crownless again shall be king."
+                Deep roots are not reached by the frost."
               </span>
-              Research is much the same: progress stays hidden before it's valued, perhaps.
-              <br /><br />
-              <LinkWithPreview href="/books" isDarkMode={isDarkMode}>
-                Click here to see my favorite books list
-              </LinkWithPreview>
               <br />
-              <LinkWithPreview href="/papers" isDarkMode={isDarkMode}>
-                Click here to see my read papers list
-              </LinkWithPreview>
-              <br /><br />
-              Anyway, here's the more formal side:
+              Research is much the same: progress stays hidden before it's valued, perhaps. Here's the more formal side:
             </div>
           </div>
 
 
           {/* Education Section */}
-          <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Education</div>
-            <div className="space-y-2 opacity-80">
+          <div className="mb-12">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Education</div>
+            <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
                   name="Undergraduate Student | University of California, San Diego"
@@ -571,9 +558,9 @@ export default function ResumePage() {
           </div>
 
           {/* Occupations Section */}
-          <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Occupations</div>
-            <div className="space-y-2 opacity-80">
+          <div className="mb-12">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Occupations</div>
+            <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
                   name="Member | MIT AI Alignment (MAIA)"
@@ -610,9 +597,9 @@ export default function ResumePage() {
           </div>
 
           {/* Accolades Section */}
-          <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Accolades</div>
-            <div className="space-y-4 sm:space-y-1.5 opacity-80">
+          <div className="mb-12">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Accolades</div>
+            <div className="space-y-0.5 opacity-80">
               {[
                 { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH's ML Hackathon", desc: "Coastal Flooding Prediction Models", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
                 { name: "1st Place | Apart Research & BlueDot Impact's Economics of Transformative AI Sprint", desc: "The Early Economic Impacts of Transformative AI: A Focus on Temporal Coherence", href: "https://apartresearch.com/sprints/economics-of-transformative-ai-research-sprint-2025-04-25-to-2025-04-27", descHref: "https://apartresearch.com/project/the-early-economic-impacts-of-transformative-ai-a-focus-on-temporal-coherence-ipql", date: "2025" },
@@ -642,9 +629,9 @@ export default function ResumePage() {
           </div>
 
           {/* Research Section */}
-          <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Research (publications, manuscripts, & posters)</div>
-            <div className="space-y-4 sm:space-y-1.5 opacity-80">
+          <div className="mb-12">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Research (publications, manuscripts, & posters)</div>
+            <div className="space-y-0.5 opacity-80">
               {[
                 { name: "Upcoming | Chain-of-Thought Reasoning in Large Language Models for Clinical Applications", desc: "", date: "2025—Present" },
                 { name: "Manuscript & Poster | Retrieval Augmented Generation for Pathology Reports", desc: "Directed by Dr. Joshua Levy at Dartmouth Hitchcock Medical Center", images: ["/Poster Template.pptx.jpg"], date: "2024" },
@@ -668,9 +655,9 @@ export default function ResumePage() {
           </div>
 
           {/* Projects Section */}
-          <div className="mb-6">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Projects (Independent & collaborative)</div>
-            <div className="space-y-4 sm:space-y-1.5 opacity-80">
+          <div className="mb-12">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Projects (Independent & collaborative)</div>
+            <div className="space-y-0.5 opacity-80">
               {[
                 { name: "Democratizing Research | Labry", desc: "", href: "https://www.linkedin.com/company/109509095", date: "2025—Present" },
                 {
@@ -713,6 +700,19 @@ export default function ResumePage() {
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>LinkedIn</a>
               <a href="mailto:vnahata@ucsd.edu" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>Email</a>
               <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ&hl=en" target="_blank" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>Google Scholar</a>
+            </div>
+          </div>
+
+          {/* Additional Section */}
+          <div className="mb-14">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Additional</div>
+            <div className="flex flex-col gap-2 italic">
+              <LinkWithPreview href="/books" isDarkMode={isDarkMode}>
+                Favorite Books List
+              </LinkWithPreview>
+              <LinkWithPreview href="/papers" isDarkMode={isDarkMode}>
+                Read Research Papers List
+              </LinkWithPreview>
             </div>
           </div>
 

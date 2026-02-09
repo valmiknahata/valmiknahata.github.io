@@ -270,7 +270,7 @@ export default function ResearchPapersPage() {
                         </div>
                     </div>
 
-                    <div className="mb-8">
+                    <div className="mb-14">
                         <div className="opacity-40 mb-12 uppercase tracking-widest text-[13px] font-medium">Favorite Papers</div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
                             {papers.map((paper, idx) => (
