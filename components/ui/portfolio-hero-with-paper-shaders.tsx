@@ -563,7 +563,7 @@ export default function ResumePage() {
             <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
-                  name="Member | MIT AI Alignment (MAIA)"
+                  name="Member | MIT AI Alignment"
                   isDarkMode={isDarkMode}
                   className="font-medium shrink"
                 />
