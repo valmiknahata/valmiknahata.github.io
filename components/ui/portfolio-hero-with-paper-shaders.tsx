@@ -480,7 +480,7 @@ export default function ResumePage() {
       >
         <div className="max-w-3xl mx-auto">
           {/* Unified Top Header Line */}
-          <div className="flex flex-row justify-between items-center mb-12 text-[10px] min-[400px]:text-[12px] font-medium leading-none w-full relative">
+          <div className="flex flex-row justify-between items-center mb-6 text-[10px] min-[400px]:text-[12px] font-medium leading-none w-full relative">
             {/* Left: PST Time */}
             <div className="z-10 text-left">
               <div suppressHydrationWarning className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
@@ -516,10 +516,10 @@ export default function ResumePage() {
           </div>
 
           {/* Header Section Spacing */}
-          <div className="mb-12"></div>
+          <div className="mb-6"></div>
 
           {/* Bio Section */}
-          <div className="mb-14 leading-7 opacity-85 sm:text-justify text-left">
+          <div className="mb-6 leading-7 opacity-85 sm:text-justify text-left">
             <div className="mt-[1.5cm]">
               I'm Valmik Nahata, an undergraduate at UC San Diego. Since last year, I've been working on building AI systems focused on scaling, robustness (adversarial training, safety checks, etc.), and ethical considerations (bias mitigation, transparency, etc.), with the goal of accelerating scientific discovery. Most of my research involves large language models, multimodal AI, and autonomous agents, with an interest in reasoning (chain-of-thought, tree search, etc.), alignment (RLHF, debate, etc.), and inference efficiency (quantization, etc.).
               <br /><br />
@@ -539,14 +539,13 @@ export default function ResumePage() {
           </div>
 
 
-          {/* Education Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Education</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Education</div>
             <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
                   name="Undergraduate Student | University of California, San Diego"
-                  description={"Data Science at Halıcıoğlu Data Science Institute (Ranked #8 on U.S. News)\nVice President of Research at the AI Student Collective at UC San Diego"}
+                  description={"Data Science at Halıcıoğlu Data Science Institute (Ranked #8 on U.S. News)\nVice President of Research at the AI Student Collective, ACM, IEEE, UBIC, SDxUCSD"}
                   isDarkMode={isDarkMode}
                   className="font-medium shrink"
                 />
@@ -558,8 +557,8 @@ export default function ResumePage() {
           </div>
 
           {/* Occupations Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Occupations</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Occupations</div>
             <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
@@ -584,7 +583,7 @@ export default function ResumePage() {
               </div>
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
-                  name="Research Intern | Dartmouth Hitchcock Medical Center"
+                  name="Research Intern | Dartmouth Health & Dartmouth Cancer Center"
                   description="Advised by Dr. Joshua Levy on RAG for Pathology Reports"
                   isDarkMode={isDarkMode}
                   className="font-medium shrink"
@@ -597,8 +596,8 @@ export default function ResumePage() {
           </div>
 
           {/* Accolades Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Accolades</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Accolades</div>
             <div className="space-y-0.5 opacity-80">
               {[
                 { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH's ML Hackathon", desc: "Coastal Flooding Prediction Models", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
@@ -606,11 +605,10 @@ export default function ResumePage() {
                 {
                   name: "3rd Place | Milwaukee Bucks & Modine Manufacturing's Hackathon",
                   desc: "Fan Engagement & Churn Propensity Models Presentation",
-                  href: "https://www.nba.com/bucks/hackathon",
-                  descHref: "https://www.nba.com/bucks/hackathon",
+                  images: Array.from({ length: 18 }, (_, i) => `/bucks-slides/Slide${i + 1}.JPG`),
                   date: "2025"
                 },
-                { name: "Various | The College of New Jersey, Kean University, etc.", desc: "", date: "2022—2025" },
+                { name: "Various | The College of New Jersey, Kean University, etc.", desc: "", date: "2023—2025" },
               ].map((accolade) => (
                 <div key={accolade.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
@@ -629,14 +627,14 @@ export default function ResumePage() {
           </div>
 
           {/* Research Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Research (publications, manuscripts, & posters)</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Research (publications, manuscripts, & posters)</div>
             <div className="space-y-0.5 opacity-80">
               {[
-                { name: "Upcoming | Chain-of-Thought Reasoning in Large Language Models for Clinical Applications", desc: "", date: "2025—Present" },
-                { name: "Manuscript & Poster | Retrieval Augmented Generation for Pathology Reports", desc: "Directed by Dr. Joshua Levy at Dartmouth Hitchcock Medical Center", images: ["/Poster Template.pptx.jpg"], date: "2024" },
+                { name: "Upcoming | Chain-of-Thought Robustness in Large Language Models for Clinical Applications", desc: "", date: "2025—Present" },
                 { name: "Publication | A Statistical Analysis of Crab Pulsar Giant Pulse Rates", desc: "Directed by Graham Doskoch at Department of Physics and Astronomy, West Virginia University", href: "https://iopscience.iop.org/article/10.3847/1538-4357/ad6304", date: "2024" },
                 { name: "Publication | Cover Edge-Based Triangle Counting", desc: "Directed by Dr. David Bader at Department of Data Science, New Jersey Institute of Technology", href: "https://www.mdpi.com/1999-4893/18/11/685", date: "2024" },
+                { name: "Manuscript & Poster | Retrieval Augmented Generation for Pathology Reports", desc: "Directed by Dr. Joshua Levy at Dartmouth Health & Dartmouth Cancer Center", images: ["/Poster Template.pptx.jpg"], date: "2024" },
               ].map((publication) => (
                 <div key={publication.name} className="flex flex-row justify-between items-baseline gap-4">
                   <TooltipItem
@@ -655,8 +653,8 @@ export default function ResumePage() {
           </div>
 
           {/* Projects Section */}
-          <div className="mb-12">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-medium">Projects (Independent & collaborative)</div>
+          <div className="mb-6">
+            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Projects (Independent & collaborative)</div>
             <div className="space-y-0.5 opacity-80">
               {[
                 { name: "Democratizing Research | Labry", desc: "", href: "https://www.linkedin.com/company/109509095", date: "2025—Present" },
@@ -694,8 +692,8 @@ export default function ResumePage() {
           </div>
 
           {/* Contact Section */}
-          <div className="mb-14">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Contact</div>
+          <div className="mb-8">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-bold">Contact</div>
             <div className="flex gap-4">
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>LinkedIn</a>
               <a href="mailto:vnahata@ucsd.edu" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>Email</a>
@@ -704,8 +702,8 @@ export default function ResumePage() {
           </div>
 
           {/* Additional Section */}
-          <div className="mb-14">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-medium">Additional</div>
+          <div className="mb-8">
+            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-bold">Additional</div>
             <div className="flex flex-col gap-2 italic">
               <LinkWithPreview href="/books" isDarkMode={isDarkMode}>
                 Favorite Books List
