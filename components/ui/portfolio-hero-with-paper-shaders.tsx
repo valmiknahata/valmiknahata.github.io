@@ -480,7 +480,7 @@ export default function ResumePage() {
       >
         <div className="max-w-3xl mx-auto">
           {/* Unified Top Header Line */}
-          <div className="flex flex-row justify-between items-center mb-6 text-[10px] min-[400px]:text-[12px] font-medium leading-none w-full relative">
+          <div className="flex flex-row justify-between items-center mb-6 text-[14px] min-[400px]:text-[16px] font-medium leading-none w-full relative">
             {/* Left: PST Time */}
             <div className="z-10 text-left">
               <div suppressHydrationWarning className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
@@ -518,6 +518,22 @@ export default function ResumePage() {
           {/* Header Section Spacing */}
           <div className="mb-6"></div>
 
+          {/* Globe Section */}
+          <div className="mb-12 pointer-events-none sm:pointer-events-auto">
+            <div className="flex flex-col items-center relative">
+              <div className="w-full max-w-[456px] aspect-square flex items-center justify-center">
+                <RotatingEarth width={456} height={456} className="opacity-80" isDarkMode={isDarkMode} />
+              </div>
+              <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md z-20 -mt-5 ${isDarkMode
+                ? "bg-neutral-900 text-neutral-400 border border-neutral-800"
+                : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
+                }`}>
+                <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isDarkMode ? "bg-[hsl(320,100%,70%)]" : "bg-[hsl(348,90%,30%)]"}`} />
+                Live Location
+              </div>
+            </div>
+          </div>
+
           {/* Bio Section */}
           <div className="mb-6 leading-7 opacity-85 sm:text-justify text-left">
             <div className="mt-[1.5cm]">
@@ -540,7 +556,7 @@ export default function ResumePage() {
 
 
           <div className="mb-6">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Education</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Education</div>
             <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
@@ -558,7 +574,7 @@ export default function ResumePage() {
 
           {/* Occupations Section */}
           <div className="mb-6">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Occupations</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Occupations</div>
             <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
@@ -597,7 +613,7 @@ export default function ResumePage() {
 
           {/* Accolades Section */}
           <div className="mb-6">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Accolades</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Accolades</div>
             <div className="space-y-0.5 opacity-80">
               {[
                 { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH's ML Hackathon", desc: "Coastal Flooding Prediction Models", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
@@ -628,7 +644,7 @@ export default function ResumePage() {
 
           {/* Research Section */}
           <div className="mb-6">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Research (publications, manuscripts, & posters)</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Research (publications, manuscripts, & posters)</div>
             <div className="space-y-0.5 opacity-80">
               {[
                 { name: "Upcoming | Chain-of-Thought Robustness in Large Language Models for Clinical Applications", desc: "", date: "2025—Present" },
@@ -654,7 +670,7 @@ export default function ResumePage() {
 
           {/* Projects Section */}
           <div className="mb-6">
-            <div className="opacity-40 mb-1.5 uppercase tracking-widest text-[13px] font-bold">Projects (Independent & collaborative)</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Projects (Independent & collaborative)</div>
             <div className="space-y-0.5 opacity-80">
               {[
                 { name: "Democratizing Research | Labry", desc: "", href: "https://www.linkedin.com/company/109509095", date: "2025—Present" },
@@ -693,7 +709,7 @@ export default function ResumePage() {
 
           {/* Contact Section */}
           <div className="mb-8">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-bold">Contact</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Contact</div>
             <div className="flex gap-4">
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>LinkedIn</a>
               <a href="mailto:vnahata@ucsd.edu" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>Email</a>
@@ -703,7 +719,7 @@ export default function ResumePage() {
 
           {/* Additional Section */}
           <div className="mb-8">
-            <div className="opacity-40 mb-3 uppercase tracking-widest text-[13px] font-bold">Additional</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Additional</div>
             <div className="flex flex-col gap-2 italic">
               <LinkWithPreview href="/books" isDarkMode={isDarkMode}>
                 Favorite Books List
@@ -714,21 +730,7 @@ export default function ResumePage() {
             </div>
           </div>
 
-          {/* Footer Globe Section */}
-          <div className="mt-12 mb-6 pointer-events-none sm:pointer-events-auto">
-            <div className="flex flex-col items-center relative">
-              <div className="w-full max-w-[380px] aspect-square flex items-center justify-center">
-                <RotatingEarth width={380} height={380} className="opacity-80" isDarkMode={isDarkMode} />
-              </div>
-              <div className={`flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-md z-20 -mt-5 ${isDarkMode
-                ? "bg-neutral-900 text-neutral-400 border border-neutral-800"
-                : "bg-white text-neutral-600 border border-neutral-200 shadow-sm"
-                }`}>
-                <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isDarkMode ? "bg-[hsl(320,100%,70%)]" : "bg-[hsl(348,90%,30%)]"}`} />
-                Live Location
-              </div>
-            </div>
-          </div>
+
 
           <div className="h-12"></div>
         </div>
