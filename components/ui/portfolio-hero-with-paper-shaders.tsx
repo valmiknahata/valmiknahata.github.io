@@ -476,11 +476,11 @@ export default function ResumePage() {
   return (
     <div className="relative min-h-screen overflow-hidden flex flex-col bg-white dark:bg-black transition-colors duration-300 font-serif text-sm sm:text-base md:text-lg">
       <div
-        className={`w-full p-6 md:p-16 relative z-10 min-h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-white text-[#141414]"}`}
+        className={`w-full p-4 sm:p-8 md:p-16 relative z-10 min-h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-white text-[#141414]"}`}
       >
         <div className="max-w-3xl mx-auto">
           {/* Unified Top Header Line */}
-          <div className="flex flex-row justify-between items-center mb-6 text-sm sm:text-base md:text-lg lg:text-xl font-medium leading-none w-full relative">
+          <div className="flex flex-row justify-between items-center mb-3 sm:mb-6 text-sm sm:text-base md:text-lg lg:text-xl font-medium leading-none w-full relative">
             {/* Left: PST Time */}
             <div className="z-10 text-left">
               <div suppressHydrationWarning className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
@@ -516,10 +516,10 @@ export default function ResumePage() {
           </div>
 
           {/* Header Section Spacing */}
-          <div className="mb-6"></div>
+          <div className="mb-3 sm:mb-6"></div>
 
           {/* Globe Section */}
-          <div className="mb-12 pointer-events-none sm:pointer-events-auto">
+          <div className="mb-6 sm:mb-12 pointer-events-none sm:pointer-events-auto">
             <div className="flex flex-col items-center relative">
               <div className="w-full max-w-[456px] aspect-square flex items-center justify-center">
                 <RotatingEarth width={456} height={456} className="opacity-80" isDarkMode={isDarkMode} />
@@ -535,7 +535,7 @@ export default function ResumePage() {
           </div>
 
           {/* Bio Section */}
-          <div className="mb-6 leading-7 opacity-85 sm:text-justify text-left">
+          <div className="mb-4 sm:mb-6 leading-7 opacity-85 sm:text-justify text-left">
             <div className="mt-[1.5cm]">
               I'm Valmik Nahata, an undergraduate at UC San Diego. Since last year, I've been working on building AI systems focused on scaling, robustness (adversarial training, safety checks, etc.), and ethical considerations (bias mitigation, transparency, etc.), with the goal of accelerating scientific discovery. Most of my research involves large language models, multimodal AI, and autonomous agents, with an interest in reasoning (chain-of-thought, tree search, etc.), alignment (RLHF, debate, etc.), and inference efficiency (quantization, etc.).
               <br /><br />
@@ -555,7 +555,7 @@ export default function ResumePage() {
           </div>
 
 
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Education</div>
             <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
@@ -573,7 +573,7 @@ export default function ResumePage() {
           </div>
 
           {/* Occupations Section */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Occupations</div>
             <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
@@ -612,7 +612,7 @@ export default function ResumePage() {
           </div>
 
           {/* Accolades Section */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Accolades</div>
             <div className="space-y-0.5 opacity-80">
               {[
@@ -643,7 +643,7 @@ export default function ResumePage() {
           </div>
 
           {/* Research Section */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Research (publications, manuscripts, & posters)</div>
             <div className="space-y-0.5 opacity-80">
               {[
@@ -669,7 +669,7 @@ export default function ResumePage() {
           </div>
 
           {/* Projects Section */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Projects (Independent & collaborative)</div>
             <div className="space-y-0.5 opacity-80">
               {[
@@ -708,7 +708,7 @@ export default function ResumePage() {
           </div>
 
           {/* Contact Section */}
-          <div className="mb-8">
+          <div className="mb-4 sm:mb-8">
             <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Contact</div>
             <div className="flex gap-4">
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>LinkedIn</a>
@@ -718,7 +718,7 @@ export default function ResumePage() {
           </div>
 
           {/* Additional Section */}
-          <div className="mb-8">
+          <div className="mb-4 sm:mb-8">
             <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Additional</div>
             <div className="flex flex-col gap-2 italic">
               <LinkWithPreview href="/books" isDarkMode={isDarkMode}>
