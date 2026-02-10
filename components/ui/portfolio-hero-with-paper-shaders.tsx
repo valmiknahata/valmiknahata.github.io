@@ -474,13 +474,13 @@ export default function ResumePage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col bg-white dark:bg-black transition-colors duration-300 font-serif text-[16px]">
+    <div className="relative min-h-screen overflow-hidden flex flex-col bg-white dark:bg-black transition-colors duration-300 font-serif text-sm sm:text-base md:text-lg">
       <div
         className={`w-full p-6 md:p-16 relative z-10 min-h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-white text-[#141414]"}`}
       >
         <div className="max-w-3xl mx-auto">
           {/* Unified Top Header Line */}
-          <div className="flex flex-row justify-between items-center mb-6 text-[14px] min-[400px]:text-[16px] font-medium leading-none w-full relative">
+          <div className="flex flex-row justify-between items-center mb-6 text-sm sm:text-base md:text-lg lg:text-xl font-medium leading-none w-full relative">
             {/* Left: PST Time */}
             <div className="z-10 text-left">
               <div suppressHydrationWarning className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
@@ -556,7 +556,7 @@ export default function ResumePage() {
 
 
           <div className="mb-6">
-            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Education</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Education</div>
             <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
@@ -566,7 +566,7 @@ export default function ResumePage() {
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base text-right">2024—Present</span>
+                  <span className="opacity-50 tabular-nums text-xs sm:text-sm md:text-base text-right">2024—Present</span>
                 </div>
               </div>
             </div>
@@ -574,7 +574,7 @@ export default function ResumePage() {
 
           {/* Occupations Section */}
           <div className="mb-6">
-            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Occupations</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Occupations</div>
             <div className="space-y-0.5 opacity-80">
               <div className="flex flex-row justify-between items-baseline gap-4">
                 <TooltipItem
@@ -583,7 +583,7 @@ export default function ResumePage() {
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base text-right">2026—Present</span>
+                  <span className="opacity-50 tabular-nums text-xs sm:text-sm md:text-base text-right">2026—Present</span>
                 </div>
               </div>
               <div className="flex flex-row justify-between items-baseline gap-4">
@@ -594,7 +594,7 @@ export default function ResumePage() {
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base text-right">2025—Present</span>
+                  <span className="opacity-50 tabular-nums text-xs sm:text-sm md:text-base text-right">2025—Present</span>
                 </div>
               </div>
               <div className="flex flex-row justify-between items-baseline gap-4">
@@ -605,7 +605,7 @@ export default function ResumePage() {
                   className="font-medium shrink"
                 />
                 <div className="flex gap-4 items-baseline shrink-0">
-                  <span className="opacity-50 tabular-nums text-[13px] sm:text-base text-right">2024—2025</span>
+                  <span className="opacity-50 tabular-nums text-xs sm:text-sm md:text-base text-right">2024—2025</span>
                 </div>
               </div>
             </div>
@@ -613,7 +613,7 @@ export default function ResumePage() {
 
           {/* Accolades Section */}
           <div className="mb-6">
-            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Accolades</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Accolades</div>
             <div className="space-y-0.5 opacity-80">
               {[
                 { name: "1st Place | National Science Foundation HDR & UC San Diego SMASH's ML Hackathon", desc: "Coastal Flooding Prediction Models", href: "https://indico.cern.ch/event/1624615/", date: "2026" },
@@ -636,7 +636,7 @@ export default function ResumePage() {
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
-                  <span className="opacity-50 tabular-nums shrink-0 text-right text-[13px] sm:text-base">{accolade.date}</span>
+                  <span className="opacity-50 tabular-nums shrink-0 text-right text-xs sm:text-sm md:text-base">{accolade.date}</span>
                 </div>
               ))}
             </div>
@@ -644,7 +644,7 @@ export default function ResumePage() {
 
           {/* Research Section */}
           <div className="mb-6">
-            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Research (publications, manuscripts, & posters)</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Research (publications, manuscripts, & posters)</div>
             <div className="space-y-0.5 opacity-80">
               {[
                 { name: "Upcoming | Chain-of-Thought Robustness in Large Language Models for Clinical Applications", desc: "", date: "2025—Present" },
@@ -662,7 +662,7 @@ export default function ResumePage() {
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
-                  <span className="opacity-50 tabular-nums shrink-0 text-right text-[13px] sm:text-base">{publication.date}</span>
+                  <span className="opacity-50 tabular-nums shrink-0 text-right text-xs sm:text-sm md:text-base">{publication.date}</span>
                 </div>
               ))}
             </div>
@@ -670,7 +670,7 @@ export default function ResumePage() {
 
           {/* Projects Section */}
           <div className="mb-6">
-            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Projects (Independent & collaborative)</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Projects (Independent & collaborative)</div>
             <div className="space-y-0.5 opacity-80">
               {[
                 { name: "Democratizing Research | Labry", desc: "", href: "https://www.linkedin.com/company/109509095", date: "2025—Present" },
@@ -701,7 +701,7 @@ export default function ResumePage() {
                     isDarkMode={isDarkMode}
                     className="font-medium shrink"
                   />
-                  <span className="opacity-50 tabular-nums shrink-0 text-right text-[13px] sm:text-base">{project.date}</span>
+                  <span className="opacity-50 tabular-nums shrink-0 text-right text-xs sm:text-sm md:text-base">{project.date}</span>
                 </div>
               ))}
             </div>
@@ -709,7 +709,7 @@ export default function ResumePage() {
 
           {/* Contact Section */}
           <div className="mb-8">
-            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Contact</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Contact</div>
             <div className="flex gap-4">
               <a href="https://www.linkedin.com/in/valmiknahata" target="_blank" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>LinkedIn</a>
               <a href="mailto:vnahata@ucsd.edu" className={`transition-all hover:opacity-70 ${isDarkMode ? "text-[hsl(320,100%,75%)]" : "text-[hsl(348,90%,30%)]"}`}>Email</a>
@@ -719,7 +719,7 @@ export default function ResumePage() {
 
           {/* Additional Section */}
           <div className="mb-8">
-            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-[14px] min-[400px]:text-[16px] font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Additional</div>
+            <div className={`mb-3 uppercase tracking-[0.1em] min-[400px]:tracking-widest text-sm sm:text-base md:text-lg lg:text-xl font-medium ${isDarkMode ? "text-white" : "text-black"}`}>Additional</div>
             <div className="flex flex-col gap-2 italic">
               <LinkWithPreview href="/books" isDarkMode={isDarkMode}>
                 Favorite Books List
