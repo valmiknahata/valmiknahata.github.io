@@ -203,7 +203,7 @@ export default function RotatingEarth({ width = 800, height = 600, className = "
                         pulseTimer += 0.05
                         const pulse = (Math.sin(pulseTimer) + 1) / 2 // 0 to 1
 
-                        const pingColor = isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(348, 90%, 30%)"
+                        const pingColor = isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 100%, 70%)"
 
                         // Inner solid dot
                         context.beginPath()

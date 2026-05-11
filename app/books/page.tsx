@@ -23,7 +23,7 @@ const books = [
     { title: "Stories of Your Life and Others", author: "Ted Chiang", analysis: "Grief modeled through Fermat's Principle of Least Time.", link: "https://en.wikipedia.org/wiki/Stories_of_Your_Life_and_Others" },
     { title: "Exhalation", author: "Ted Chiang", analysis: "Philosophical thought experiments disguised as clockwork sci-fi.", link: "https://en.wikipedia.org/wiki/Exhalation:_Stories" },
     { title: "Ficciones", author: "Jorge Luis Borges", analysis: "Infinite libraries and the architecture of the impossible.", link: "https://en.wikipedia.org/wiki/Ficciones" },
-    { title: "The Aleph", author: "Jorge Luis Borges", analysis: "A point in space containing all other points. Latent space, 1945.", link: "https://en.wikipedia.org/wiki/The_Aleph_(short_story_collection)" },
+    { title: "The Aleph", author: "Jorge Luis Borges", analysis: "A point in space containing all other points. Latent space.", link: "https://en.wikipedia.org/wiki/The_Aleph_(short_story_collection)" },
     { title: "Labyrinths", author: "Jorge Luis Borges", analysis: "Information as a virus that eventually overwrites our reality.", link: "https://en.wikipedia.org/wiki/Labyrinths_(short_story_collection)" },
     { title: "Gödel, Escher, Bach", author: "Douglas Hofstadter", analysis: "A strange loop of logic, art, and music. The AI bible.", link: "https://en.wikipedia.org/wiki/G%C3%B6del,_Escher,_Bach" },
     { title: "Superintelligence", author: "Nick Bostrom", analysis: "Objective functions don't care about your feelings.", link: "https://en.wikipedia.org/wiki/Superintelligence:_Paths,_Dangers,_Strategies" },
@@ -46,40 +46,9 @@ const books = [
 ];
 
 export default function BooksPage() {
-    const [isDarkMode, setIsDarkMode] = useState(false)
-    const [currentTime, setCurrentTime] = useState<string>("")
+    const isDarkMode = false;
     const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
 
-    // Sync with localStorage
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('theme')
-        if (savedTheme === 'dark') setIsDarkMode(true)
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light')
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    }, [isDarkMode])
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            const now = new Date();
-            const pdtString = now.toLocaleTimeString('en-US', {
-                timeZone: 'America/Los_Angeles',
-                hour12: true,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            setCurrentTime(pdtString);
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, []);
 
     const handleImageLoad = (index: number) => {
         setLoadedImages(prev => {
@@ -90,51 +59,21 @@ export default function BooksPage() {
     }
 
     return (
-        <div className="relative min-h-screen overflow-hidden flex flex-col bg-[#f7f5f3] dark:bg-black transition-colors duration-300 font-serif text-[16px]">
+        <div className="relative min-h-screen overflow-hidden flex flex-col bg-white dark:bg-black transition-colors duration-300 font-serif text-[16px]">
             <div
-                className={`w-full p-6 md:p-12 relative z-10 min-h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-[#f7f5f3] text-[#141414]"}`}
+                className={`w-full p-6 md:p-12 relative z-10 min-h-screen overflow-y-auto hide-scrollbar ${isDarkMode ? "bg-black text-[#ededed]" : "bg-white text-[#141414]"}`}
             >
                 <div className="w-full max-w-[1600px] mx-auto">
-                    {/* Unified Top Header Line */}
-                    <div className="flex flex-row justify-between items-center mb-16 text-[10px] min-[400px]:text-[12px] font-medium leading-none w-full relative">
-                        {/* Left: PST Time */}
-                        <div className="z-10 text-left">
-                            <div suppressHydrationWarning className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest whitespace-nowrap`}>PST {currentTime}</div>
-                        </div>
-
-                        {/* Center: Name (Home Link) */}
-                        <div className="absolute left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">
-                            <Link href="/" className={`${isDarkMode ? "text-white" : "text-black"} pointer-events-auto hover:opacity-70 transition-opacity uppercase tracking-[0.1em] min-[400px]:tracking-widest`}>
-                                Valmik Nahata
-                            </Link>
-                        </div>
-
-                        {/* Right: Theme Toggle */}
-                        <div
-                            onClick={() => setIsDarkMode(!isDarkMode)}
-                            className="flex items-center justify-end gap-1 min-[400px]:gap-2 group cursor-pointer z-10"
-                        >
-                            <span className={`${isDarkMode ? "text-white" : "text-black"} uppercase tracking-[0.1em] min-[400px]:tracking-widest`}>{isDarkMode ? "Dark" : "Light"}</span>
-                            <button
-                                className="group-active:scale-95 transition-transform flex items-center justify-center -mt-[1px]"
-                                aria-label="Toggle theme"
-                            >
-                                {isDarkMode ? (
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                        <circle cx="12" cy="12" r="5" />
-                                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-                                    </svg>
-                                ) : (
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                                    </svg>
-                                )}
-                            </button>
-                        </div>
+                    <div className="flex flex-row justify-between items-center mb-16 text-[16px] font-normal leading-snug w-full relative">
+                        {/* Left: Home Arrow */}
+                        <Link href="/" className="text-black z-10 hover:opacity-70 transition-opacity flex items-center gap-2">
+                            <ArrowLeft size={16} strokeWidth={2.5} />
+                            <span>Home</span>
+                        </Link>
                     </div>
 
-                    <div className="mb-14">
-                        <div className="opacity-40 mb-12 uppercase tracking-widest text-[13px] font-medium">Favorite Books</div>
+                    <div className="mb-8">
+                        <div className="mb-12 text-[16px] font-normal">Favorite Books</div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
                             {books.map((book, idx) => (
                                 <a
@@ -152,30 +91,28 @@ export default function BooksPage() {
                                         <img
                                             src={`https://api.microlink.io/?url=${encodeURIComponent(book.link)}&embed=image.url`}
                                             alt={book.title}
-                                            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ${isDarkMode ? "opacity-80 group-hover:opacity-100" : "opacity-90 group-hover:opacity-100"} grayscale group-hover:grayscale-0 ${loadedImages.has(idx) ? 'opacity-100' : 'opacity-0'}`}
+                                            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ${loadedImages.has(idx) ? 'opacity-100' : 'opacity-0'}`}
                                             onLoad={() => handleImageLoad(idx)}
                                             loading="lazy"
                                         />
                                         <div className={`absolute inset-0 ring-1 ring-inset ${isDarkMode ? "ring-white/5" : "ring-black/5"} pointer-events-none`}></div>
                                     </div>
 
-                                    {/* Text Content */}
                                     <div className="flex flex-col gap-1.5">
                                         <div className="flex justify-between items-start gap-3">
-                                            <div className="font-bold text-[16px] leading-snug group-hover:underline decoration-1 underline-offset-2 transition-all">
+                                            <div className="text-[16px] leading-snug group-hover:underline decoration-1 underline-offset-2 transition-all">
                                                 {book.title}
                                             </div>
-                                            <div className="opacity-30 text-[10px] uppercase tracking-tighter shrink-0 tabular-nums mt-1">
+                                            <div className="text-[16px] shrink-0 tabular-nums mt-1">
                                                 #{String(idx + 1).padStart(2, '0')}
                                             </div>
                                         </div>
 
-                                        <div className="text-[13px] opacity-60 italic">
+                                        <div className="text-[16px]">
                                             {book.author}
                                         </div>
 
-                                        {/* Optional: Analysis matches the "more thought out" requirement */}
-                                        <div className="text-[12px] leading-relaxed opacity-60 mt-2 line-clamp-3 group-hover:opacity-90 transition-opacity">
+                                        <div className="text-[16px] leading-snug mt-2 line-clamp-3 transition-opacity">
                                             {book.analysis}
                                         </div>
                                     </div>
