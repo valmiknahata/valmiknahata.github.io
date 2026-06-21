@@ -3,20 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Valmik Nahata",
-  description: "Data Scientist & AI Researcher Portfolio",
-  icons: {
-    icon: "/icon.png",
-  },
-  openGraph: {
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Valmik Nahata Portfolio",
-      },
-    ],
-  },
+  description: "Personal Site",
 };
 
 export default function RootLayout({
@@ -26,9 +13,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className="antialiased"
-      >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Crimson+Text:ital@0;1&amp;display=swap" rel="stylesheet" />
+        <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js" async></script>
+      </head>
+      <body className="antialiased">
         {children}
       </body>
     </html>
