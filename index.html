@@ -1,15 +1,27 @@
-"use client"
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Valmik Nahata</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Crimson+Text:ital@0;1&amp;display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+</helmet>
 
-import React from "react"
-
-export default function ResumePage() {
-  const rawHtml = `
-<div style="width: 100%; min-height: 100vh; background: #ffffff; color: #000000; font-family: 'Crimson Text', serif;">
+<div style="width: 100%; min-height: 100vh; background: #ffffff; color: #000000;">
 
   <!-- TOP: Photo + About Me side by side -->
   
+
+  <!-- Thesis Statement (centered) -->
+  
+
   <!-- Divider -->
-  <section style="padding: 80px 60px 60px 60px; max-width: 900px; margin: 0 auto; width: 100%; box-sizing: border-box;">
+  <section style="padding: 80px 60px 60px 60px; max-width: 900px; margin: 0 auto; width: 100%; max-width: 925px; box-sizing: border-box;">
     <div style="display: flex; gap: 60px; align-items: flex-start; flex-wrap: wrap;">
       <!-- Photo -->
       <div style="flex-shrink: 0; width: 170px; margin: 0 auto md:0;">
@@ -37,7 +49,7 @@ export default function ResumePage() {
   </section>
 
   <!-- Essay Body -->
-  <section style="padding: 80px 60px; max-width: 900px; margin: 0 auto; width: 100%; box-sizing: border-box;">
+  <section style="padding: 80px 60px; max-width: 900px; margin: 0 auto; width: 100%; max-width: 925px; box-sizing: border-box;">
     <div style="font-size: 18px; line-height: 1.9; color: #1a1a1a; font-family: 'Crimson Text', serif;">
 
       <p style="margin: 40px 0 28px 0;">To those interested in my philosophy; my "why":</p>
@@ -69,9 +81,6 @@ export default function ResumePage() {
   </section>
 
 </div>
-  `
-
-  return (
-    <div dangerouslySetInnerHTML={{ __html: rawHtml }} />
-  )
-}
+</x-dc>
+</body>
+</html>
