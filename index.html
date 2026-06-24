@@ -3,6 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @media (max-width: 700px) {
+    .section-top    { width: 100% !important; padding: 40px 24px 32px !important; height: auto !important; }
+    .section-essay  { width: 100% !important; padding: 32px 24px !important; height: auto !important; }
+    .flex-row       { flex-direction: column !important; gap: 28px !important; }
+    .photo-col      { width: 100% !important; align-items: center; display: flex; flex-direction: column; }
+    .photo-col img  { width: 140px !important; height: 174px !important; }
+  }
+</style>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -22,10 +31,10 @@
   
 
   <!-- Divider -->
-  <section style="padding: 80px 60px 60px 60px; max-width: 900px; margin: 0 auto; width: 925px; height: 101px">
-    <div style="display: flex; gap: 60px; align-items: flex-start;">
+  <section class="section-top" style="padding: 80px 60px 60px 60px; max-width: 925px; margin: 0 auto; width: 925px; box-sizing: border-box;">
+    <div class="flex-row" style="display: flex; gap: 60px; align-items: flex-start;">
       <!-- Photo -->
-      <div style="flex-shrink: 0; width: 170px;">
+      <div class="photo-col" style="flex-shrink: 0; width: 170px;">
         <img src="uploads/1781845876543.png" style="width: 170px; height: 210px; object-fit: cover; object-position: center top; display: block;">
         <div style="display: flex; gap: 20px; margin-top: 16px; align-items: center; justify-content: center;">
           <a href="/cdn-cgi/l/email-protection#2056414c4d494b0e4e414841544160474d41494c0e434f4d" style="text-decoration: none; color: #000000;" title="Email">
@@ -50,7 +59,7 @@
   </section>
 
   <!-- Essay Body -->
-  <section style="padding: 80px 60px; max-width: 900px; margin: 0 auto; width: 925px; height: 1301px">
+  <section class="section-essay" style="padding: 80px 60px; max-width: 925px; margin: 0 auto; width: 925px; box-sizing: border-box;">
     <div style="font-size: 18px; line-height: 1.9; color: #1a1a1a; font-family: 'Crimson Text', serif;">
 
       <p style="margin: 40px 0 28px 0;">To those interested in my philosophy; my "why":</p>
