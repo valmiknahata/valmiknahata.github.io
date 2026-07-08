@@ -6,6 +6,10 @@ export default function Home() {
       <section className="section-essay" style={{ padding: "80px 60px", maxWidth: "925px", margin: "0 auto", width: "925px", boxSizing: "border-box" }}>
         <div style={{ fontSize: "18px", lineHeight: 1.9, color: "#1a1a1a", fontFamily: "'Crimson Text', serif" }}>
 
+          <div className="divider">
+            <ShaderBackground />
+          </div>
+
           <p className="bio" style={{ margin: "0 0 1.33em 0" }}>I'm Valmik, an undergraduate student and researcher at <a href="https://ucsd.edu" target="_blank" rel="noopener">UC San Diego</a> studying Data Science, with a focus on building AI systems that are both powerful and aligned. I'm a research affiliate at <a href="https://www.massgeneral.org" target="_blank" rel="noopener">Mass General</a> &amp; <a href="https://hms.harvard.edu" target="_blank" rel="noopener">Harvard Medical School</a> working on clinical AI systems, a member of <a href="https://aialignment.mit.edu" target="_blank" rel="noopener">MIT AI Alignment</a>, and a UCSD Poseidon Fellow. Before that, I worked on clinical AI at <a href="https://www.dartmouth-hitchcock.org" target="_blank" rel="noopener">Dartmouth Hitchcock Medical Center</a> &amp; <a href="https://www.dartmouth-health.org" target="_blank" rel="noopener">Dartmouth Health</a>, where I presented work on RAG for Pathology Reports. My work has been recognized by <a href="https://www.apartresearch.com" target="_blank" rel="noopener">Apart Research</a> &amp; <a href="https://bluedot.org" target="_blank" rel="noopener">BlueDot Impact</a>, <a href="https://ucsd.edu" target="_blank" rel="noopener">UCSD</a> &amp; <a href="https://www.nsf.gov" target="_blank" rel="noopener">NSF</a>, and the <a href="https://www.nba.com/bucks" target="_blank" rel="noopener">Milwaukee Bucks</a>, among others. My recent research centers on AI × bio and AI safety.</p>
 
           <div className="divider">
@@ -43,6 +47,10 @@ export default function Home() {
               {/* @ts-ignore */}
               <iconify-icon icon="simple-icons:x" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
             </a>
+          </div>
+
+          <div className="divider" style={{ margin: "1.56em 0 0 0" }}>
+            <ShaderBackground />
           </div>
 
         </div>
