@@ -27,7 +27,7 @@ export default function Home() {
           <p style={{ margin: "0 0 1.56em 0" }}><strong>TL;DR:</strong> Recursive self-improvement is the precursor to superintelligence. AI × bio and AI safety are the problems that compound faster than anyone can afford to ignore.</p>
 
           <div className="divider">
-            <ShaderBackground />
+            <ShaderBackground uTimeOffset={40} />
           </div>
 
           <div className="social-links" style={{ display: "flex", gap: "20px", alignItems: "center", justifyContent: "center", margin: 0 }}>

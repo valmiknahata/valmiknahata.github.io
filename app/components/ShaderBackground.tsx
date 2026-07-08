@@ -3,7 +3,7 @@
 import { ShaderGradientCanvas, ShaderGradient } from "shadergradient";
 import { useEffect, useState } from "react";
 
-export default function ShaderBackground() {
+export default function ShaderBackground({ uTimeOffset = 5 }: { uTimeOffset?: number }) {
   const [mouse, setMouse] = useState({x:0,y:0});
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function ShaderBackground() {
 
           uSpeed={0.15}
           uStrength={1.2}
-          uTime={5}
+          uTime={uTimeOffset}
         />
       </ShaderGradientCanvas>
     </div>
