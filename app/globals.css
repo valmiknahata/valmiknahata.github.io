@@ -16,13 +16,23 @@ body {
   font-size: 18px;
   line-height: 1.9;
   color: #1a1a1a;
-  background: transparent;
-  padding: 96px;
+  background: #ffffff;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 96px;
+  pointer-events: none;
+  z-index: 1;
+  border: 96px solid #ffffff;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
-  body {
-    padding: 24px;
+  body::before {
+    inset: 24px;
+    border: 24px solid #ffffff;
   }
 }
 

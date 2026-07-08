@@ -30,7 +30,7 @@ export default function ShaderBackground() {
         }}
       >
         <ShaderGradient
-          animate="off"
+          animate="on"
           type="waterPlane"
 
           color1="#ffffff"
@@ -51,6 +51,7 @@ export default function ShaderBackground() {
 
           uSpeed={0.15}
           uStrength={1.2}
+          uTime={2}
 
           mouseInteraction={true}
 
