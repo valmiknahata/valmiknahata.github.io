@@ -17,22 +17,12 @@ body {
   line-height: 1.9;
   color: #1a1a1a;
   background: #ffffff;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 96px;
-  pointer-events: none;
-  z-index: 1;
-  border: 96px solid #ffffff;
-  box-sizing: border-box;
+  box-shadow: inset 96px 96px 0 0 #ffffff, inset -96px -96px 0 0 #ffffff;
 }
 
 @media (max-width: 768px) {
-  body::before {
-    inset: 24px;
-    border: 24px solid #ffffff;
+  body {
+    box-shadow: inset 24px 24px 0 0 #ffffff, inset -24px -24px 0 0 #ffffff;
   }
 }
 
