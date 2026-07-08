@@ -17,7 +17,13 @@ body {
   line-height: 1.9;
   color: #1a1a1a;
   background: transparent;
-  padding: 24px;
+  padding: 96px;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 24px;
+  }
 }
 
 body > * {

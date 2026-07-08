@@ -30,7 +30,7 @@ export default function ShaderBackground() {
         }}
       >
         <ShaderGradient
-          animate="on"
+          animate="off"
           type="waterPlane"
 
           color1="#ffffff"
