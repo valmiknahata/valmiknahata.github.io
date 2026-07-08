@@ -6,37 +6,32 @@ export default function Home() {
       <section className="section-essay" style={{ padding: "80px 60px", maxWidth: "925px", margin: "0 auto", width: "925px", boxSizing: "border-box" }}>
         <div style={{ fontSize: "18px", lineHeight: 1.9, color: "#1a1a1a", fontFamily: "'Crimson Text', serif" }}>
 
-          <div className="intro">
-            <div className="hero">
-              <div className="photo-col">
-                <img src="/uploads/1781845876543.png" alt="Valmik" style={{ width: "100%", height: "auto", aspectRatio: "170 / 210", objectFit: "cover", objectPosition: "center top", display: "block" }} />
-                <div style={{ display: "flex", gap: "20px", marginTop: "16px", alignItems: "center", justifyContent: "center" }}>
-                  <a href="mailto:vnahata@mgh.harvard.edu" style={{ textDecoration: "none", color: "#000000" }} title="Email">
-                    {/* @ts-ignore */}
-                    <iconify-icon icon="lucide:mail" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-                  </a>
-                  <a href="https://linkedin.com/in/valmiknahata" style={{ textDecoration: "none", color: "#000000" }} title="LinkedIn">
-                    {/* @ts-ignore */}
-                    <iconify-icon icon="simple-icons:linkedin" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-                  </a>
-                  <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ" style={{ textDecoration: "none", color: "#000000" }} title="Google Scholar">
-                    {/* @ts-ignore */}
-                    <iconify-icon icon="simple-icons:googlescholar" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-                  </a>
-                  <a href="https://x.com/valmik_nahata" style={{ textDecoration: "none", color: "#000000" }} title="X">
-                    {/* @ts-ignore */}
-                    <iconify-icon icon="simple-icons:x" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-                  </a>
-                </div>
-              </div>
+          <p className="bio" style={{ margin: "0 0 1.33em 0" }}>I'm Valmik, an undergraduate student and researcher at <a href="https://ucsd.edu" target="_blank" rel="noopener">UC San Diego</a> studying Data Science, with a focus on building AI systems that are both powerful and aligned. I'm a research affiliate at <a href="https://www.massgeneral.org" target="_blank" rel="noopener">Mass General</a> &amp; <a href="https://hms.harvard.edu" target="_blank" rel="noopener">Harvard Medical School</a> working on clinical AI systems, a member of <a href="https://aialignment.mit.edu" target="_blank" rel="noopener">MIT AI Alignment</a>, and a UCSD <a href="https://www.poseidonfellows.com" target="_blank" rel="noopener">Poseidon Fellow</a>. Before that, I worked on clinical AI at <a href="https://www.dartmouth-hitchcock.org" target="_blank" rel="noopener">Dartmouth Hitchcock Medical Center</a> &amp; <a href="https://www.dartmouth-health.org" target="_blank" rel="noopener">Dartmouth Health</a>, where I presented work on RAG for Pathology Reports. My work has been recognized by <a href="https://www.apartresearch.com" target="_blank" rel="noopener">Apart Research</a> &amp; <a href="https://bluedot.org" target="_blank" rel="noopener">BlueDot Impact</a>, <a href="https://ucsd.edu" target="_blank" rel="noopener">UCSD</a> &amp; <a href="https://www.nsf.gov" target="_blank" rel="noopener">NSF</a>, and the <a href="https://www.nba.com/bucks" target="_blank" rel="noopener">Milwaukee Bucks</a>, among others. My recent research centers on AI × bio and AI safety.</p>
 
-              <ShaderBackground />
-            </div>
-
-            <p className="bio" style={{ margin: "0 0 1.33em 0" }}>I'm Valmik, an undergraduate student and researcher at <a href="https://ucsd.edu" target="_blank" rel="noopener">UC San Diego</a> studying Data Science, with a focus on building AI systems that are both powerful and aligned. I'm a research affiliate at <a href="https://www.massgeneral.org" target="_blank" rel="noopener">Mass General</a> &amp; <a href="https://hms.harvard.edu" target="_blank" rel="noopener">Harvard Medical School</a> working on clinical AI systems, a member of <a href="https://aialignment.mit.edu" target="_blank" rel="noopener">MIT AI Alignment</a>, and a UCSD <a href="https://www.poseidonfellows.com" target="_blank" rel="noopener">Poseidon Fellow</a>. Before that, I worked on clinical AI at <a href="https://www.dartmouth-hitchcock.org" target="_blank" rel="noopener">Dartmouth Hitchcock Medical Center</a> &amp; <a href="https://www.dartmouth-health.org" target="_blank" rel="noopener">Dartmouth Health</a>, where I presented work on RAG for Pathology Reports. My work has been recognized by <a href="https://www.apartresearch.com" target="_blank" rel="noopener">Apart Research</a> &amp; <a href="https://bluedot.org" target="_blank" rel="noopener">BlueDot Impact</a>, <a href="https://ucsd.edu" target="_blank" rel="noopener">UCSD</a> &amp; <a href="https://www.nsf.gov" target="_blank" rel="noopener">NSF</a>, and the <a href="https://www.nba.com/bucks" target="_blank" rel="noopener">Milwaukee Bucks</a>, among others. My recent research centers on AI × bio and AI safety.</p>
+          <div className="social-links" style={{ display: "flex", gap: "20px", alignItems: "center", justifyContent: "center", margin: "0 0 1.56em 0" }}>
+            <a href="mailto:vnahata@mgh.harvard.edu" style={{ textDecoration: "none", color: "#000000" }} title="Email">
+              {/* @ts-ignore */}
+              <iconify-icon icon="lucide:mail" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
+            </a>
+            <a href="https://linkedin.com/in/valmiknahata" style={{ textDecoration: "none", color: "#000000" }} title="LinkedIn">
+              {/* @ts-ignore */}
+              <iconify-icon icon="simple-icons:linkedin" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
+            </a>
+            <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ" style={{ textDecoration: "none", color: "#000000" }} title="Google Scholar">
+              {/* @ts-ignore */}
+              <iconify-icon icon="simple-icons:googlescholar" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
+            </a>
+            <a href="https://x.com/valmik_nahata" style={{ textDecoration: "none", color: "#000000" }} title="X">
+              {/* @ts-ignore */}
+              <iconify-icon icon="simple-icons:x" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
+            </a>
           </div>
 
-          <p style={{ margin: "2.22em 0 1.56em 0", clear: "left" }}>To those interested in my philosophy, my <em>why</em>:</p>
+          <div className="divider">
+            <ShaderBackground />
+          </div>
+
+          <p style={{ margin: "2.22em 0 1.56em 0" }}>To those interested in my philosophy, my <em>why</em>:</p>
 
           <p style={{ margin: "0 0 1.56em 0", clear: "both" }}>Every capability that counts as intelligence eventually turns inward. A system competent enough to write production code can be turned on the training pipeline that produced it, and one fluent in research can aim that research at its own architecture. This has already left the realm of thought experiment. Something like a quarter of the code committed inside frontier labs is now model-authored. DeepMind's AlphaEvolve, an evolutionary coding agent built on Gemini, found a matrix-multiplication scheme that beat the best human result standing since Strassen in 1969, and separately clawed back close to a percent of Google's datacenter compute, the very substrate on which the next training run executes. OpenAI has models emitting plain-English descriptions of individual neurons inside other networks, an early pass at automated interpretability. Once the loop closes, progress decouples from the compute a lab can afford to buy and recouples to the compute the system elects to spend on itself. The endpoint gets labeled superintelligence, though the driving mechanism is more mundane: recursive self-improvement, i.e. optimization applied to the process of optimization itself.</p>
 
