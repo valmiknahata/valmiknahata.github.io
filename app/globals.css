@@ -17,18 +17,12 @@ body {
   width: 100%;
   min-height: 100vh;
   font-family: 'Crimson Text', serif;
-  font-size: 18px;
+  font-size: clamp(14px, 1.6vw + 9px, 18px);
   line-height: 1.9;
   color: #1a1a1a;
   background: #ffffff;
   overflow-y: scroll;
   overscroll-behavior: none;
-}
-
-@media (max-width: 480px) {
-  body {
-    font-size: 15px;
-  }
 }
 
 body > * {
@@ -39,28 +33,17 @@ body > * {
 @media (max-width: 700px) {
   .section-essay {
     width: 100% !important;
-    padding: 28px 22px !important;
+    padding: clamp(16px, 5vw, 28px) clamp(14px, 4vw, 22px) !important;
     height: auto !important;
     max-width: 100% !important;
   }
 }
 
 @media (max-width: 480px) {
-  .section-essay {
-    padding: 24px 20px !important;
-  }
   .photo-col {
-    float: none !important;
-    margin: 0 auto 24px auto !important;
-    width: 100% !important;
-    align-items: center;
     display: flex;
     flex-direction: column;
-  }
-  .photo-col img {
-    width: 140px !important;
-    height: 174px !important;
-    margin: 0 auto;
+    align-items: center;
   }
 }
 
@@ -79,21 +62,26 @@ body > * {
 .hero {
   position: relative;
   overflow: hidden;
-  margin: -80px -60px 0 -60px;
-  padding: 80px 60px 40px 60px;
+  float: left;
+  margin: 0 clamp(20px, 4vw, 40px) 20px 0;
+  padding: clamp(10px, 3vw, 32px);
 }
 
-@media (max-width: 700px) {
-  .hero {
-    margin: -28px -22px 0 -22px;
-    padding: 28px 22px 40px 22px;
-  }
+.photo-col {
+  width: clamp(110px, 22vw, 170px);
+  text-align: center;
 }
 
 @media (max-width: 480px) {
   .hero {
-    margin: -24px -20px 0 -20px;
-    padding: 24px 20px 32px 20px;
+    float: none;
+    width: fit-content;
+    margin: 0 auto 24px auto;
+    padding: clamp(10px, 4vw, 20px);
+  }
+
+  .photo-col {
+    width: clamp(110px, 38vw, 150px);
   }
 }
 
