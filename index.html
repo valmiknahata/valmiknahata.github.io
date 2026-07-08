@@ -11,6 +11,30 @@
   }
   .bio a { color:#1f4e8c; text-decoration:none; border-bottom:1px solid rgba(31,78,140,.32); transition:color .15s ease, border-color .15s ease; }
   .bio a:hover { color:#12325e; border-bottom-color:rgba(31,78,140,.85); }
+
+  .bg-gradient {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(55% 50% at 18% 22%, rgba(188,212,240,0.38), transparent 70%),
+      radial-gradient(50% 45% at 82% 16%, rgba(210,227,246,0.34), transparent 70%),
+      radial-gradient(58% 52% at 72% 82%, rgba(198,220,244,0.32), transparent 72%),
+      radial-gradient(48% 48% at 12% 84%, rgba(222,235,250,0.30), transparent 70%),
+      #ffffff;
+    background-size: 200% 200%, 200% 200%, 220% 220%, 200% 200%, auto;
+    background-repeat: no-repeat;
+    animation: bgdrift 34s ease-in-out infinite alternate;
+  }
+  @keyframes bgdrift {
+    0%   { background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0 0; }
+    50%  { background-position: 60% 40%, 40% 30%, 50% 60%, 70% 20%, 0 0; }
+    100% { background-position: 100% 60%, 0% 70%, 20% 30%, 90% 50%, 0 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bg-gradient { animation: none; }
+  }
 </style>
 <script src="./support.js"></script>
 </head>
@@ -22,7 +46,9 @@
   <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 </helmet>
 
-<div style="width: 100%; min-height: 100vh; background: #ffffff; color: #000000;">
+<div class="bg-gradient" aria-hidden="true"></div>
+
+<div style="width: 100%; min-height: 100vh; background: transparent; color: #000000;">
 
   <!-- Divider -->
   <section class="section-essay" style="padding: 80px 60px; max-width: 925px; margin: 0 auto; width: 925px; box-sizing: border-box;">
