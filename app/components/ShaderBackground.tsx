@@ -50,7 +50,7 @@ export default function ShaderBackground() {
 
           uSpeed={0.15}
           uStrength={1.2}
-          uTime={3}
+          uTime={5}
         />
       </ShaderGradientCanvas>
     </div>
