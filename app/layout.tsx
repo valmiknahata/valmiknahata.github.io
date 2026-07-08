@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import dynamic from "next/dynamic";
-
-const ShaderBackground = dynamic(() => import("./components/ShaderBackground"), { ssr: false });
+import ShaderBackground from "./components/ShaderBackground";
 
 export const metadata: Metadata = {
   title: "Valmik Nahata",
