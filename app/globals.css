@@ -20,9 +20,21 @@ body {
   box-shadow: inset 38px 38px 0 0 #ffffff, inset -38px -38px 0 0 #ffffff;
 }
 
+@media (max-width: 1024px) {
+  body {
+    box-shadow: inset 28px 28px 0 0 #ffffff, inset -28px -28px 0 0 #ffffff;
+  }
+}
+
 @media (max-width: 768px) {
   body {
-    box-shadow: inset 24px 24px 0 0 #ffffff, inset -24px -24px 0 0 #ffffff;
+    box-shadow: inset 20px 20px 0 0 #ffffff, inset -20px -20px 0 0 #ffffff;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    box-shadow: inset 12px 12px 0 0 #ffffff, inset -12px -12px 0 0 #ffffff;
   }
 }
 
