@@ -5,7 +5,7 @@ export default function Home() {
         <div style={{ fontSize: "18px", lineHeight: 1.9, color: "#1a1a1a", fontFamily: "'Crimson Text', serif" }}>
 
           <div className="photo-col" style={{ float: "left", margin: "0 40px 20px 0", width: "170px", textAlign: "center" }}>
-            <img src="uploads/1781845876543.png" style={{ width: "170px", height: "210px", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+            <img src="/uploads/1781845876543.png" alt="Valmik" style={{ width: "170px", height: "210px", objectFit: "cover", objectPosition: "center top", display: "block" }} />
             <div style={{ display: "flex", gap: "20px", marginTop: "16px", alignItems: "center", justifyContent: "center" }}>
               <a href="mailto:vnahata@mgh.harvard.edu" style={{ textDecoration: "none", color: "#000000" }} title="Email">
                 <iconify-icon icon="lucide:mail" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
