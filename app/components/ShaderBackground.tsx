@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function ShaderBackground() {
   const [mouse, setMouse] = useState({x:0,y:0});
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     const move = (e:MouseEvent)=>{
@@ -14,14 +15,28 @@ export default function ShaderBackground() {
       });
     };
 
-    window.addEventListener("mousemove",move);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setOffset(window.scrollY * 0.25);
+        ticking = false;
+      });
+    };
 
-    return ()=>window.removeEventListener("mousemove",move);
+    window.addEventListener("mousemove",move);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return ()=>{
+      window.removeEventListener("mousemove",move);
+      window.removeEventListener("scroll", onScroll);
+    };
   },[]);
 
 
   return (
-    <div className="shader">
+    <div className="shader" style={{ transform: `translateY(-${offset}px)`, willChange: "transform" }}>
       <ShaderGradientCanvas
         style={{
           position:"fixed",
