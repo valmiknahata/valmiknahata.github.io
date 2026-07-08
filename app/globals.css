@@ -9,6 +9,10 @@ html {
   height: 100%;
 }
 
+html {
+  overscroll-behavior: none;
+}
+
 body {
   width: 100%;
   min-height: 100vh;
@@ -18,6 +22,8 @@ body {
   color: #1a1a1a;
   background: #ffffff;
   box-shadow: inset 38px 38px 0 0 #ffffff, inset -38px -38px 0 0 #ffffff;
+  overflow-y: scroll;
+  overscroll-behavior: none;
 }
 
 @media (max-width: 1024px) {
