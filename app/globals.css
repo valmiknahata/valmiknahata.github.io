@@ -18,8 +18,6 @@ body {
   color: #1a1a1a;
   background: #ffffff;
   box-shadow: inset 38px 38px 0 0 #ffffff, inset -38px -38px 0 0 #ffffff;
-  overflow: hidden;
-  touch-action: none;
 }
 
 @media (max-width: 768px) {
