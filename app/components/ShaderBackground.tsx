@@ -34,8 +34,8 @@ export default function ShaderBackground() {
           type="waterPlane"
 
           color1="#ffffff"
-          color2="#b9dcff"
-          color3="#0066ff"
+          color2="#d9e9ff"
+          color3="#7fa3d1"
 
           brightness={1.2}
           cAzimuthAngle={180}
