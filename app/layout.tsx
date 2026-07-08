@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ShaderBackground from "./components/ShaderBackground";
+import ShaderBackground from "./components/ShaderBackgroundClient";
 
 export const metadata: Metadata = {
   title: "Valmik Nahata",
