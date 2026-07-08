@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ShaderBackground from "./components/ShaderBackgroundClient";
 
 export const metadata: Metadata = {
   title: "Valmik Nahata",
@@ -19,7 +18,6 @@ export default function RootLayout({
         <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
       </head>
       <body>
-        <ShaderBackground />
         {children}
       </body>
     </html>

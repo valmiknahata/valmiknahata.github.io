@@ -24,7 +24,7 @@ export default function ShaderBackground() {
     <div className="shader">
       <ShaderGradientCanvas
         style={{
-          position:"fixed",
+          position:"absolute",
           inset:0,
           zIndex:-1
         }}

@@ -21,26 +21,12 @@ body {
   line-height: 1.9;
   color: #1a1a1a;
   background: #ffffff;
-  box-shadow: inset 38px 38px 0 0 #ffffff, inset -38px -38px 0 0 #ffffff;
   overflow-y: scroll;
   overscroll-behavior: none;
 }
 
-@media (max-width: 1024px) {
-  body {
-    box-shadow: inset 28px 28px 0 0 #ffffff, inset -28px -28px 0 0 #ffffff;
-  }
-}
-
-@media (max-width: 768px) {
-  body {
-    box-shadow: inset 20px 20px 0 0 #ffffff, inset -20px -20px 0 0 #ffffff;
-  }
-}
-
 @media (max-width: 480px) {
   body {
-    box-shadow: inset 18px 18px 0 0 #ffffff, inset -18px -18px 0 0 #ffffff;
     font-size: 15px;
   }
 }
@@ -90,8 +76,29 @@ body > * {
   border-bottom-color: rgba(31, 78, 140, 0.85);
 }
 
+.hero {
+  position: relative;
+  overflow: hidden;
+  margin: -80px -60px 0 -60px;
+  padding: 80px 60px 40px 60px;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    margin: -28px -22px 0 -22px;
+    padding: 28px 22px 40px 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    margin: -24px -20px 0 -20px;
+    padding: 24px 20px 32px 20px;
+  }
+}
+
 .shader {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: -1;
   width: 100%;

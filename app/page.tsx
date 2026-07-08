@@ -1,32 +1,38 @@
+import ShaderBackground from "./components/ShaderBackgroundClient";
+
 export default function Home() {
   return (
     <div style={{ width: "100%", minHeight: "100vh", background: "transparent", color: "#000000" }}>
       <section className="section-essay" style={{ padding: "80px 60px", maxWidth: "925px", margin: "0 auto", width: "925px", boxSizing: "border-box" }}>
         <div style={{ fontSize: "18px", lineHeight: 1.9, color: "#1a1a1a", fontFamily: "'Crimson Text', serif" }}>
 
-          <div className="photo-col" style={{ float: "left", margin: "0 40px 20px 0", width: "170px", textAlign: "center" }}>
-            <img src="/uploads/1781845876543.png" alt="Valmik" style={{ width: "170px", height: "210px", objectFit: "cover", objectPosition: "center top", display: "block" }} />
-            <div style={{ display: "flex", gap: "20px", marginTop: "16px", alignItems: "center", justifyContent: "center" }}>
-              <a href="mailto:vnahata@mgh.harvard.edu" style={{ textDecoration: "none", color: "#000000" }} title="Email">
-                {/* @ts-ignore */}
-                <iconify-icon icon="lucide:mail" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-              </a>
-              <a href="https://linkedin.com/in/valmiknahata" style={{ textDecoration: "none", color: "#000000" }} title="LinkedIn">
-                {/* @ts-ignore */}
-                <iconify-icon icon="simple-icons:linkedin" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-              </a>
-              <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ" style={{ textDecoration: "none", color: "#000000" }} title="Google Scholar">
-                {/* @ts-ignore */}
-                <iconify-icon icon="simple-icons:googlescholar" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-              </a>
-              <a href="https://x.com/valmik_nahata" style={{ textDecoration: "none", color: "#000000" }} title="X">
-                {/* @ts-ignore */}
-                <iconify-icon icon="simple-icons:x" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-              </a>
+          <div className="hero">
+            <div className="photo-col" style={{ float: "left", margin: "0 40px 20px 0", width: "170px", textAlign: "center" }}>
+              <img src="/uploads/1781845876543.png" alt="Valmik" style={{ width: "170px", height: "210px", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+              <div style={{ display: "flex", gap: "20px", marginTop: "16px", alignItems: "center", justifyContent: "center" }}>
+                <a href="mailto:vnahata@mgh.harvard.edu" style={{ textDecoration: "none", color: "#000000" }} title="Email">
+                  {/* @ts-ignore */}
+                  <iconify-icon icon="lucide:mail" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
+                </a>
+                <a href="https://linkedin.com/in/valmiknahata" style={{ textDecoration: "none", color: "#000000" }} title="LinkedIn">
+                  {/* @ts-ignore */}
+                  <iconify-icon icon="simple-icons:linkedin" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
+                </a>
+                <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ" style={{ textDecoration: "none", color: "#000000" }} title="Google Scholar">
+                  {/* @ts-ignore */}
+                  <iconify-icon icon="simple-icons:googlescholar" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
+                </a>
+                <a href="https://x.com/valmik_nahata" style={{ textDecoration: "none", color: "#000000" }} title="X">
+                  {/* @ts-ignore */}
+                  <iconify-icon icon="simple-icons:x" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
+                </a>
+              </div>
             </div>
-          </div>
 
-          <p className="bio" style={{ margin: "0 0 24px 0" }}>I'm Valmik, an undergraduate student and researcher at <a href="https://ucsd.edu" target="_blank" rel="noopener">UC San Diego</a> studying Data Science, with a focus on building AI systems that are both powerful and aligned. I'm a research affiliate at <a href="https://www.massgeneral.org" target="_blank" rel="noopener">Mass General</a> &amp; <a href="https://hms.harvard.edu" target="_blank" rel="noopener">Harvard Medical School</a> working on clinical AI systems, a member of <a href="https://aialignment.mit.edu" target="_blank" rel="noopener">MIT AI Alignment</a>, and a UCSD <a href="https://www.poseidonfellows.com" target="_blank" rel="noopener">Poseidon Fellow</a>. Before that, I worked on clinical AI at <a href="https://www.dartmouth-hitchcock.org" target="_blank" rel="noopener">Dartmouth Hitchcock Medical Center</a> &amp; <a href="https://www.dartmouth-health.org" target="_blank" rel="noopener">Dartmouth Health</a>, where I presented work on RAG for Pathology Reports. My work has been recognized by <a href="https://www.apartresearch.com" target="_blank" rel="noopener">Apart Research</a> &amp; <a href="https://bluedot.org" target="_blank" rel="noopener">BlueDot Impact</a>, <a href="https://ucsd.edu" target="_blank" rel="noopener">UCSD</a> &amp; <a href="https://www.nsf.gov" target="_blank" rel="noopener">NSF</a>, and the <a href="https://www.nba.com/bucks" target="_blank" rel="noopener">Milwaukee Bucks</a>, among others. My recent research centers on AI × bio and AI safety.</p>
+            <p className="bio" style={{ margin: "0 0 24px 0" }}>I'm Valmik, an undergraduate student and researcher at <a href="https://ucsd.edu" target="_blank" rel="noopener">UC San Diego</a> studying Data Science, with a focus on building AI systems that are both powerful and aligned. I'm a research affiliate at <a href="https://www.massgeneral.org" target="_blank" rel="noopener">Mass General</a> &amp; <a href="https://hms.harvard.edu" target="_blank" rel="noopener">Harvard Medical School</a> working on clinical AI systems, a member of <a href="https://aialignment.mit.edu" target="_blank" rel="noopener">MIT AI Alignment</a>, and a UCSD <a href="https://www.poseidonfellows.com" target="_blank" rel="noopener">Poseidon Fellow</a>. Before that, I worked on clinical AI at <a href="https://www.dartmouth-hitchcock.org" target="_blank" rel="noopener">Dartmouth Hitchcock Medical Center</a> &amp; <a href="https://www.dartmouth-health.org" target="_blank" rel="noopener">Dartmouth Health</a>, where I presented work on RAG for Pathology Reports. My work has been recognized by <a href="https://www.apartresearch.com" target="_blank" rel="noopener">Apart Research</a> &amp; <a href="https://bluedot.org" target="_blank" rel="noopener">BlueDot Impact</a>, <a href="https://ucsd.edu" target="_blank" rel="noopener">UCSD</a> &amp; <a href="https://www.nsf.gov" target="_blank" rel="noopener">NSF</a>, and the <a href="https://www.nba.com/bucks" target="_blank" rel="noopener">Milwaukee Bucks</a>, among others. My recent research centers on AI × bio and AI safety.</p>
+
+            <ShaderBackground />
+          </div>
 
           <p style={{ margin: "40px 0 28px 0", clear: "left" }}>To those interested in my philosophy, my <em>why</em>:</p>
 
