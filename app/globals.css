@@ -40,8 +40,8 @@ body {
 
 @media (max-width: 480px) {
   body {
-    box-shadow: inset 14px 14px 0 0 #ffffff, inset -14px -14px 0 0 #ffffff;
-    font-size: 16px;
+    box-shadow: inset 18px 18px 0 0 #ffffff, inset -18px -18px 0 0 #ffffff;
+    font-size: 15px;
   }
 }
 
@@ -53,7 +53,7 @@ body > * {
 @media (max-width: 700px) {
   .section-essay {
     width: 100% !important;
-    padding: 28px 20px !important;
+    padding: 28px 22px !important;
     height: auto !important;
     max-width: 100% !important;
   }
@@ -61,7 +61,7 @@ body > * {
 
 @media (max-width: 480px) {
   .section-essay {
-    padding: 20px 14px !important;
+    padding: 24px 20px !important;
   }
   .photo-col {
     float: none !important;
