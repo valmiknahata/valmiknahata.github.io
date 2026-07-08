@@ -8,15 +8,19 @@ export default function Home() {
             <img src="/uploads/1781845876543.png" alt="Valmik" style={{ width: "170px", height: "210px", objectFit: "cover", objectPosition: "center top", display: "block" }} />
             <div style={{ display: "flex", gap: "20px", marginTop: "16px", alignItems: "center", justifyContent: "center" }}>
               <a href="mailto:vnahata@mgh.harvard.edu" style={{ textDecoration: "none", color: "#000000" }} title="Email">
+                {/* @ts-ignore */}
                 <iconify-icon icon="lucide:mail" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
               </a>
               <a href="https://linkedin.com/in/valmiknahata" style={{ textDecoration: "none", color: "#000000" }} title="LinkedIn">
+                {/* @ts-ignore */}
                 <iconify-icon icon="simple-icons:linkedin" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
               </a>
               <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ" style={{ textDecoration: "none", color: "#000000" }} title="Google Scholar">
+                {/* @ts-ignore */}
                 <iconify-icon icon="simple-icons:googlescholar" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
               </a>
               <a href="https://x.com/valmik_nahata" style={{ textDecoration: "none", color: "#000000" }} title="X">
+                {/* @ts-ignore */}
                 <iconify-icon icon="simple-icons:x" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
               </a>
             </div>

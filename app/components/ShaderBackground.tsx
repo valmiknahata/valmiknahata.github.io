@@ -45,17 +45,12 @@ export default function ShaderBackground() {
           envPreset="city"
 
           grain="on"
-          grainSize={0.08}
 
           reflection={0.3}
 
           uSpeed={0.15}
           uStrength={1.2}
           uTime={2}
-
-          mouseInteraction={true}
-
-          zoomOut={false}
         />
       </ShaderGradientCanvas>
     </div>
