@@ -16,17 +16,11 @@
 <x-dc>
 <helmet>
   <title>Valmik Nahata</title>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Crimson+Text:ital@0;1&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&amp;display=swap" rel="stylesheet">
   <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 </helmet>
 
 <div style="width: 100%; min-height: 100vh; background: #ffffff; color: #000000;">
-
-  <!-- TOP: Photo + About Me side by side -->
-  
-
-  <!-- Thesis Statement (centered) -->
-  
 
   <!-- Divider -->
   <section class="section-essay" style="padding: 80px 60px; max-width: 925px; margin: 0 auto; width: 925px; box-sizing: border-box;">
@@ -53,33 +47,20 @@
 
       <p style="margin: 0 0 24px 0;">I'm Valmik Nahata, an undergraduate at UC San Diego. For the past two years, I've been working on building AI systems that are both powerful and aligned. I'm a research assistant at MGH &amp; Harvard Medical School working on clinical AI, a member of MIT AI Alignment, and a UCSD Poseidon Fellow. I was previously at Dartmouth Health working on NLP for pathology. My work has been awarded by Apart Research &amp; BlueDot Impact, UCSD &amp; NSF, the Milwaukee Bucks, and others. My recent research interests include AI × bio and AI safety.</p>
 
-      <p style="margin: 40px 0 28px 0; clear: left;">To those interested in my philosophy; my "why":</p>
-      <p style="margin: 0 0 28px 0;">Every capability we call intelligence eventually turns inward. A model that can write code can write its own training code. A model that can do research can do research on itself. Once that loop closes, progress stops scaling with the compute we buy and starts scaling with the compute the system decides to spend. We name the result superintelligence, but the mechanism is humbler and more unsettling. It is recursive self-improvement.</p>
+      <p style="margin: 40px 0 28px 0; clear: left;">To those interested in my philosophy, my <em>why</em>:</p>
 
-      <p style="margin: 40px 0; font-style: italic; font-size: 24px; color: #000000; text-align: center; font-family: 'EB Garamond', serif; line-height: 1.3;">
-        "An optimizer pointed at the optimizer."
-      </p>
+      <p style="margin: 0 0 28px 0;">Every capability we call intelligence eventually turns inward. A model that can write code can write the code that trains the next model. A model that can do research can point that research at itself. This is no longer hypothetical. Roughly a quarter of the code inside frontier labs is now written by their own models. DeepMind's AlphaEvolve used one such model to discover a matrix-multiplication algorithm faster than the best humans had found in fifty years, and to reclaim compute across Google's data centers, the very substrate the next model trains on. OpenAI has models writing plain-English explanations of the individual neurons inside other models. Once the loop closes, progress stops scaling with the compute we buy and starts scaling with the compute the system chooses to spend. We name the result superintelligence, but the mechanism is humbler and more unsettling. It is recursive self-improvement, an optimizer pointed at the optimizer.</p>
 
-      <p style="margin: 0 0 28px 0;">
-        Biology is the first domain that loop will touch at full strength. The same models that fold proteins and reason over pathology can propose novel pathogens and bench-test them in silico faster than any institution can answer. AI in bio is where a capability overhang meets the least forgiving consequences, and where a small alignment error is measured in lives.
-      </p>
+      <p style="margin: 0 0 28px 0;">Biology is the first domain that loop will touch at full strength. In 2022 a group of drug-discovery researchers inverted the reward on one of their own generative models; in under six hours it proposed some forty thousand candidate toxins, rediscovering the nerve agent VX and inventing others no one had ever catalogued. The same class of models let AlphaFold map more than two hundred million protein structures, a century of crystallography compressed into a single release, while genomic models like Evo now read and write DNA directly. In most fields a capable model is an accelerant. In biology it is dual-use by default; the tool that designs a vaccine and the tool that designs a threat are the same weights with a different prompt. This is where a capability overhang meets the least forgiving consequences, and where a small alignment error is measured not in dollars or downtime but in lives.</p>
 
-      <p style="margin: 0 0 28px 0;">
-        So the answer is not to slow the loop. The answer is to make it legible. Mechanistic interpretability is the closest thing we have to a microscope for cognition. Sparse autoencoders pull monosemantic features out of superposition. Linear probes catch a chain of thought lying before it finishes. Unlearning removes a capability instead of hiding it. If a mind is going to improve itself, I want to read what it values while that mind still fits in our hands.
-      </p>
+      <p style="margin: 0 0 28px 0;">So the answer is not to slow the loop; that race is already lost. The answer is to make it <em>legible</em>. Mechanistic interpretability is the closest thing we have to a microscope for cognition, and it has started to work. When researchers reverse-engineered a small network trained only on modular arithmetic, they found it had quietly taught itself the discrete Fourier transform. A model fed nothing but Othello moves turned out to maintain a full board in its activations, a world model no one put there. Anthropic's sparse autoencoders pull millions of monosemantic features out of superposition, among them a single direction inside Claude that fires on the Golden Gate Bridge and neighboring ones for deception and sycophancy. Linear probes can read a model's internal state and flag a chain of thought that has begun to lie before it finishes the sentence, and unlearning methods scored on benchmarks like WMDP can excise the knowledge to synthesize a select agent instead of merely teaching the model to refuse. If a mind is going to improve itself, I want to read what it values while that mind still fits in our hands.</p>
 
-      <p style="margin: 40px 0; font-style: italic; font-size: 24px; color: #000000; text-align: center; font-family: 'EB Garamond', serif; line-height: 1.3;">
-        "Read the mind before it learns to read itself."
-      </p>
+      <p style="margin: 0 0 28px 0;">The open question is whether we can understand a system faster than it can surprise us. Today the honest answer is not yet. I want to read the mind before it learns to read itself. I think it is the most important problem there is, and, unlike most things worth wanting, I believe it is tractable.</p>
 
-      
-<p style="margin: 0 0 28px 0;">Can we understand a system faster than it can surprise us? Today the honest answer is not yet. I think it is the most important problem there is, and I think it is tractable.</p><div><b>TL;DR:</b> Recursive self-improvement is the precursor to artificial superintelligence. AI x bio &amp; AI safety are problems that compound faster than we can ignore.</div><div><br></div><div><br></div><p></p><div><br></div><p></p>
+      <p style="margin: 0;"><strong>TL;DR:</strong> Recursive self-improvement is the precursor to superintelligence. AI × bio and AI safety are the problems that compound faster than we can afford to ignore, and interpretability is our best shot at keeping them legible.</p>
 
     </div>
   </section>
-
-  <!-- Footer -->
-  
 
 </div>
 </x-dc>
