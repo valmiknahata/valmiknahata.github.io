@@ -44,7 +44,7 @@ export default function Home() {
               {/* @ts-ignore */}
               <iconify-icon icon="simple-icons:googlescholar" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
             </LinkPreview>
-            <LinkPreview href="https://x.com/valmik_nahata" domain="x.com" title="X" linkStyle={{ textDecoration: "none", color: "#000000" }}>
+            <LinkPreview href="https://x.com/valmiknahata" domain="x.com" title="X" linkStyle={{ textDecoration: "none", color: "#000000" }}>
               {/* @ts-ignore */}
               <iconify-icon icon="simple-icons:x" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
             </LinkPreview>

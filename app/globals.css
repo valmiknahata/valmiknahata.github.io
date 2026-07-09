@@ -62,11 +62,11 @@ body > * {
 
 .preview-card {
   position: fixed;
-  width: 168px;
+  width: 176px;
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 7px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 12px 28px rgba(0, 0, 0, 0.16);
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
@@ -81,10 +81,10 @@ body > * {
 .preview-chrome {
   display: flex;
   align-items: center;
-  gap: 3px;
-  padding: 5px 6px;
-  background: #e7e7e7;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  gap: 4px;
+  padding: 6px 7px;
+  background: #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
 
 .preview-dot {
@@ -92,6 +92,7 @@ body > * {
   height: 6px;
   border-radius: 50%;
   flex-shrink: 0;
+  opacity: 0.85;
 }
 
 .preview-dot-red {
@@ -109,14 +110,17 @@ body > * {
 .preview-url {
   display: flex;
   align-items: center;
-  gap: 3px;
-  margin-left: 5px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  gap: 4px;
+  margin-left: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 9px;
-  color: #444;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #3a3a3a;
   background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 3px;
-  padding: 2px 6px;
+  padding: 3px 7px;
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -124,17 +128,38 @@ body > * {
 }
 
 .preview-lock {
-  font-size: 8px;
+  width: 8px;
+  height: 8px;
   flex-shrink: 0;
+  color: #6b8f5f;
+}
+
+.preview-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 110px;
+  background: #f4f4f4;
 }
 
 .preview-img {
   display: block;
   width: 100%;
-  height: 105px;
+  height: 100%;
   object-fit: cover;
   object-position: top;
-  background: #f2f2f2;
+}
+
+.preview-img-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, #f0f0f0 30%, #f8f8f8 45%, #f0f0f0 60%);
+  background-size: 200% 100%;
+  animation: preview-shimmer 1.3s ease-in-out infinite;
+}
+
+@keyframes preview-shimmer {
+  0% { background-position: 120% 0; }
+  100% { background-position: -20% 0; }
 }
 
 @media (max-width: 700px) {
