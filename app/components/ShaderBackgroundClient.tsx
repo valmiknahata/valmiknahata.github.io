@@ -6,6 +6,6 @@ const ShaderBackground = dynamic(() => import("./ShaderBackground"), {
   ssr: false,
 });
 
-export default function ShaderBackgroundClient({ uTimeOffset }: { uTimeOffset?: number }) {
-  return <ShaderBackground uTimeOffset={uTimeOffset} />;
+export default function ShaderBackgroundClient({ uTimeOffset, flip }: { uTimeOffset?: number; flip?: boolean }) {
+  return <ShaderBackground uTimeOffset={uTimeOffset} flip={flip} />;
 }

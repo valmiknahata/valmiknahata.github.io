@@ -3,7 +3,7 @@
 import { ShaderGradientCanvas, ShaderGradient } from "shadergradient";
 import { useEffect, useState } from "react";
 
-export default function ShaderBackground({ uTimeOffset = 5 }: { uTimeOffset?: number }) {
+export default function ShaderBackground({ uTimeOffset = 5, flip = false }: { uTimeOffset?: number; flip?: boolean }) {
   const [mouse, setMouse] = useState({x:0,y:0});
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function ShaderBackground({ uTimeOffset = 5 }: { uTimeOffset?: nu
 
 
   return (
-    <div className="shader">
+    <div className="shader" style={flip ? { transform: "scaleX(-1)" } : undefined}>
       <ShaderGradientCanvas
         style={{
           position:"absolute",
