@@ -36,18 +36,22 @@ export default function Home() {
               {/* @ts-ignore */}
               <iconify-icon icon="lucide:mail" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
             </a>
-            <a href="https://linkedin.com/in/valmiknahata" style={{ textDecoration: "none", color: "#000000" }} title="LinkedIn">
+            <LinkPreview href="https://linkedin.com/in/valmiknahata" domain="linkedin.com" title="LinkedIn" linkStyle={{ textDecoration: "none", color: "#000000" }}>
               {/* @ts-ignore */}
               <iconify-icon icon="simple-icons:linkedin" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-            </a>
-            <a href="https://scholar.google.com/citations?user=nv1ym54AAAAJ" style={{ textDecoration: "none", color: "#000000" }} title="Google Scholar">
+            </LinkPreview>
+            <LinkPreview href="https://scholar.google.com/citations?user=nv1ym54AAAAJ" domain="scholar.google.com" title="Google Scholar" linkStyle={{ textDecoration: "none", color: "#000000" }}>
               {/* @ts-ignore */}
               <iconify-icon icon="simple-icons:googlescholar" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-            </a>
-            <a href="https://x.com/valmik_nahata" style={{ textDecoration: "none", color: "#000000" }} title="X">
+            </LinkPreview>
+            <LinkPreview href="https://x.com/valmik_nahata" domain="x.com" title="X" linkStyle={{ textDecoration: "none", color: "#000000" }}>
               {/* @ts-ignore */}
               <iconify-icon icon="simple-icons:x" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
-            </a>
+            </LinkPreview>
+            <LinkPreview href="https://github.com/nahatav" domain="github.com" title="GitHub" linkStyle={{ textDecoration: "none", color: "#000000" }}>
+              {/* @ts-ignore */}
+              <iconify-icon icon="simple-icons:github" width="20" height="20" style={{ display: "block", color: "#000000" }}></iconify-icon>
+            </LinkPreview>
           </div>
 
         </div>

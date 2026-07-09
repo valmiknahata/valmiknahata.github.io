@@ -61,10 +61,7 @@ body > * {
 }
 
 .preview-card {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 10px);
-  transform: translateX(-50%) translateY(6px) scale(0.97);
+  position: fixed;
   width: 168px;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.12);
@@ -73,13 +70,12 @@ body > * {
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.12s ease, transform 0.12s ease;
-  z-index: 20;
+  transition: opacity 0.1s ease;
+  z-index: 50;
 }
 
 .preview-card-visible {
   opacity: 1;
-  transform: translateX(-50%) translateY(0) scale(1);
 }
 
 .preview-chrome {
