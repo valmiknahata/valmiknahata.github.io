@@ -18,6 +18,8 @@ export default function LinkPreview({
 }) {
   const [hovered, setHovered] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [failed, setFailed] = useState(false);
+  const screenshotUrl = `https://image.thum.io/get/width/700/noanimate/${href}`;
   const faviconUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
 
   return (
@@ -49,9 +51,21 @@ export default function LinkPreview({
             {domain}
           </span>
         </span>
-        <span className="preview-body">
-          <img src={faviconUrl} alt="" className="preview-favicon" />
-          <span className="preview-domain-label">{domain}</span>
+        <span className="preview-img-wrap">
+          {!failed ? (
+            <img
+              src={screenshotUrl}
+              alt={`Preview of ${domain}`}
+              loading="eager"
+              className="preview-img"
+              onError={() => setFailed(true)}
+            />
+          ) : (
+            <span className="preview-body">
+              <img src={faviconUrl} alt="" className="preview-favicon" />
+              <span className="preview-domain-label">{domain}</span>
+            </span>
+          )}
         </span>
       </span>
     </span>
