@@ -44,6 +44,8 @@ export default function ShaderBackground({ uTimeOffset = 5, flip = false }: { uT
 
           envPreset="city"
 
+          enableTransition={false}
+
           grain="on"
 
           reflection={0.3}
