@@ -1,13 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { CSSProperties } from "react";
-
-let previewLoadCounter = 0;
-
-function buildScreenshotUrl(href: string) {
-  return `https://api.microlink.io/?url=${encodeURIComponent(href)}&screenshot=true&meta=false&embed=screenshot.url&viewport.width=1200&viewport.height=800`;
-}
 
 export default function LinkPreview({
   href,
@@ -24,30 +18,7 @@ export default function LinkPreview({
 }) {
   const [hovered, setHovered] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [src, setSrc] = useState<string | null>(null);
-  const [failed, setFailed] = useState(false);
-  const indexRef = useRef<number | null>(null);
-  const retriedRef = useRef(false);
-
-  if (indexRef.current === null) {
-    indexRef.current = previewLoadCounter;
-    previewLoadCounter += 1;
-  }
-
-  useEffect(() => {
-    const delay = (indexRef.current ?? 0) * 350;
-    const timer = setTimeout(() => setSrc(buildScreenshotUrl(href)), delay);
-    return () => clearTimeout(timer);
-  }, [href]);
-
-  const handleError = () => {
-    if (!retriedRef.current) {
-      retriedRef.current = true;
-      setTimeout(() => setSrc(`${buildScreenshotUrl(href)}&_retry=1`), 800);
-    } else {
-      setFailed(true);
-    }
-  };
+  const faviconUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
 
   return (
     <span
@@ -78,17 +49,9 @@ export default function LinkPreview({
             {domain}
           </span>
         </span>
-        <span className="preview-img-wrap">
-          {src && !failed && (
-            <img
-              src={src}
-              alt={`Preview of ${domain}`}
-              loading="eager"
-              className="preview-img"
-              onError={handleError}
-            />
-          )}
-          {(!src || failed) && <span className="preview-img-placeholder" />}
+        <span className="preview-body">
+          <img src={faviconUrl} alt="" className="preview-favicon" />
+          <span className="preview-domain-label">{domain}</span>
         </span>
       </span>
     </span>
