@@ -25,19 +25,20 @@ export default function LinkPreview({
       </a>
       <span className={`preview-card${hovered ? " preview-card-visible" : ""}`}>
         <span className="preview-chrome">
-          <span className="preview-dot" />
-          <span className="preview-dot" />
-          <span className="preview-dot" />
-          <span className="preview-url">{domain}</span>
+          <span className="preview-dot preview-dot-red" />
+          <span className="preview-dot preview-dot-yellow" />
+          <span className="preview-dot preview-dot-green" />
+          <span className="preview-url">
+            <span className="preview-lock">🔒</span>
+            {domain}
+          </span>
         </span>
-        {hovered && (
-          <img
-            src={screenshotUrl}
-            alt={`Preview of ${domain}`}
-            loading="lazy"
-            className="preview-img"
-          />
-        )}
+        <img
+          src={screenshotUrl}
+          alt={`Preview of ${domain}`}
+          loading="eager"
+          className="preview-img"
+        />
       </span>
     </span>
   );
