@@ -1,8 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 
-export default function EstClockHeader() {
+interface EstClockHeaderProps {
+  leftContent?: ReactNode;
+}
+
+export default function EstClockHeader({ leftContent }: EstClockHeaderProps) {
   const [timeStr, setTimeStr] = useState<string>('');
 
   useEffect(() => {
@@ -24,7 +28,7 @@ export default function EstClockHeader() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', margin: '0 0 2em 0' }}>
-      <span>Valmik Nahata</span>
+      <div>{leftContent ?? <span>Valmik Nahata</span>}</div>
       <span>{timeStr}</span>
     </div>
   );

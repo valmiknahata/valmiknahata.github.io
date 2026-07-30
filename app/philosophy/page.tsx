@@ -8,13 +8,13 @@ export default function PhilosophyPage() {
     <div style={{ width: "100%", minHeight: "100vh", background: "transparent", color: "#000000" }}>
       <section className="section-essay" style={{ padding: "24px 60px 80px 60px", maxWidth: "925px", margin: "0 auto", width: "925px", boxSizing: "border-box" }}>
         <div style={{ fontSize: "18px", lineHeight: 1.9, color: "#1a1a1a", fontFamily: "'Crimson Text', serif" }}>
-          <EstClockHeader />
-
-          <div style={{ margin: "0 0 1.5em 0" }}>
-            <Link href="/" style={{ textDecoration: "none", color: "#1a1a1a", fontSize: "18px" }}>
-              &larr; Home
-            </Link>
-          </div>
+          <EstClockHeader
+            leftContent={
+              <Link href="/" style={{ textDecoration: "none", color: "#1a1a1a" }}>
+                &larr; Home
+              </Link>
+            }
+          />
 
           <p style={{ margin: "0 0 1.56em 0", fontWeight: "bold" }}>
             To those interested in my philosophy, my <em>why</em>:
