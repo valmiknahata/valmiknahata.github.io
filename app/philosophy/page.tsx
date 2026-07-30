@@ -44,14 +44,14 @@ export default function PhilosophyPage() {
             <strong>TL;DR:</strong> Recursive self-improvement is the precursor to superintelligence. AI × bio and AI safety are the problems that compound faster than anyone can afford to ignore.
           </p>
 
-          <div className="divider">
-            <ShaderBackground uTimeOffset={40} flip />
-          </div>
-
-          <div style={{ margin: "2em 0 0 0" }}>
-            <Link href="/" style={{ textDecoration: "none", color: "#1a1a1a" }}>
+          <div style={{ margin: "2em 0 2em 0" }}>
+            <Link href="/" style={{ textDecoration: "none", color: "#1a1a1a", fontWeight: "bold" }}>
               &larr; Back to Home
             </Link>
+          </div>
+
+          <div className="divider">
+            <ShaderBackground uTimeOffset={40} flip />
           </div>
         </div>
       </section>
