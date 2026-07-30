@@ -4,6 +4,10 @@ const nextConfig = {
   output: 'export',
   basePath: '',
   distDir: 'docs',
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 module.exports = nextConfig;
+
