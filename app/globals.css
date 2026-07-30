@@ -39,7 +39,8 @@ body > * {
   }
 }
 
-.bio a {
+.bio a,
+.link-preview-wrap > a {
   position: relative;
   color: #1f4e8c;
   text-decoration: underline;
@@ -50,7 +51,8 @@ body > * {
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
-.bio a:hover {
+.bio a:hover,
+.link-preview-wrap > a:hover {
   color: #12325e;
   text-decoration-color: rgba(18, 50, 94, 0.9);
 }

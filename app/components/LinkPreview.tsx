@@ -22,7 +22,7 @@ export default function LinkPreview({
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [failed, setFailed] = useState(false);
   const fullUrl = href.startsWith("/") ? `https://valnahata.me${href}` : href;
-  const screenshotUrl = `https://image.thum.io/get/width/700/noanimate/${fullUrl}`;
+  const screenshotUrl = `https://api.microlink.io?url=${encodeURIComponent(fullUrl)}&screenshot=true&embed=screenshot.url`;
   const faviconUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
   const defaultTarget = href.startsWith("/") ? undefined : "_blank";
 
