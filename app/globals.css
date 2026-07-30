@@ -40,7 +40,8 @@ body > * {
 }
 
 .bio a,
-.link-preview-wrap > a {
+.link-preview-wrap > a,
+a.blue-link {
   position: relative;
   color: #1f4e8c;
   text-decoration: underline;
@@ -52,7 +53,8 @@ body > * {
 }
 
 .bio a:hover,
-.link-preview-wrap > a:hover {
+.link-preview-wrap > a:hover,
+a.blue-link:hover {
   color: #12325e;
   text-decoration-color: rgba(18, 50, 94, 0.9);
 }

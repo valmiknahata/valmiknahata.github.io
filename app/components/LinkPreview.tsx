@@ -36,7 +36,14 @@ export default function LinkPreview({
       onMouseMove={(e) => setPos({ x: e.clientX, y: e.clientY })}
       onMouseLeave={() => setHovered(false)}
     >
-      <a href={href} target={target ?? defaultTarget} rel={target === "_blank" || defaultTarget === "_blank" ? "noopener" : undefined} style={linkStyle} title={title}>
+      <a
+        href={href}
+        target={target ?? defaultTarget}
+        rel={target === "_blank" || defaultTarget === "_blank" ? "noopener" : undefined}
+        style={linkStyle}
+        className={linkStyle ? undefined : "blue-link"}
+        title={title}
+      >
         {children}
       </a>
       <span
