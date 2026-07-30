@@ -9,18 +9,22 @@ export default function LinkPreview({
   children,
   linkStyle,
   title,
+  target,
 }: {
   href: string;
   domain: string;
   children: React.ReactNode;
   linkStyle?: CSSProperties;
   title?: string;
+  target?: string;
 }) {
   const [hovered, setHovered] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [failed, setFailed] = useState(false);
-  const screenshotUrl = `https://image.thum.io/get/width/700/noanimate/${href}`;
+  const fullUrl = href.startsWith("/") ? `https://valnahata.me${href}` : href;
+  const screenshotUrl = `https://image.thum.io/get/width/700/noanimate/${fullUrl}`;
   const faviconUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
+  const defaultTarget = href.startsWith("/") ? undefined : "_blank";
 
   return (
     <span
@@ -32,7 +36,7 @@ export default function LinkPreview({
       onMouseMove={(e) => setPos({ x: e.clientX, y: e.clientY })}
       onMouseLeave={() => setHovered(false)}
     >
-      <a href={href} target="_blank" rel="noopener" style={linkStyle} title={title}>
+      <a href={href} target={target ?? defaultTarget} rel={target === "_blank" || defaultTarget === "_blank" ? "noopener" : undefined} style={linkStyle} title={title}>
         {children}
       </a>
       <span
@@ -51,19 +55,18 @@ export default function LinkPreview({
             {domain}
           </span>
         </span>
-        <span className="preview-img-wrap">
+        <span className="preview-img-container">
           {!failed ? (
             <img
               src={screenshotUrl}
-              alt={`Preview of ${domain}`}
-              loading="eager"
+              alt="Site Preview"
               className="preview-img"
               onError={() => setFailed(true)}
             />
           ) : (
-            <span className="preview-body">
+            <span className="preview-fallback">
               <img src={faviconUrl} alt="" className="preview-favicon" />
-              <span className="preview-domain-label">{domain}</span>
+              <span>{domain}</span>
             </span>
           )}
         </span>
