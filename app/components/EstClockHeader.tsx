@@ -23,21 +23,7 @@ export default function EstClockHeader() {
   }, []);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'baseline',
-        maxWidth: '925px',
-        margin: '0 auto',
-        width: '925px',
-        boxSizing: 'border-box',
-        padding: '36px 60px 0 60px',
-        fontFamily: "'Crimson Text', serif",
-        fontSize: '16px',
-        color: '#555555',
-      }}
-    >
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', margin: '0 0 2em 0' }}>
       <span>Valmik Nahata</span>
       <span>{timeStr}</span>
     </div>
