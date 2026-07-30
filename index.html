@@ -67,8 +67,23 @@
 
 <div style="width: 100%; min-height: 100vh; background: transparent; color: #000000;">
 
+  <!-- Top Bar: Name & Live EST Clock -->
+  <div style="display: flex; justify-content: space-between; align-items: baseline; max-width: 925px; margin: 0 auto; width: 925px; box-sizing: border-box; padding: 36px 60px 0 60px; font-family: 'Crimson Text', serif; font-size: 16px; color: #555555;">
+    <span>Valmik Nahata</span>
+    <span id="est-clock"></span>
+  </div>
+  <script>
+    function updateEstClock() {
+      const now = new Date();
+      const est = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      document.getElementById('est-clock').textContent = est + ' EST';
+    }
+    updateEstClock();
+    setInterval(updateEstClock, 1000);
+  </script>
+
   <!-- Divider -->
-  <section class="section-essay" style="padding: 80px 60px; max-width: 925px; margin: 0 auto; width: 925px; box-sizing: border-box;">
+  <section class="section-essay" style="padding: 36px 60px 80px 60px; max-width: 925px; margin: 0 auto; width: 925px; box-sizing: border-box;">
     <div style="font-size: 18px; line-height: 1.9; color: #1a1a1a; font-family: 'Crimson Text', serif;">
 
       <!-- Floated Photo Block -->
