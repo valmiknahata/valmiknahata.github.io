@@ -5,7 +5,7 @@ import EstClockHeader from "./components/EstClockHeader";
 export default function Home() {
   return (
     <div style={{ width: "100%", minHeight: "100vh", background: "transparent", color: "#000000" }}>
-      <section className="section-essay" style={{ padding: "80px 60px", maxWidth: "925px", margin: "0 auto", width: "925px", boxSizing: "border-box" }}>
+      <section className="section-essay" style={{ padding: "24px 60px 80px 60px", maxWidth: "925px", margin: "0 auto", width: "925px", boxSizing: "border-box" }}>
         <div style={{ fontSize: "18px", lineHeight: 1.9, color: "#1a1a1a", fontFamily: "'Crimson Text', serif" }}>
           <EstClockHeader />
 
